@@ -1,49 +1,62 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="light-blue lighten-4"
-      height="120"
+  <div id="app">
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view/>
 
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="alma logo"
-          src="@/assets/alma_logo.png"
-          width="76"
-        />
-        <p>ALMA</p>
+    <v-app>
+      <v-app-bar
+          app
+          color="light-blue lighten-4"
+          height="120"
 
-      </div>
+      >
+        <div class="d-flex align-center">
+          <v-img
+              alt="alma logo"
+              src="@/assets/alma_logo.png"
+              width="76"
+          />
+          <p>ALMA</p>
 
-      <v-spacer></v-spacer>
-      <v-btn rounded >
-        <v-icon>mdi-help</v-icon>
-      </v-btn>
-    </v-app-bar>
+        </div>
 
-    <v-main>
-      <HelloWorld/>
-    </v-main>
-  </v-app>
+        <v-spacer></v-spacer>
+        <v-btn rounded >
+          <v-icon>mdi-help</v-icon>
+        </v-btn>
+      </v-app-bar>
+
+      <v-main>
+        <HelloWorld/>
+      </v-main>
+    </v-app>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld';
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default {
-  name: 'App',
+nav {
+  padding: 30px;
 
-  components: {
-    HelloWorld,
-  },
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-  data: () => ({
-    //
-  }),
-};
-</script>
-
-<style>
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
 p {color: black ; font-size: 80px ; margin-left: 10px ; margin-top: 30px}
+
 </style>
