@@ -1,6 +1,7 @@
+<!--Por ahora esto no sirve-->
 <template>
      <div class="popup">
-        <div class="poup-inner">
+        <div class="popup-inner">
             <v-icon> mid-close </v-icon>
             <h4>
                 <v-icon> mid-house-line </v-icon> Agregar habitación

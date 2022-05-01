@@ -19,11 +19,21 @@
 
       </template>
 
-      <v-card class="popup">
+      <v-card class="popup"
+              color="secondary white--text">
         <v-card-title>
-          <v-icon> mdi-home-outline </v-icon>
+          <v-icon color="white"> mdi-home-outline </v-icon>
            Agregar habitación
+          <v-spacer/>
+          <v-btn
+              fab
+              color="transparent"
+              @click="dialog=false"
+          >
+            <v-icon color="white">mdi-window-close</v-icon>
+          </v-btn>
         </v-card-title>
+
 
         <v-card-text>
           <v-container>
@@ -42,8 +52,7 @@
           <v-spacer></v-spacer>
           <v-btn
               class="acceptButtom"
-              color="primary"
-              text
+              color="primary black--text"
               @click="addRoom"
           >
             Aceptar
@@ -76,9 +85,11 @@ export default {
   },
   methods:{
     addRoom(){
+      if(this.room.length!=0){
+        this.roomsAmount++;
+        this.rooms.push(this.room);
+      }
       this.dialog=false;
-      this.roomsAmount++;
-      this.rooms.push(this.room);
     },
   }
 }
