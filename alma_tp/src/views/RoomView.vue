@@ -26,7 +26,7 @@
            Agregar habitación
           <v-spacer/>
           <v-btn
-              fab
+                fab
               color="transparent"
               @click="dialog=false"
           >

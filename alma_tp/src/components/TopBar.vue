@@ -10,7 +10,7 @@
         <div class="d-flex align-center">
           <v-img
               alt="ALMA logo"
-              src="@/assets/alma_logo.png"
+              :src="require(`@/assets/alma_logo.png`)"
               width="70"
           />
           <p>ALMA</p>
@@ -34,7 +34,7 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn rounded :to="{name:'HelpView'}">
+        <v-btn fab :to="{name:'HelpView'}">
           <v-icon>mdi-help</v-icon>
         </v-btn>
 
