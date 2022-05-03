@@ -2,10 +2,10 @@
   <div>
     <div class="appBar">
       <v-app-bar class="toolbar"
-          color="primary"
-          height="120"
-          elevate-on-scroll
-          scroll-target
+                 color="primary"
+                 height="120"
+                 elevate-on-scroll
+                 scroll-target
       >
         <div class="d-flex align-center">
           <v-img
@@ -20,7 +20,8 @@
         <v-spacer></v-spacer>
 
         <v-btn :to="{name:'RoomView'}"
-              color="transparent">
+               color="transparent"
+        >
           Habitaciones
         </v-btn>
 

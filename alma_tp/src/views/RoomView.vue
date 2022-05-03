@@ -1,13 +1,15 @@
 <template>
   <div class="room">
     <v-dialog
+        scrollable
+        overflow="auto"
         v-model="dialog"
         width="1000"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+            class="button"
             rounded
-            floating
             color="secondary"
             v-bind="attrs"
             v-on="on"
@@ -20,13 +22,13 @@
       </template>
 
       <v-card class="popup"
-              color="secondary white--text">
+              color="secondary white--text"
+      >
         <v-card-title>
           <v-icon color="white"> mdi-home-outline </v-icon>
-           Agregar habitación
+          Agregar habitación
           <v-spacer/>
           <v-btn
-                fab
               color="transparent"
               @click="dialog=false"
           >
@@ -38,10 +40,10 @@
         <v-card-text>
           <v-container>
             <v-text-field outlined
-                   v-model="room"
-                   placeholder="Escriba el nombre de la habitación"
-                   counter
-                   maxlength="50"
+                          v-model="room"
+                          placeholder="Escriba el nombre de la habitación"
+                          counter
+                          maxlength="50"
             />
           </v-container>
         </v-card-text>
@@ -63,9 +65,33 @@
 
     <h3 v-if="roomsAmount==0">No tienes habitaciones creadas aun</h3>
     <ul v-else >
-      <li v-for="room in rooms" :key="room">
-        {{ room }}
-      </li>
+      <v-list v-for="room in rooms" :key="room">
+
+        <v-list-group
+            :value="true"
+            no-action
+            sub-group
+            v-model="click"
+        >
+          <template v-slot:activator>
+            <v-list-item-content>
+              <v-list-item-title >{{room}}</v-list-item-title>
+            </v-list-item-content>
+          </template>
+
+          <v-list-item
+              v-for="([title, icon], i) in device"
+              :key="i"
+              link
+          >
+            <v-list-item-title v-text="title"></v-list-item-title>
+
+            <v-list-item-icon>
+              <v-icon v-text="icon"></v-icon>
+            </v-list-item-icon>
+          </v-list-item>
+        </v-list-group>
+      </v-list>
     </ul>
 
   </div>
@@ -80,7 +106,9 @@ export default {
       dialog: false,
       roomsAmount: 0,
       rooms: [],
-      room:""
+      room:"",
+      click:false,
+      device:['p', '2']
     }
   },
   methods:{
@@ -96,19 +124,17 @@ export default {
 </script>
 
 <style scoped>
+.button{
+  margin: 8px;
+}
 
-    .v-btn{
-      margin: 20px;
-      font-size: large;
-    }
+.popup{
+  background-color: #0F4C75;
+}
 
-    .popup{
-        background-color: #0F4C75;
-    }
-
-    .acceptButtom{
-        background-color: #B5D9F1;
-        color: #000000;
-    }
+.acceptButtom{
+  background-color: #B5D9F1;
+  color: #000000;
+}
 
 </style>
