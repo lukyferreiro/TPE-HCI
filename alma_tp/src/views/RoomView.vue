@@ -8,7 +8,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-            class="button"
+            class="button2"
             rounded
             color="secondary"
             v-bind="attrs"
@@ -40,9 +40,11 @@
         <v-card-text>
           <v-container>
             <v-text-field outlined
+                          ref="title"
                           v-model="room"
                           placeholder="Escriba el nombre de la habitación"
                           counter
+                          clearable
                           maxlength="50"
             />
           </v-container>
@@ -65,60 +67,122 @@
 
     <h3 v-if="roomsAmount==0">No tienes habitaciones creadas aun</h3>
     <ul v-else >
-      <v-list v-for="room in rooms" :key="room">
-
-        <v-list-group
-            :value="true"
-            no-action
-            sub-group
-            v-model="click"
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title >{{room}}</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-              v-for="([title, icon], i) in device"
-              :key="i"
-              link
+          <v-list class="d-flex flex-row align-center"
+                  v-for="room in rooms"
+                  :key="room"
+                  width="50px"
+                  rounded
           >
-            <v-list-item-title v-text="title"></v-list-item-title>
+            <v-list-group
+                :value="true"
+                no-action
+                sub-group
+                v-model="click"
+            >
+              <template v-slot:activator>
+                <v-list-item-content>
+                  <v-list-item-title >{{room.title}}</v-list-item-title>
+                </v-list-item-content>
+              </template>
 
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-      </v-list>
-    </ul>
 
+              <v-list-item
+                  v-for="([title, icon], i) in room.device"
+                  :key="i"
+                  link
+              >
+                <v-list-item-title v-text="title"></v-list-item-title>
+
+                <v-list-item-icon>
+                  <v-icon v-text="icon"/>
+                </v-list-item-icon>
+
+              </v-list-item>
+            </v-list-group>
+            <v-btn class="button"
+                   plain
+                   rounded
+                   fab
+                   @click="addDevice(room)"
+            >
+              <v-icon>mdi-plus-circle-outline</v-icon>
+            </v-btn>
+            <v-btn class="button"
+                   plain
+                   rounded
+                   fab
+                   @click="edit=true"
+            >
+              <v-icon>mdi-pencil-outline</v-icon>
+              <EditView v-if="edit"/>
+            </v-btn>
+            <v-btn class="button"
+                   plain
+                   rounded
+                   fab
+                   @click="editColor(room)"
+            >
+              <v-icon>mdi-palette-outline</v-icon>
+            </v-btn>
+
+            <v-btn class="button"
+                   plain
+                   rounded
+                   fab
+                   @click="deleteRoom(room)"
+            >
+              <v-icon>mdi-trash-can-outline</v-icon>
+            </v-btn>
+          </v-list>
+cd     </ul>
   </div>
 </template>
 
 <script>
+import EditView from "@/views/EditView";
 export default {
   name: "RoomView",
-  components:{},
+  components:{EditView},
   data(){
     return{
+      edit:false,
       dialog: false,
       roomsAmount: 0,
       rooms: [],
       room:"",
       click:false,
-      device:['p', '2']
     }
   },
   methods:{
+    reset(){
+        this.$refs.title.reset();
+    },
     addRoom(){
       if(this.room.length!=0){
         this.roomsAmount++;
-        this.rooms.push(this.room);
+        this.rooms.push(
+            {title: this.room,
+              device: []
+            });
       }
       this.dialog=false;
+      this.reset();
     },
+    addDevice(room){
+      console.log('add device in ' + room.title)
+    },
+    editRoom(room){
+      // room.title=room2.title;
+      this.edit=false;
+      console.log('edit room in ' + room.title);
+      console.log(room.title);
+    },
+    editColor(room){
+      console.log('edit color in ' + room.title)
+    },
+    deleteRoom(room){
+      this.rooms.splice(this.rooms.indexOf(room), 1)
+    }
   }
 }
 </script>
@@ -126,8 +190,13 @@ export default {
 <style scoped>
 .button{
   margin: 8px;
+  width: 20px;
+  height:20px
 }
 
+.button2{
+  margin: 8px;
+}
 .popup{
   background-color: #0F4C75;
 }
