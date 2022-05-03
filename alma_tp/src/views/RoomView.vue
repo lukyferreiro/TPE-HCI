@@ -67,74 +67,73 @@
 
     <h3 v-if="roomsAmount==0">No tienes habitaciones creadas aun</h3>
     <ul v-else >
-          <v-list class="d-flex flex-row align-center"
-                  v-for="room in rooms"
-                  :key="room"
-                  width="50px"
-                  rounded
+      <div>
+        <v-list class="d-flex flex-row align-center"
+                v-for="room in rooms"
+                :key="room"
+                width="50px"
+                rounded
+        >
+          <v-list-group
+              :value="true"
+              no-action
+              sub-group
+              v-model="click"
           >
-            <v-list-group
-                :value="true"
-                no-action
-                sub-group
-                v-model="click"
-            >
-              <template v-slot:activator>
-                <v-list-item-content>
-                  <v-list-item-title >{{room.title}}</v-list-item-title>
-                </v-list-item-content>
-              </template>
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title >{{room.title}}</v-list-item-title>
+              </v-list-item-content>
 
+            </template>
 
-              <v-list-item
-                  v-for="([title, icon], i) in room.device"
-                  :key="i"
-                  link
-              >
-                <v-list-item-title v-text="title"></v-list-item-title>
+            <v-list-item
+                v-for="device in room.device"
+                :key="device.title"
+            >
+              <v-list-item-content>
+                <v-list-item-title v-text="device.title"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+          <v-btn class="button"
+                 plain
+                 rounded
+                 fab
+                 @click="addDevice(room)"
+          >
+            <v-icon>mdi-plus-circle-outline</v-icon>
+          </v-btn>
+          <v-btn class="button"
+                 plain
+                 rounded
+                 fab
+                 @click="edit=true"
+          >
+            <v-icon>mdi-pencil-outline</v-icon>
+            <EditView v-if="edit"/>
+          </v-btn>
+          <v-btn class="button"
+                 plain
+                 rounded
+                 fab
+                 @click="editColor(room)"
+          >
+            <v-icon>mdi-palette-outline</v-icon>
+          </v-btn>
 
-                <v-list-item-icon>
-                  <v-icon v-text="icon"/>
-                </v-list-item-icon>
+          <v-btn class="button"
+                 plain
+                 rounded
+                 fab
+                 @click="deleteRoom(room)"
+          >
+            <v-icon>mdi-trash-can-outline</v-icon>
+          </v-btn>
+        </v-list>
 
-              </v-list-item>
-            </v-list-group>
-            <v-btn class="button"
-                   plain
-                   rounded
-                   fab
-                   @click="addDevice(room)"
-            >
-              <v-icon>mdi-plus-circle-outline</v-icon>
-            </v-btn>
-            <v-btn class="button"
-                   plain
-                   rounded
-                   fab
-                   @click="edit=true"
-            >
-              <v-icon>mdi-pencil-outline</v-icon>
-              <EditView v-if="edit"/>
-            </v-btn>
-            <v-btn class="button"
-                   plain
-                   rounded
-                   fab
-                   @click="editColor(room)"
-            >
-              <v-icon>mdi-palette-outline</v-icon>
-            </v-btn>
-
-            <v-btn class="button"
-                   plain
-                   rounded
-                   fab
-                   @click="deleteRoom(room)"
-            >
-              <v-icon>mdi-trash-can-outline</v-icon>
-            </v-btn>
-          </v-list>
-cd     </ul>
+      </div>
+    </ul>
   </div>
 </template>
 
@@ -162,7 +161,7 @@ export default {
         this.roomsAmount++;
         this.rooms.push(
             {title: this.room,
-              device: []
+              device: [{title:'pruebo'},{title:'pruebo'}]
             });
       }
       this.dialog=false;
