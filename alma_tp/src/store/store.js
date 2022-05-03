@@ -2,27 +2,27 @@ export default {
     destinations: [
         {
             name: "Parlante",
-            image: "parlante.jpg",
+            image: "speaker.png",
             id: 1
         },
         {
             name: "Puerta",
-            image: "puerta.jpg",
+            image: "door.png",
             id: 2
         },
         {
             name: "Lampara",
-            image: "lampara.jpg",
+            image: "bulb.png",
             id: 3
         },
         {
             name: "Heladera",
-            image: "heladera.jpg",
+            image: "refrigerator.png",
             id: 4
         },
         {
             name: "Aire Acondicionado",
-            image: "aire_acondicionado.jpg",
+            image: "air-conditioner.png",
             id: 5,
         }
     ]
