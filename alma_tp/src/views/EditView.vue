@@ -26,7 +26,7 @@
         <v-container>
           <v-text-field outlined
                         v-model="room2"
-                        placeholder="Escriba el nombre de la habitación"
+                        placeholder="Escriba el nombre de la habitación *"
                         counter
                         clearable
                         maxlength="50"

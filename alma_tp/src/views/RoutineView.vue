@@ -6,18 +6,18 @@
         v-model="dialog"
         width="1000"
     >
-    <template v-slot:activator="{ on, attrs }">
-      <v-btn
-          class="button2"
-          rounded
-          color="secondary"
-          v-bind="attrs"
-          v-on="on"
-      >
-        Agregar rutina
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-    </template>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+            class="button2"
+            rounded
+            color="secondary"
+            v-bind="attrs"
+            v-on="on"
+        >
+          Agregar rutina
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </template>
 
 
       <v-card class="popup"
@@ -35,53 +35,42 @@
           </v-btn>
         </v-card-title>
 
-
         <v-card-text>
           <v-container>
             <v-text-field outlined
                           ref="title"
-                          v-model="routine"
+                          v-model="routinetitle"
                           placeholder="Escriba el nombre de la nueva rutina*"
                           counter
                           clearable
                           maxlength="50"
             />
-            <div class="text-h6 white--text">
-              *Campo obligatorio
-            </div>
           </v-container>
           <v-divider class="mt-6 mx-4"></v-divider>
 
-          <v-chip
-              label
-              color="primary"
-              text-color="black"
-          >Seleccionar habitación
-            <v-btn class="button"
-                   plain
-                   rounded
-                   fab
-                   @click="selectRoom()"
-            >
-              <v-icon>mdi-menu-right</v-icon>
-            </v-btn>
-          </v-chip>
+            <div class="d-flex flex-row align-center text-align-center">
+              <v-btn
+                    class="button2"
+                    color= "primary black--text"
+                    rounded
+                    v-model="roomtitle"
+                    @click="selectRoom()"
+              >
+                Seleccionar habitación
+                <v-icon color="black">mdi-menu-right</v-icon>
+              </v-btn>
 
-          <v-chip
-              label
-              color="primary"
-              text-color="black"
-          >Agregar dispositivo
-            <v-btn class="button"
-                   plain
-                   rounded
-                   fab
-                   @click="addDevice()"
-            >
-              <v-icon>mdi-plus-circle-outline</v-icon>
-            </v-btn>
-          </v-chip>
-
+               <v-btn
+                     class = "button2"
+                     color = "primary black--text"
+                     rounded
+                     @click="selectRoom"
+                     :disabled="!roomSelected"
+              >
+                  Agregar dispositivo
+                  <v-icon color="black">mdi-plus-circle-outline</v-icon>
+              </v-btn>
+            </div>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -97,7 +86,7 @@
           <v-btn
               class="acceptButtom"
               color="primary black--text"
-              @click="addRoutine"
+              @click="addRoutine()"
           >
             Aceptar
           </v-btn>
@@ -145,7 +134,7 @@
                  plain
                  rounded
                  fab
-                 @click="editColor(room)"
+                 @click="editColor()"
           >
             <v-icon>mdi-palette-outline</v-icon>
           </v-btn>
@@ -154,7 +143,7 @@
                  plain
                  rounded
                  fab
-                 @click="deleteRoutine(room)"
+                 @click="deleteRoutine()"
           >
             <v-icon>mdi-trash-can-outline</v-icon>
           </v-btn>
@@ -174,12 +163,14 @@ export default {
   components:{EditView},
   data(){
     return{
-      edit:false,
+      edit: false,
       dialog: false,
       routinesAmount: 0,
       routines: [],
-      routine:"",
-      click:false,
+      routinetitle: "",
+      roomtitle:"",
+      routinerooms:[],
+      click: false,
     }
   },
   methods: {
@@ -187,14 +178,14 @@ export default {
       this.$refs.title.reset();
     },
     addRoutine(){
-      if(this.routine.length!=0){
+      if(this.routinetitle.length != 0){
         this.routinesAmount++;
         this.routines.push(
-            {title: this.routine,
-             // device: [{title:'pruebo'},{title:'pruebo'}]
+            {title: this.routinetitle,
+              rooms: this.routinerooms, //rooms=[{roomtitle: titulo, device:[]}]
             });
       }
-      this.dialog=false;
+      this.dialog = false;
       this.reset();
     },
     editRoutine(routine) {
@@ -210,11 +201,14 @@ export default {
       this.routines.splice(this.routines.indexOf(routine), 1)
     },
     selectRoom(){
-
+      this.roomSelected=true;
+      this.routinerooms.push({roomtitle: this.roomtitle, devices: []})
+    },
+    addDevice(){
+      this.routinerooms.indexOf(this.roomtitle)
     }
   }
 }
-
 </script>
 
 
@@ -237,4 +231,7 @@ export default {
   color: #000000;
 }
 
+.chip{
+  margin-left: 8px;
+}
 </style>

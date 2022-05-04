@@ -82,8 +82,8 @@
           >
             <template v-slot:activator>
               <v-list-item-content>
+                <v-list-item-title >{{room.title}}</v-list-item-title>
               </v-list-item-content>
-
             </template>
 
             <v-list-item
@@ -96,7 +96,6 @@
             </v-list-item>
           </v-list-group>
 
-          <v-list-item-title >{{room.title}}</v-list-item-title>
 
           <v-btn class="button"
                  plain
@@ -140,10 +139,10 @@
 </template>
 
 <script>
-import EditView from "@/views/EditView";
+// import EditView from "@/views/EditView";
 export default {
   name: "RoomView",
-  components:{EditView},
+  components:{},
   data(){
     return{
       edit:false,
@@ -163,11 +162,12 @@ export default {
         this.roomsAmount++;
         this.rooms.push(
             {title: this.room,
-              device: [{title:'pruebo'},{title:'pruebo'}]
+              device: ['pruebo','pruebo']
             });
       }
       this.dialog=false;
       this.reset();
+      console.log('aceptar');
     },
     addDevice(room){
       console.log('add device in ' + room.title)
@@ -208,3 +208,8 @@ export default {
 }
 
 </style>
+
+
+
+
+

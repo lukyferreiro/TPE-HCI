@@ -34,10 +34,15 @@
         </v-btn>
 
         <v-spacer></v-spacer>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn fab :to="{name:'HelpView'}" v-on="on">
+              <v-icon>mdi-help</v-icon>
+            </v-btn>
+          </template>
 
-        <v-btn fab :to="{name:'HelpView'}">
-          <v-icon>mdi-help</v-icon>
-        </v-btn>
+          <span>help</span>
+        </v-tooltip>
 
       </v-app-bar>
     </div>
