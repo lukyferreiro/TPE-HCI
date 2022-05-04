@@ -78,6 +78,7 @@
                             class="tree"
                 >
                     <template  v-slot:prepend="{item}">
+                      <v-row class="justify-end">
                         <v-btn class="button"
                                plain
                                rounded
@@ -118,6 +119,7 @@
                         >
                             <v-icon>mdi-trash-can-outline</v-icon>
                         </v-btn>
+                      </v-row>
                     </template>
                 </v-treeview>
             </template>
