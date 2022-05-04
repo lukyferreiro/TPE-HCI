@@ -65,7 +65,7 @@
       </v-card>
     </v-dialog>
 
-    <h3 v-if="roomsAmount==0">No tienes habitaciones creadas aun</h3>
+    <h3 v-if="roomsAmount==0">No tienes habitaciones creadas aún</h3>
     <ul v-else >
       <div>
         <v-list class="d-flex flex-row align-center"
@@ -82,7 +82,6 @@
           >
             <template v-slot:activator>
               <v-list-item-content>
-                <v-list-item-title >{{room.title}}</v-list-item-title>
               </v-list-item-content>
 
             </template>
@@ -96,6 +95,9 @@
               </v-list-item-content>
             </v-list-item>
           </v-list-group>
+
+          <v-list-item-title >{{room.title}}</v-list-item-title>
+
           <v-btn class="button"
                  plain
                  rounded
