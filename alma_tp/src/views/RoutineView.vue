@@ -143,7 +143,7 @@
 </template>
 
 <script>
-import EditView from "@/views/EditView";
+import EditView from "@/components/EditView";
 
 export default {
     name: "RoutineView",

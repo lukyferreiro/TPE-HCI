@@ -58,69 +58,80 @@
             </v-card>
         </v-dialog>
   
-        <h3 v-if="roomsAmount==0"> No tienes habitaciones creadas aún. </h3>
-        
+        <div v-if="roomsAmount==0">
+            <h3 > No tienes habitaciones creadas aún. </h3>
+            <v-img
+                 alt="Imagen de fondo"
+                 :src="require(`@/assets/withoutDevices.png`)"
+                 width="673px"
+                 height="404px"
+            />
+        </div>
+
         <ul v-else>
-          <template>
-            <v-treeview
-                v-model="tree"
-                activatable
-                :items="rooms"
-                :active.sync="active"
-                item-key="name"
-                open-on-click
-            >
-              <template v-slot:append="{item}">
-                <v-btn class="button"
-                       plain
-                       rounded
-                       fab
-                       v-if="item"
-                       @click="addDevice(room)"
+            <template>
+                <v-treeview v-model="tree"
+                            activatable
+                            :items="rooms"
+                            :active.sync="active"
+                            item-key="name"
+                            class="tree"
                 >
-                  <v-icon>mdi-plus-circle-outline</v-icon>
-                </v-btn>
+                    <template  v-slot:prepend="{item}">
+                        <v-btn class="button"
+                               plain
+                               rounded
+                               fab
+                               v-if="!item.file"
+                               @click="addDevice(item)"
+                        >
+                            <v-icon>mdi-plus-circle-outline</v-icon>
+                        </v-btn>
 
-                <v-btn class="button"
-                       plain
-                       rounded
-                       fab
-                       @click="edit=true"
-                >
-                  <v-icon>mdi-pencil-outline</v-icon>
-                  <EditView v-if="edit"/>
-                </v-btn>
+                        <v-btn class="button"
+                               plain
+                               rounded
+                               fab
+                               v-if="!item.file"
+                               @click="edit=true"
+                        >
+                          <EditView v-if="edit"/>
+                          <v-icon>mdi-pencil-outline</v-icon>
+                        </v-btn>
 
-                <v-btn class="button"
-                       plain
-                       rounded
-                       fab
-                       @click="editColor(room)"
-                >
-                  <v-icon>mdi-palette-outline</v-icon>
-                </v-btn>
+                        <v-btn class="button"
+                               plain
+                               rounded
+                               fab
+                               v-if="!item.file"
+                               @click="editColor(room)"
+                        >
+                            <v-icon>mdi-palette-outline</v-icon>
+                        </v-btn>
 
-                <v-btn class="button"
-                       plain
-                       rounded
-                       fab
-                       @click="deleteRoom(room)"
-                >
-                  <v-icon>mdi-trash-can-outline</v-icon>
-                </v-btn>
-              </template>
-            </v-treeview>
-
-          </template>
+                        <v-btn class="button"
+                               plain
+                               rounded
+                               fab
+                               v-if="!item.file"
+                               @click="deleteRoom(room)"
+                        >
+                            <v-icon>mdi-trash-can-outline</v-icon>
+                        </v-btn>
+                    </template>
+                </v-treeview>
+            </template>
         </ul>
     </div>
 </template>
 
 <script>
-// import EditView from "@/views/EditView";
+import EditView from "@/components/EditView";
 export default {
     name: "RoomView",
-    components:{},
+    components:{
+      EditView
+    },
     data(){
         return{
             edit:false,
@@ -128,6 +139,7 @@ export default {
             roomsAmount: 0,
             rooms: [],
             room:"",
+            room2:"",
             click:false,
             tree:[],
             active:[]
@@ -142,7 +154,7 @@ export default {
           this.roomsAmount++;
           this.rooms.push(
               {name: this.room,
-                children: [{name:'device1', file:''}, {name:'device2', file:''}]
+                children: [{name:'device1', file:'png'}, {name:'device2', file:'png'}]
               });
         }
         this.dialog=false;
@@ -150,19 +162,18 @@ export default {
         console.log('aceptar');
       },
       addDevice(room){
-        console.log('add device in ' + room.title)
+        console.log('add device in ' + room.name)
       },
-      editRoom(room){
-        // room.title=room2.title;
+      editRoom(room2){
         this.edit=false;
-        console.log('edit room in ' + room.title);
-        console.log(room.title);
+        console.log('edit room in ' + room2.name);
       },
       editColor(room){
-        console.log('edit color in ' + room.title)
+        console.log('edit color in ' + room.name)
       },
       deleteRoom(room){
-        this.rooms.splice(this.rooms.indexOf(room), 1)
+        this.rooms.splice(this.rooms.indexOf(room), 1);
+        this.roomsAmount--;
       }
     }
 }
@@ -172,9 +183,12 @@ export default {
   .button{
     margin: 8px;
     width: 20px;
-    height:20px
+    height:20px;
   }
-  
+
+  .tree{
+    text-align: left;
+  }
   .button2{
     margin: 8px;
   }

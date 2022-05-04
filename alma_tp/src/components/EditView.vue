@@ -62,7 +62,8 @@ export default {
   },
   methods:{
     editRoom(room2){
-      this.$refs.room=room2
+      // this.$refs.item.name=room2
+      console.log("quiero cambiar el nombre de "+ this.$refs.item.name + "to" + room2)
       this.dialog=false;
     }
   }
