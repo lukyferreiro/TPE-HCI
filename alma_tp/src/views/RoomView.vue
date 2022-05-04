@@ -61,71 +61,57 @@
         <h3 v-if="roomsAmount==0"> No tienes habitaciones creadas aún. </h3>
         
         <ul v-else>
-            <div>
-                <v-list class="d-flex flex-row align-center"
-                        v-for="room in rooms"
-                        :key="room"
-                        width="50px"
-                        rounded
+          <template>
+            <v-treeview
+                v-model="tree"
+                activatable
+                :items="rooms"
+                :active.sync="active"
+                item-key="name"
+                open-on-click
+            >
+              <template v-slot:append="{item}">
+                <v-btn class="button"
+                       plain
+                       rounded
+                       fab
+                       v-if="item"
+                       @click="addDevice(room)"
                 >
-                    <v-list-group :value="true"
-                                  no-action
-                                  sub-group
-                                  v-model="click"
-                    >
-                        <template v-slot:activator>
-                            <v-list-item-content>
-                                <v-list-item-title >{{room.title}}</v-list-item-title>
-                            </v-list-item-content>
-                        </template>
-            
-                        <v-list-item v-for="device in room.device"
-                                     :key="device.title"
-                        >
-                            <v-list-item-content>
-                                <v-list-item-title v-text="device.title"></v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list-group>
-                  
-                    <v-btn class="button"
-                           plain
-                           rounded
-                           fab
-                           @click="addDevice(room)"
-                    >
-                        <v-icon>mdi-plus-circle-outline</v-icon>
-                    </v-btn>
-                  
-                    <v-btn class="button"
-                           plain
-                           rounded
-                           fab
-                           @click="edit=true"
-                    >
-                        <v-icon>mdi-pencil-outline</v-icon>
-                        <EditView v-if="edit"/>
-                    </v-btn>
-                  
-                    <v-btn class="button"
-                           plain
-                           rounded
-                           fab
-                           @click="editColor(room)"
-                    >
-                        <v-icon>mdi-palette-outline</v-icon>
-                    </v-btn>
-                  
-                    <v-btn class="button"
-                           plain
-                           rounded
-                           fab
-                           @click="deleteRoom(room)"
-                    >
-                        <v-icon>mdi-trash-can-outline</v-icon>
-                    </v-btn>
-                </v-list>
-            </div>
+                  <v-icon>mdi-plus-circle-outline</v-icon>
+                </v-btn>
+
+                <v-btn class="button"
+                       plain
+                       rounded
+                       fab
+                       @click="edit=true"
+                >
+                  <v-icon>mdi-pencil-outline</v-icon>
+                  <EditView v-if="edit"/>
+                </v-btn>
+
+                <v-btn class="button"
+                       plain
+                       rounded
+                       fab
+                       @click="editColor(room)"
+                >
+                  <v-icon>mdi-palette-outline</v-icon>
+                </v-btn>
+
+                <v-btn class="button"
+                       plain
+                       rounded
+                       fab
+                       @click="deleteRoom(room)"
+                >
+                  <v-icon>mdi-trash-can-outline</v-icon>
+                </v-btn>
+              </template>
+            </v-treeview>
+
+          </template>
         </ul>
     </div>
 </template>
@@ -143,6 +129,8 @@ export default {
             rooms: [],
             room:"",
             click:false,
+            tree:[],
+            active:[]
         }
     },
     methods: {
@@ -153,8 +141,8 @@ export default {
         if(this.room.length!=0){
           this.roomsAmount++;
           this.rooms.push(
-              {title: this.room,
-                device: ['pruebo','pruebo']
+              {name: this.room,
+                children: [{name:'device1', file:''}, {name:'device2', file:''}]
               });
         }
         this.dialog=false;
