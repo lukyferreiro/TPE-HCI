@@ -19,6 +19,11 @@ const routes = [
     name: 'RoutineView',
     component:() => import(/*webPackChunkName: "details" */ '../views/RoutineView.vue')
   },
+  {
+    path: '/routine/add',
+    name: 'AddRoutine',
+    component:() => import(/*webPackChunkName: "details" */ '../views/AddRoutine.vue')
+  },
 
 ]
 

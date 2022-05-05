@@ -1,92 +1,13 @@
 <template>
     <div class="routine">
-        <v-dialog scrollable
-                  overflow="auto"
-                  v-model="dialog"
-                  width="1000"
-        >
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn class="button2"
-                       rounded
-                       color="secondary"
-                       v-bind="attrs"
-                       v-on="on"
-                >
-                    Agregar rutina
-                    <v-icon> mdi-plus </v-icon>
-                </v-btn>
-            </template>
-
-
-            <v-card class="popup"
-                    color="secondary white--text"
-            >
-                <v-card-title>
-                    <v-icon color="white"> mdi-clipboard-list-outline </v-icon>
-                    Agregar rutina
-                    <v-spacer/>
-                    <v-btn color="transparent"
-                           @click="dialog=false"
-                    >
-                        <v-icon color="white">mdi-window-close</v-icon>
-                    </v-btn>
-                </v-card-title>
-
-                <v-card-text>
-                    <v-container>
-                        <v-text-field outlined
-                                      ref="title"
-                                      v-model="routinetitle"
-                                      placeholder="Escriba el nombre de la nueva rutina*"
-                                      counter
-                                      clearable
-                                      maxlength="50"
-                        />
-                    </v-container>
-
-                    <v-divider class="mt-6 mx-4"></v-divider>
-
-                    <div class="d-flex flex-row align-center text-align-center">
-                        <v-btn class="button2"
-                               color= "primary black--text"
-                               rounded
-                               v-model="roomtitle"
-                               @click="selectRoom()"
-                        >
-                            Seleccionar habitación
-                            <v-icon color="black">mdi-menu-right</v-icon>
-                        </v-btn>
-
-                        <v-btn class = "button2"
-                               color = "primary black--text"
-                               rounded
-                               @click="selectRoom"
-                               :disabled="!roomSelected"
-                        >
-                            Agregar dispositivo
-                            <v-icon color="black">mdi-plus-circle-outline</v-icon>
-                        </v-btn>
-                    </div>
-                </v-card-text>
-
-                <v-divider></v-divider>
-
-                <v-card-actions>
-                    <v-btn color="primary black--text"
-                           @click="dialog=false"
-                    >
-                        Cancelar
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                    <v-btn class="acceptButtom"
-                           color="primary black--text"
-                           @click="addRoutine()"
-                    >
-                        Aceptar
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+          <v-btn :to="{name:'AddRoutine'}"
+                 color="secondary"
+                 rounded
+                 class="button2"
+          >
+            Agregar rutina
+            <v-icon> mdi-plus </v-icon>
+          </v-btn>
 
         <h3 v-if="routinesAmount==0">No tienes rutinas creadas aún</h3>
 
