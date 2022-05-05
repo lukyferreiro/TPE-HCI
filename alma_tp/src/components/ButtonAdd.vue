@@ -1,16 +1,13 @@
 <template>
-<div>
-     <v-btn class="button"
-                   rounded
-                   color="secondary"
 
+  <v-btn class="button"
+            rounded
+            color="secondary"
             >
             {{content}}
 
                 <v-icon>mdi-plus</v-icon>
             </v-btn>
-
-            </div>
 
 </template>
 

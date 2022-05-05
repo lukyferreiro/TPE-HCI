@@ -1,26 +1,23 @@
 <template>
     <div class="room">
-        <ButtonAdd content="Agregar Habitacion"/>
-
 
         <v-dialog scrollable
                   overflow="auto"
                   v-model="dialog"
                   width="1000"
         >
-            <ButtonAdd content="Agregar habitación"> </ButtonAdd>
-<!--              <template v-slot:activator="{ on, attrs }"> -->
-<!--                 <v-btn class="button2" -->
-<!--                        rounded -->
-<!--                        color="secondary" -->
-<!--                        v-bind="attrs" -->
-<!--                        v-on="on" -->
-<!--                 > -->
-<!--                     Agregar habitación -->
-<!--                     <v-icon>mdi-plus</v-icon> -->
-<!--                 </v-btn> -->
-<!--             </template> -->
-<!--        -->
+          <template v-slot:activator="{ on, attrs }">
+               <v-btn class="button2"
+                        rounded
+                        color="secondary"
+                        v-bind="attrs"
+                        v-on="on"
+                 >
+                     Agregar habitación
+                     <v-icon>mdi-plus</v-icon>
+                 </v-btn>
+             </template>
+
             <v-card class="popup"
                     color="secondary white--text"
             >
@@ -76,84 +73,100 @@
         </div>
 
         <ul v-else>
-            <div v-for="room in rooms"  :key="room">
-              <v-menu>
-                <template v-slot:activator="on, attrs">
-                  <v-btn plain>{{room.name}}</v-btn>
-                  <v-btn
-                      text
-                      @click="addRoom"
-                  >
-                    Dispositivo
-                    <v-icon>mdi-plus-circle-outline</v-icon>
-                  </v-btn>
 
-                  <v-btn  v-bind="attrs"
-                          v-on="on"
+          <template>
+            <div  v-for="room in rooms"
+                  :key="room">
+              <v-row>
+                <v-col>
+                  <v-expansion-panels class="expansion"
+                                      flat
+                                      popout
+                  >
+                  <v-expansion-panel>
+                    <v-expansion-panel-header>{{room.name}}</v-expansion-panel-header>
+                    <v-expansion-panel-content v-for="device in room.devices"
+                                               :key="device">
+                        {{device.name}}
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+                  </v-expansion-panels>
+                </v-col>
+
+                <v-col cols="12" md="6">
+                  <v-menu
+                      v-model="menu"
+                      :close-on-content-click="false"
+                      offset-x>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn :to="{name:'AddDevice', props:room }"
+                          text
+                          @click="addRoom"
+                      >
+                        Dispositivo
+                        <v-icon>mdi-plus-circle-outline</v-icon>
+                      </v-btn>
+                      <v-btn
                           fab
                           plain
-                          @click="room.show = !room.show"
-                  >
-                    <v-icon>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
+                          v-bind="attrs"
+                          v-on="on"
+                          @click="room.show= !room.show"
+                      >
+                        <v-icon>mdi-dots-vertical</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list v-if="room.show">
+                      <v-list-item>
+                        <v-list-item-action>
+                          <v-btn class="button"
+                                 plain
+                                 rounded
+                                 fab
+                                 @click="edit=true"
+                          >
+                            <v-icon>mdi-pencil-outline</v-icon>
+                            <EditView v-if="edit"/>
+                          </v-btn>
+                          <v-btn class="button"
+                                 plain
+                                 rounded
+                                 fab
+                                 @click="editColor(room) "
+                          >
+                            <v-icon>mdi-palette-outline</v-icon>
+                          </v-btn>
 
-                <v-list>
-                    <v-list-item>
-                      <v-list-item-icon>mdi-pencil-outline</v-list-item-icon>
-                      <v-list-item-action>
-                        <v-icon @click="edit=true">mdi-pencil-outline</v-icon>
-                      </v-list-item-action>
-<!--                      <v-btn class="button"-->
-<!--                             plain-->
-<!--                             rounded-->
-<!--                             fab-->
-<!--                             v-if="!room.file && room.show"-->
-<!--                             @click="edit=true"-->
-<!--                      >-->
-<!--                        <EditView v-if="edit"/>-->
-<!--                        <v-icon @click="edit=true">mdi-pencil-outline</v-icon>-->
-
-<!--                      </v-btn>-->
-<!--                      <v-btn class="button"-->
-<!--                             plain-->
-<!--                             rounded-->
-<!--                             fab-->
-<!--                             v-if="!room.file && room.show"-->
-<!--                             @click="editColor(room) "-->
-<!--                      >-->
-<!--                        <v-icon>mdi-palette-outline</v-icon>-->
-<!--                      </v-btn>-->
-
-<!--                      <v-btn class="button"-->
-<!--                             plain-->
-<!--                             rounded-->
-<!--                             fab-->
-<!--                             v-if="!room.file && room.show"-->
-<!--                             @click="deleteRoom(room)"-->
-<!--                      >-->
-<!--                        <v-icon>mdi-trash-can-outline</v-icon>-->
-<!--                      </v-btn>-->
-                    </v-list-item>
-                </v-list>
-              </v-menu>
-
+                          <v-btn class="button"
+                                 plain
+                                 rounded
+                                 fab
+                                 @click="deleteRoom(room)"
+                          >
+                            <v-icon>mdi-trash-can-outline</v-icon>
+                          </v-btn>
+                        </v-list-item-action>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </v-col>
+              </v-row>
             </div>
+
+          </template>
         </ul>
     </div>
 </template>
 
 <script>
-// import EditView from "@/components/EditView";
-import ButtonAdd from "@/components/ButtonAdd";
-import ButtonAction from "@/components/ButtonAction";
+import EditView from "@/components/EditView";
+// import ButtonAction from "@/components/ButtonAction";
 
 export default {
     name: "RoomView",
     components: {
-      // EditView
-      ButtonAdd,
-      ButtonAction
+      EditView,
+      // ButtonAction
     },
     data(){
         return{
@@ -166,6 +179,8 @@ export default {
             click:false,
             tree:[],
             active:[],
+
+          menu: false,
         }
     },
     methods: {
@@ -177,8 +192,9 @@ export default {
           this.roomsAmount++;
           this.rooms.push(
               {name: this.room,
-                children: [{name:'device1', file:'png'}, {name:'device2', file:'png'}],
-                show:false
+                devices: [{name:'device1', file:'png'}, {name:'device2', file:'png'}],
+                show:false,
+                showDevices:false
               });
         }
         this.dialog=false;
@@ -186,6 +202,7 @@ export default {
         console.log('aceptar');
       },
       addDevice(room){
+        this.room.show=false
         console.log('add device in ' + room.name)
       },
       editRoom(room2){
@@ -217,68 +234,7 @@ export default {
     background-color: #B5D9F1;
     color: #000000;
   }
-
-
+  .expansion{
+    margin: 5px;
+  }
 </style>
-
-
-
-
-<!--<v-treeview v-model="tree"-->
-<!--            :items="rooms"-->
-<!--            :active.sync="active"-->
-<!--            item-key="name"-->
-<!--            class="tree"-->
-<!--&gt;-->
-<!--<template  v-slot:prepend="{item}">-->
-<!--  <v-btn class="button"-->
-<!--         plain-->
-<!--         rounded-->
-<!--         fab-->
-<!--         v-if="!item.file"-->
-<!--         @click="item.show=!item.show"-->
-<!--  >-->
-<!--    <v-icon>mdi-dots-vertical</v-icon>-->
-<!--  </v-btn>-->
-<!--  <v-btn class="button"-->
-<!--         plain-->
-<!--         rounded-->
-<!--         fab-->
-<!--         v-if="!item.file && item.show"-->
-<!--         @click="addDevice(item)"-->
-<!--  >-->
-<!--    <v-icon>mdi-plus-circle-outline</v-icon>-->
-<!--  </v-btn>-->
-
-<!--  <v-btn class="button"-->
-<!--         plain-->
-<!--         rounded-->
-<!--         fab-->
-<!--         v-if="!item.file && item.show"-->
-<!--         @click="edit=true"-->
-<!--  >-->
-<!--    <EditView v-if="edit"/>-->
-<!--    <v-icon>mdi-pencil-outline</v-icon>-->
-<!--  </v-btn>-->
-
-<!--  <v-btn class="button"-->
-<!--         plain-->
-<!--         rounded-->
-<!--         fab-->
-<!--         v-if="!item.file && item.show"-->
-<!--         @click="editColor(room) "-->
-<!--  >-->
-<!--    <v-icon>mdi-palette-outline</v-icon>-->
-<!--  </v-btn>-->
-
-<!--  <v-btn class="button"-->
-<!--         plain-->
-<!--         rounded-->
-<!--         fab-->
-<!--         v-if="!item.file && item.show"-->
-<!--         @click="deleteRoom(room)"-->
-<!--  >-->
-<!--    <v-icon>mdi-trash-can-outline</v-icon>-->
-<!--  </v-btn>-->
-<!--</template>-->
-<!--</v-treeview>-->

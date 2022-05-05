@@ -40,14 +40,15 @@
     </div>
     <v-divider></v-divider>
 
-    <v-btn class="ma-8" color="secondary white--text"
-
+    <v-btn :to="{name:'RoutineView'}"
+           class="ma-8"
+           color="secondary white--text"
     >
       Cancelar
     </v-btn>
-    <v-btn
+    <v-btn :to="{name:'RoutineView'}"
            color="secondary white--text"
-           @click="addRoutine()"
+           @click="addRoutine"
     >
       Aceptar
     </v-btn>
@@ -67,15 +68,18 @@ export default {
       routines: [],
       roomSelected:false,
       // routinetitle: "",
-      // roomtitle:"",
-      // routinerooms:[],
+      roomtitle:"",
+      routinerooms:[],
       click: false,
     }
   },
   methods:{
     selectRoom(){
       this.roomSelected=true;
-      this.routinerooms.push({roomtitle: this.roomtitle, devices: []})
+      this.routinerooms.push({room_title: this.roomtitle, devices: []})
+    },
+    addRoutine(){
+      console.log('adding routine');
     }
   }
 }
