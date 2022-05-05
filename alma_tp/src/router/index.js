@@ -28,7 +28,6 @@ const routes = [
     path: '/room/add_devices',
     name: 'AddDevice',
     component:() => import(/*webPackChunkName: "details" */ '../views/AddDevice.vue'),
-    props: true
   },
 
 ]

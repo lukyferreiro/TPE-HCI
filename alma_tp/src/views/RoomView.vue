@@ -99,7 +99,7 @@
                       :close-on-content-click="false"
                       offset-x>
                     <template v-slot:activator="{ on, attrs }">
-                      <v-btn :to="{name:'AddDevice', props:room }"
+                      <v-btn :to="{name:'AddDevice', params:{room: room} }"
                           text
                           @click="addRoom"
                       >
@@ -222,8 +222,8 @@ export default {
 
 <style scoped>
 
-  .tree{
-    text-align: left;
+  .button2{
+    margin: 8px;
   }
 
   .popup{

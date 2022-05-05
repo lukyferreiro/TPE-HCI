@@ -1,43 +1,42 @@
 <template>
-  <h3>Agregar dispositivo en {{this.$props.name}}</h3>
-<!--    <v-dialog scrollable-->
-<!--              overflow="auto"-->
-<!--              v-model="dialog"-->
-<!--              width="1000"-->
-<!--    >-->
-<!--        <v-card class="popup"-->
-<!--                color="secondary white&#45;&#45;text"-->
-<!--        >-->
-<!--            <v-card-title>-->
-<!--                Agregar dispositivo en ...........-->
-<!--                <v-spacer/>-->
-<!--                <v-btn color="transparent"-->
-<!--                       @click="dialog=false"-->
-<!--                >-->
-<!--                    <v-icon color="white">mdi-window-close</v-icon>-->
-<!--                </v-btn>-->
-<!--            </v-card-title>-->
+  <div>
+      <h3>Agregar dispositivo en: </h3>
+      <h1>{{room.name}}</h1>
+    <v-spacer/>
+    <v-row class="justify-center">
+      <DeviceCard class="device" id="1" />
+      <DeviceCard class="device" id="2"/>
+      <DeviceCard class="device" id="3"/>
+      <DeviceCard class="device" id="4"/>
+      <DeviceCard class="device" id="5"/>
+    </v-row>
 
-<!--            <v-card-actions>-->
-<!--                <v-spacer></v-spacer>-->
-<!--                <v-btn class="acceptButtom"-->
-<!--                       color="primary black&#45;&#45;text"-->
-<!--                       @click="editRoom(room2)"-->
-<!--                >-->
-<!--                    Aceptar-->
-<!--                </v-btn>-->
-<!--            </v-card-actions>-->
-<!--        </v-card>-->
-<!--    </v-dialog>-->
+
+  </div>
 </template>
 
 <script>
+import DeviceCard from "@/components/DeviceCard";
 export default {
-  name: "addDevice",
-  props:"room"
+  name: "AddDevice",
+  components: {
+    DeviceCard
+  },
+  data(){
+    return {
+      room:this.$route.params.room
+    }
+  },
+  methods:{
+    addDevice(id){
+      console.log(id);
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+.device{
+  margin: 15px;
+}
 </style>
