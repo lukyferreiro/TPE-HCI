@@ -60,6 +60,12 @@
 <script>
 export default {
   name: "addRoutineView",
+  // props:{
+  //   add:{
+  //     type: String,
+  //     required: true
+  //   }
+  // },
   data(){
     return{
       edit: false,

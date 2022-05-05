@@ -17,7 +17,15 @@ const routes = [
   {
     path: '/routine',
     name: 'RoutineView',
-    component:() => import(/*webPackChunkName: "details" */ '../views/RoutineView.vue')
+    component:() => import(/*webPackChunkName: "details" */ '../views/RoutineView.vue'),
+    // children:[
+    //   {
+    //     path: ':add',
+    //     name: 'AddRoutine',
+    //     component: () => import(/*webPackChunkName: "details" */ '../views/AddRoutine.vue'),
+    //     props:true
+    //   }
+    // ]
   },
   {
     path: '/routine/add',
