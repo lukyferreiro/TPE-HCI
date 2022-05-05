@@ -19,19 +19,28 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn :to="{name:'RoomView'}"
-               color="transparent"
+        <v-chip :to="{name:'RoomView'}"
+               active-class="bottom_line"
+                color="transparent"
+                x-large
+                label
+                display="none"
+            onclick="style.textDecoration='underline'"
         >
           Habitaciones
-        </v-btn>
+        </v-chip>
 
         <v-spacer></v-spacer>
 
-        <v-btn :to="{name:'RoutineView'}"
-               color="transparent"
+        <v-chip :to="{name:'RoutineView'}"
+                color="transparent"
+                x-large
+                label
+                onclick="style.textDecoration='underline'"
+
         >
           Rutinas
-        </v-btn>
+        </v-chip>
 
         <v-spacer></v-spacer>
         <v-tooltip bottom>
