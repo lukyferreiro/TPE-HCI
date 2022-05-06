@@ -19,8 +19,6 @@ export default new Vuetify({
                 //         info: ...,
                 //         success: ... ,
             }
-            //      dark:{
-            //          primary: colors.lime.darken2
         }
     }
 });

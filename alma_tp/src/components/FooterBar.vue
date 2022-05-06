@@ -1,10 +1,15 @@
 <template>
-    <div class="footer">
-        <footer>
-            <v-icon class="copyrightIcon"> mdi-copyright </v-icon>
+    <v-footer color="grey lighten-3"
+              app
+              padless
+              outlined
+              height="auto"
+    >
+        <v-card-text  tile class="flex text-center">
+            <v-icon class="copyrightIcon" color="black"> mdi-copyright </v-icon>
             {{new Date().getFullYear()}} ALMA - Todos los derechos reservados.
-        </footer>
-    </div>
+        </v-card-text>
+    </v-footer>
 </template>
 
 <script>
@@ -15,12 +20,4 @@ export default {
 
 <style scoped>
 
-    footer{
-        padding: 30px 30px 0;
-        text-align: center;
-    }
-
-    .copyrightIcon{
-        width: 25px
-    }
 </style>

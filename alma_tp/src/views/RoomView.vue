@@ -1,52 +1,54 @@
 <template>
     <div class="room">
-
+<!--        <AddRoomButton/>-->
         <v-dialog scrollable
                   overflow="auto"
                   v-model="dialog"
                   width="1000"
         >
-          <template v-slot:activator="{ on, attrs }">
-               <v-btn class="button2"
+            <template v-slot:activator="{ on, attrs }">
+                 <v-btn class="button2 buttonAddRoom"
                         rounded
                         color="secondary"
                         v-bind="attrs"
                         v-on="on"
+                        absolute
                  >
-                     Agregar habitación
-                     <v-icon>mdi-plus</v-icon>
+                       Agregar habitación
+                       <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
                  </v-btn>
-             </template>
+            </template>
 
             <v-card class="popup"
-                    color="secondary white--text"
+                    color="white--text"
             >
                 <v-card-title>
-                    <v-icon color="white"> mdi-home-outline </v-icon>
+                    <v-icon class="mr-2 " color="white" size="45px"> mdi-home-outline </v-icon>
                     Agregar habitación
                     <v-spacer/>
                     <v-btn color="transparent"
                            @click="dialog=false"
+                           depressed
                     >
-                        <v-icon color="white">mdi-window-close</v-icon>
+                        <v-icon color="white" size="30px">mdi-window-close</v-icon>
                     </v-btn>
                 </v-card-title>
-              
+
                 <v-card-text>
                     <v-container>
                         <v-text-field outlined
                                       ref="title"
                                       v-model="room"
                                       placeholder="Escriba el nombre de la habitación"
+                                      background-color="white"
+                                      color="black"
                                       counter
+                                      autofocus
                                       clearable
                                       maxlength="50"
                         />
                     </v-container>
                 </v-card-text>
-        
-                <v-divider></v-divider>
-        
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn class="acceptButtom"
@@ -60,7 +62,7 @@
         </v-dialog>
 
         <div v-if="roomsAmount==0">
-            <h3 > No tienes habitaciones creadas aún. </h3>
+            <h3 class="text"> No tienes habitaciones creadas aún. </h3>
           <v-layout align-content-center>
             <v-img alt="Imagen de fondo"
                    :src="require(`@/assets/withoutDevices.png`)"
@@ -160,13 +162,13 @@
 
 <script>
 import EditView from "@/components/EditView";
-// import ButtonAction from "@/components/ButtonAction";
+import AddRoomButton from "@/components/AddRoomButton";
 
 export default {
     name: "RoomView",
     components: {
       EditView,
-      // ButtonAction
+      AddRoomButton
     },
     data(){
         return{
@@ -179,8 +181,7 @@ export default {
             click:false,
             tree:[],
             active:[],
-
-          menu: false,
+            menu: false,
         }
     },
     methods: {
@@ -188,7 +189,7 @@ export default {
         this.$refs.title.reset();
       },
       addRoom(){
-        if(this.room.length!=0){
+        if(this.room.length!==0){
           this.roomsAmount++;
           this.rooms.push(
               {name: this.room,
@@ -221,6 +222,15 @@ export default {
 </script>
 
 <style scoped>
+
+  .text{
+    margin: 10px;
+  }
+
+  .buttonAddRoom{
+    bottom: 80px;
+    right: 50px;
+  }
 
   .button2{
     margin: 8px;

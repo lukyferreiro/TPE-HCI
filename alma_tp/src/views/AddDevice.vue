@@ -18,6 +18,7 @@
 <script>
 import store from '@/store/store'
 import DeviceCard from "@/components/DeviceCard";
+
 export default {
   name: "AddDevice",
   components: {

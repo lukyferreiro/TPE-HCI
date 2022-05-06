@@ -11,15 +11,16 @@
 <script>
 import TopBar from "@/components/TopBar";
 import FooterBar from "@/components/FooterBar";
+
 export default {
-  components: {
-    TopBar,
-    FooterBar
-  },
+    components: {
+        TopBar,
+        FooterBar
+    },
 }
 </script>
-<style lang="scss">
 
+<style lang="scss">
     nav {
       padding: 30px;
 
