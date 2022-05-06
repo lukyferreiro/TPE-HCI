@@ -15,7 +15,27 @@
                     <p>ALMA</p>
                 </div>
                 <v-spacer></v-spacer>
-                <v-chip :to="{name:'RoomView'}"
+
+<div flex>
+  <v-tabs  background-color="primary" fixed-tabs >
+    <v-tab :to="{name:'RoomView'}" >
+      Habitaciones
+    </v-tab>
+    <v-tab :to="{name:'RoutineView'}" >
+      Rutinas
+    </v-tab>
+  </v-tabs>
+</div>
+
+
+
+
+
+
+
+
+
+<!--                <v-chip :to="{name:'RoomView'}"
                         color="transparent"
                         x-large
                         label
@@ -24,16 +44,16 @@
                         on="style.textDecoration='none'"
                 >
                     Habitaciones
-                </v-chip>
+                </v-chip>-->
                 <v-spacer></v-spacer>
-                <v-chip :to="{name:'RoutineView'}"
+<!--                <v-chip :to="{name:'RoutineView'}"
                         color="transparent"
                         x-large
                         label
                         onclick="style.textDecoration='underline'"
                 >
                     Rutinas
-                </v-chip>
+                </v-chip>-->
                 <v-spacer></v-spacer>
                 <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
@@ -55,5 +75,15 @@ export default {
 </script>
 
 <style scoped>
+.nav-links{
+  display: flex;
+}
+.link{
+  list-style: none;
+  text-decoration-color: black;
+}
 
+.link:hover{
+  text-decoration: underline;
+}
 </style>
