@@ -11,6 +11,7 @@
                depressed
                color="transparent"
                plain
+               exact-active-class-path="aa"
         >
             <v-img alt="ALMA logo"
                    :src="require(`@/assets/alma_logo.png`)"
@@ -21,7 +22,7 @@
 
         <v-spacer></v-spacer>
 
-        <div flex>
+<!--        <div flex>
             <v-tabs  background-color="primary" fixed-tabs >
                 <v-tab :to="{name:'RoomView'}" >
                     Habitaciones
@@ -30,21 +31,33 @@
                     Rutinas
                 </v-tab>
             </v-tabs>
-        </div>
+        </div>-->
 
-<!--            <v-chip :to="{name:'RoomView'}"-->
-<!--                    color="transparent"-->
-<!--                    x-large-->
-<!--                    label-->
-<!--                    display="none"-->
-<!--                    onclick="style.textDecoration='underline'"-->
-<!--                    on="style.textDecoration='none'"-->
-<!--            >-->
-<!--                Habitaciones-->
-<!--            </v-chip>-->
+            <v-btn :to="{name:'RoomView'}" exact
+                   class="menu-button"
+                   exact-active-class="active"
+                    x-large
+                   plain
+                   retain-focus-on-click
+                   text
+                   v-ripple="false"
+
+            >
+                Habitaciones
+            </v-btn>
 
         <v-spacer></v-spacer>
-
+      <v-btn :to="{name:'RoutineView'}"
+             class="menu-button"
+             x-large
+             label
+             plain
+             retain-focus-on-click
+             text
+             v-ripple="false"
+      >
+        Rutinas
+      </v-btn>
 <!--            <v-chip :to="{name:'RoutineView'}"-->
 <!--                    color="transparent"-->
 <!--                    x-large-->
@@ -84,15 +97,19 @@ export default {
         right: 0;
     }
 
-  .nav-links{
-    display: flex;
-  }
-  .link{
-    list-style: none;
-    text-decoration-color: black;
-  }
-  .link:hover{
-    text-decoration: underline;
-  }
+.menu-button{
+  text-transform: none;
+}
+
+.menu-button:hover{
+  text-decoration: underline;
+}
+
+.menu-button:active{
+  text-decoration: underline;
+}
+
+
+
 
 </style>
