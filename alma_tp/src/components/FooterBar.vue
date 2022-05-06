@@ -1,9 +1,11 @@
 <template>
     <v-footer color="grey lighten-3"
+              absolute
               app
               padless
               outlined
               height="auto"
+
     >
         <v-card-text  tile class="flex text-center">
             <v-icon class="copyrightIcon" color="black"> mdi-copyright </v-icon>

@@ -42,6 +42,12 @@ const routes = [
     name: 'AddDevice',
     component:() => import(/*webPackChunkName: "details" */ '../views/AddDevice.vue'),
   },
+  {
+    path: "/404",
+    alias:"*",
+    name: "notFound",
+    component: () => import(/* webpackChunkName: "notfound" */ '../views/NotFound.vue')
+  }
 
 ]
 

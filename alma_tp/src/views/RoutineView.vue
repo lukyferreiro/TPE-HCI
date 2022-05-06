@@ -143,4 +143,8 @@ export default {
   .chip{
       margin-left: 8px;
   }
+
+  .routine{
+    margin-top: 120px;
+  }
 </style>

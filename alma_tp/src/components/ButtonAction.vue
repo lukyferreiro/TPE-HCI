@@ -22,10 +22,10 @@ export default {
 
 <style scoped>
 
-.button{
-  margin: 8px;
-  width: 20px;
-  height:20px;
-}
+    .button{
+      margin: 8px;
+      width: 20px;
+      height:20px;
+    }
 
 </style>

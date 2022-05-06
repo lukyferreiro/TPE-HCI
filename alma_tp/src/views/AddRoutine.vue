@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="routine">
     <h2>
       <v-icon> mdi-clipboard-list-outline </v-icon>
       Agregar rutina
@@ -40,12 +40,8 @@
     </div>
     <v-divider></v-divider>
 
-    <v-btn :to="{name:'RoutineView'}"
-           class="ma-8"
-           color="secondary white--text"
-    >
-      Cancelar
-    </v-btn>
+    <GoBack name="Cancelar" color="secondary white--text ma-8"/>
+
     <v-btn :to="{name:'RoutineView'}"
            color="secondary white--text"
            @click="addRoutine"
@@ -58,8 +54,13 @@
 </template>
 
 <script>
+import GoBack from "@/components/GoBack";
 export default {
   name: "addRoutineView",
+  components: {
+    GoBack
+  },
+
   // props:{
   //   add:{
   //     type: String,
@@ -92,5 +93,7 @@ export default {
 </script>
 
 <style scoped>
-
+    .routine{
+        margin-top: 120px;
+    }
 </style>

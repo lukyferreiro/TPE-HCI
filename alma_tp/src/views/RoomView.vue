@@ -50,8 +50,8 @@
                     </v-container>
                 </v-card-text>
                 <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn class="acceptButtom"
+                  <v-spacer></v-spacer>
+                  <v-btn class="acceptButtom"
                            color="primary black--text"
                            @click="addRoom"
                     >
@@ -63,22 +63,20 @@
 
         <div v-if="roomsAmount==0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
-          <v-layout align-content-center>
-            <v-img alt="Imagen de fondo"
-                   :src="require(`@/assets/withoutDevices.png`)"
-                   class="mx-auto"
-                   max-width="60%"
-                   max-height="60%"
-            />
-          </v-layout>
-
+            <v-layout align-content-center>
+                <v-img alt="Imagen de fondo"
+                       :src="require(`@/assets/withoutDevices.png`)"
+                       class="mx-auto"
+                       max-width="60%"
+                       max-height="60%"
+                />
+            </v-layout>
         </div>
 
         <ul v-else>
-
           <template>
-            <div  v-for="room in rooms"
-                  :key="room">
+            <div v-for="room in rooms" :key="room">
+<!--               <RoomCard room="room" /> -->
               <v-row>
                 <v-col>
                   <v-expansion-panels class="expansion"
@@ -154,7 +152,6 @@
                 </v-col>
               </v-row>
             </div>
-
           </template>
         </ul>
     </div>
@@ -162,13 +159,15 @@
 
 <script>
 import EditView from "@/components/EditView";
-import AddRoomButton from "@/components/AddRoomButton";
+  // import AddRoomButton from "@/components/AddRoomButton";
+import RoomCard from "@/components/RoomCard";
 
 export default {
     name: "RoomView",
     components: {
       EditView,
-      AddRoomButton
+      // AddRoomButton,
+      RoomCard,
     },
     data(){
         return{
@@ -223,28 +222,32 @@ export default {
 
 <style scoped>
 
-  .text{
-    margin: 10px;
-  }
+    .room{
+        margin-top: 120px;
+    }
 
-  .buttonAddRoom{
+    .text{
+    margin: 10px;
+    }
+
+    .buttonAddRoom{
     bottom: 80px;
     right: 50px;
-  }
+    }
 
-  .button2{
+    .button2{
     margin: 8px;
-  }
+    }
 
-  .popup{
+    .popup{
     background-color: #0F4C75;
-  }
-  
-  .acceptButtom{
+    }
+
+    .acceptButtom{
     background-color: #B5D9F1;
     color: #000000;
-  }
-  .expansion{
+    }
+    .expansion{
     margin: 5px;
-  }
+    }
 </style>

@@ -5,37 +5,41 @@
               width="1000"
     >
         <v-card class="popup"
-                color="secondary white--text"
+                color="white--text"
         >
             <v-card-title>
-                <v-icon color="white"> mdi-home-outline </v-icon>
+                <v-icon class="mr-2" color="white" size="45px"> mdi-home-outline </v-icon>
+                {{content}}
                 Editar habitación
                 <v-spacer/>
                 <v-btn color="transparent"
                        @click="dialog=false"
+                       depressed
                 >
+                    <v-icon color="white" size="30px">mdi-window-close</v-icon>
                     <v-icon color="white">mdi-window-close</v-icon>
                 </v-btn>
             </v-card-title>
             <v-card-text>
-                <v-container>
+<!--                 <v-container> -->
                     <v-text-field outlined
-                                  v-model="room2"
+                                  ref="title"
+                                  v-model="roomName"
                                   placeholder="Escriba el nombre de la habitación *"
+                                  background-color="white"
+                                  color="black"
                                   counter
+                                  autofocus
                                   clearable
                                   maxlength="50"
                     />
-                </v-container>
+<!--                 </v-container> -->
             </v-card-text>
-
-            <v-divider></v-divider>
-
             <v-card-actions>
                 <v-spacer></v-spacer>
                     <v-btn class="acceptButtom"
                            color="primary black--text"
-                           @click="editRoom(room2)"
+                           @click="editRoom(roomName)"
                     >
                         Aceptar
                     </v-btn>
@@ -47,10 +51,11 @@
 <script>
 export default {
     name: "EditView",
+    props: ['content']
     data(){
         return{
             dialog:true,
-            room2:'',
+            roomName:'',
         }
     },
     methods:{

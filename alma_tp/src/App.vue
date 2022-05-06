@@ -2,8 +2,8 @@
   <div id="app">
     <v-app>
       <TopBar/>
-      <router-view :key="$route.path"/>
       <FooterBar/>
+      <router-view :key="$route.path"/>
     </v-app>
   </div>
 </template>

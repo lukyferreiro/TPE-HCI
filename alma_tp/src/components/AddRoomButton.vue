@@ -31,7 +31,6 @@
                     <v-icon color="white" size="30px">mdi-window-close</v-icon>
                 </v-btn>
             </v-card-title>
-
             <v-card-text>
 <!--                <v-container>-->
                     <v-text-field outlined
