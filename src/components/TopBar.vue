@@ -11,7 +11,6 @@
                depressed
                color="transparent"
                plain
-               exact-active-class-path="aa"
         >
             <v-img alt="ALMA logo"
                    :src="require(`@/assets/alma_logo.png`)"
@@ -22,26 +21,12 @@
 
         <v-spacer></v-spacer>
 
-<!--        <div flex>
-            <v-tabs  background-color="primary" fixed-tabs >
-                <v-tab :to="{name:'RoomView'}" >
-                    Habitaciones
-                </v-tab>
-                <v-tab :to="{name:'RoutineView'}" >
-                    Rutinas
-                </v-tab>
-            </v-tabs>
-        </div>-->
-
-            <v-btn :to="{name:'RoomView'}" exact
+            <v-btn :to="{name:'RoomView'}"
                    class="menu-button"
-                   exact-active-class="active"
-                    x-large
+                   x-large
                    plain
                    retain-focus-on-click
-                   text
                    v-ripple="false"
-
             >
                 Habitaciones
             </v-btn>
@@ -58,21 +43,17 @@
       >
         Rutinas
       </v-btn>
-<!--            <v-chip :to="{name:'RoutineView'}"-->
-<!--                    color="transparent"-->
-<!--                    x-large-->
-<!--                    label-->
-<!--                    onclick="style.textDecoration='underline'"-->
-<!--            >-->
-<!--                Rutinas-->
-<!--            </v-chip>-->
 
         <v-spacer></v-spacer>
 
         <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-                <v-btn fab :to="{name:'HelpView'}" v-on="on">
-                    <v-icon>mdi-help</v-icon>
+                <v-btn fab
+                       :to="{name:'HelpView'}"
+                       v-on="on"
+                        plain
+                >
+                    <v-icon>mdi-help-circle-outline</v-icon>
                 </v-btn>
             </template>
             <span>help</span>
@@ -91,7 +72,7 @@ export default {
 <style scoped>
 
     header{
-        position: fixed dense;
+        position: fixed;
         left: 0;
         top: 0;
         right: 0;
@@ -99,17 +80,12 @@ export default {
 
 .menu-button{
   text-transform: none;
+   font-size: large !important;
 }
 
 .menu-button:hover{
   text-decoration: underline;
 }
-
-.menu-button:active{
-  text-decoration: underline;
-}
-
-
 
 
 </style>

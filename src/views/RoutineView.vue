@@ -3,7 +3,7 @@
           <v-btn :to="{name:'AddRoutine'}"
                  color="secondary"
                  rounded
-                 class="button2"
+                 class="button"
           >
             Agregar rutina
             <v-icon> mdi-plus </v-icon>
@@ -12,90 +12,54 @@
         <h3 v-if="routinesAmount==0">No tienes rutinas creadas aún</h3>
 
         <ul v-else >
-            <div>
-                <v-list class="d-flex flex-row align-center"
-                        v-for="routine in routines"
-                        :key="routine"
-                        width="50px"
-                        rounded
-                >
-                    <v-list-group :value="true"
-                                  no-action
-                                  sub-group
-                                  v-model="click"
-                    >
-                        <template v-slot:activator>
-                            <v-list-item-content>
-                                <v-list-item-title> {{routine.title}} </v-list-item-title>
-                            </v-list-item-content>
-                        </template>
-                    </v-list-group>
-
-                    <v-btn class="button"
-                           plain
-                           rounded
-                           fab
-                           @click="edit=true"
-                    >
-                        <v-icon>mdi-pencil-outline</v-icon>
-                        <EditView v-if="edit"/>
-                    </v-btn>
-                    <v-btn class="button"
-                           plain
-                           rounded
-                           fab
-                           @click="editColor()"
-                    >
-                        <v-icon>mdi-palette-outline</v-icon>
-                    </v-btn>
-
-                    <v-btn class="button"
-                           plain
-                           rounded
-                           fab
-                           @click="deleteRoutine()"
-                    >
-                        <v-icon>mdi-trash-can-outline</v-icon>
-                    </v-btn>
-                </v-list>
+            <div v-for="routine in routines" :key="routine">
+              <v-btn @click="playRoutine(routine)"
+                     plain
+                     fab
+              >
+                <v-icon v-if="routine.play">mdi-pause-circle-outline</v-icon>
+                <v-icon v-else> mdi-arrow-right-drop-circle-outline </v-icon>
+              </v-btn>
+              {{routine.name}}
             </div>
+
         </ul>
     </div>
 </template>
 
 <script>
-import EditView from "@/components/EditView";
+// import EditView from "@/components/EditView";
+import store from '@/store/index';
+import routines from "@/api/routines";
 
 export default {
     name: "RoutineView",
-    components:{EditView},
+    // components:{EditView},
     data(){
         return{
             edit: false,
-            dialog: false,
-            routinesAmount: 0,
-            routines: [],
-            routinetitle: "",
             roomtitle:"",
             routinerooms:[],
             click: false,
         }
     },
-    methods: {
-        reset() {
-            this.$refs.title.reset();
-        },
-        addRoutine(){
-            if(this.routinetitle.length != 0){
-              this.routinesAmount++;
-              this.routines.push(
-                  {title: this.routinetitle,
-                    rooms: this.routinerooms, //rooms=[{roomtitle: titulo, device:[]}]
-                  });
-            }
-            this.dialog = false;
-            this.reset();
-        },
+  computed:{
+    routines(){
+      return store.state.routines
+    },
+    routinesAmount(){
+      return store.getters.routinesAmount
+    }
+  },
+  created() {
+    routines.getRoutines(routines => {
+      store.commit("setRoutines", routines) })
+  },
+
+  methods: {
+      playRoutine(routine){
+        store.commit("playRoutine", routine)
+      },
         editRoutine(routine) {
             // routine.title=routine2.title;
             this.edit = false;
@@ -124,12 +88,12 @@ export default {
 
   .button{
       margin: 8px;
-      width: 20px;
-      height:20px
   }
 
   .button2{
       margin: 8px;
+    width: 20px;
+    height:20px;
   }
 
   .popup{

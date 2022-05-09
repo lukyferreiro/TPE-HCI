@@ -1,14 +1,16 @@
 <template>
-    <v-row>
+    <v-row class="bar">
         <v-col>
           <v-expansion-panels class="expansion"
                               flat
                               popout
           >
               <v-expansion-panel>
-                <v-expansion-panel-header>{{room.name}}</v-expansion-panel-header>
+                <v-expansion-panel-header>{{this.room.name}}</v-expansion-panel-header>
                 <v-expansion-panel-content v-for="device in room.devices" :key="device">
+                  <v-btn plain>
                     {{device.name}}
+                  </v-btn>  
                 </v-expansion-panel-content>
               </v-expansion-panel>
           </v-expansion-panels>
@@ -18,11 +20,12 @@
           <v-menu
               v-model="menu"
               :close-on-content-click="false"
-              offset-x>
+              offset-x
+          >
            <template v-slot:activator="{ on, attrs }">
               <v-btn :to="{name:'AddDevice', params:{room: room} }"
                   text
-                  @click="addRoom"
+                  @click="addDevice"
               >
                 Agregar dispositivo
                 <v-icon>mdi-plus-circle-outline</v-icon>
@@ -36,17 +39,21 @@
                <v-icon>mdi-dots-vertical</v-icon>
              </v-btn>
             </template>
-            <v-list v-if="room.show">
+            <v-list class="menu"
+                    v-if="room.show"
+                    v-click-outside="showFalse"
+            >
               <v-list-item>
-                <v-list-item-action>
+                <v-list-item-action class="flex">
                   <v-btn class="button"
                          plain
                          rounded
                          fab
                          @click="edit=true"
                   >
+                    Editar
                     <v-icon>mdi-pencil-outline</v-icon>
-                    <EditView c v-if="edit"/>
+                    <EditView v-if="edit"/>
                   </v-btn>
                   <v-btn class="button"
                          plain
@@ -54,6 +61,7 @@
                          fab
                          @click="editColor() "
                   >
+                    Editar Color
                     <v-icon>mdi-palette-outline</v-icon>
                   </v-btn>
 
@@ -63,6 +71,7 @@
                          fab
                          @click="deleteRoom()"
                   >
+                    Borrar
                     <v-icon>mdi-trash-can-outline</v-icon>
                   </v-btn>
                 </v-list-item-action>
@@ -91,7 +100,6 @@ export default {
     },
     methods: {
         addDevice(){
-            // this.room.show=false
             console.log('add device in ' + this.room.name)
         },
         editRoom(room2){
@@ -103,10 +111,12 @@ export default {
         },
         deleteRoom(){
             store.commit("deleteRoom", this.room)
-            // this.rooms.splice(this.rooms.indexOf(room), 1);
         },
         showRoom(){
           store.commit("showRoom", this.room);
+        },
+        showFalse(){
+          store.commit("showFalse", this.room)
         }
     }
 }
@@ -114,4 +124,11 @@ export default {
 
 <style scoped>
 
+.menu{
+  width: 150px;
+}
+
+.button{
+    text-transform:none;
+}
 </style>

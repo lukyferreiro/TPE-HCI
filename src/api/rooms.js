@@ -9,10 +9,4 @@ export default{
     getRooms(okCallback){
         setTimeout(()=> okCallback(_rooms), 100 )
     },
-    getRoom(room, okCallback, errorCallback){
-        setTimeout(() => {
-            Math.random() > 0.5 ?  okCallback() : errorCallback()
-        },100)
-    },
-
 }

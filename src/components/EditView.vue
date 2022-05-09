@@ -5,7 +5,7 @@
               width="1000"
     >
         <v-card class="popup"
-                color="white--text"
+                color="secondary white--text"
         >
             <v-card-title>
                 <v-icon class="mr-2" color="white" size="45px"> mdi-home-outline </v-icon>
@@ -17,7 +17,6 @@
                        depressed
                 >
                     <v-icon color="white" size="30px">mdi-window-close</v-icon>
-                    <v-icon color="white">mdi-window-close</v-icon>
                 </v-btn>
             </v-card-title>
             <v-card-text>

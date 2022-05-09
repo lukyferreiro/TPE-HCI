@@ -32,19 +32,15 @@
                 </v-btn>
             </v-card-title>
             <v-card-text>
-<!--                <v-container>-->
                     <v-text-field outlined
                                   ref="title"
                                   v-model="roomName"
                                   placeholder="Escriba el nombre de la habitación"
-                                  background-color="white"
-                                  color="black"
                                   counter
                                   autofocus
                                   clearable
                                   maxlength="50"
                     />
-<!--                </v-container>-->
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
@@ -70,7 +66,7 @@ export default {
         roomName:"",
         room:{
           name:"",
-          devices: [],
+          devices: ['hola', 'q onda'],
           show: false
         },
       }
