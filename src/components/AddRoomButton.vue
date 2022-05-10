@@ -17,21 +17,23 @@
             </v-btn>
         </template>
 
+      <!--                v-on:keyup.enter="addRoom"-->
         <v-card class="popup"
                 color="white--text"
-                @keyup.enter="addRoom"
+                v-click-outside="closePopup"
         >
             <v-card-title>
                 <v-icon class="mr-2" color="white" size="45px"> mdi-home-outline </v-icon>
                 Agregar habitación
                 <v-spacer/>
                 <v-btn color="transparent"
-                       @click="dialog=false"
+                       @click="closePopup, dialog=false"
                        depressed
                 >
                     <v-icon color="white" size="30px">mdi-window-close</v-icon>
                 </v-btn>
             </v-card-title>
+          <v-form ref="form" lazy-validation>
             <v-card-text>
                     <v-text-field outlined
                                   ref="title"
@@ -41,9 +43,12 @@
                                   autofocus
                                   clearable
                                   maxlength="50"
+                                  :rules="nameRules"
+                                  required
                     />
             </v-card-text>
-            <v-card-actions>
+          </v-form>
+          <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn class="acceptButtom"
                        color="primary black--text"
@@ -63,6 +68,9 @@ export default {
     name: "AddRoomButton",
     data(){
       return{
+        nameRules:[
+          v => !!v || 'Campo Obligatorio'
+        ],
         dialog: false,
         roomName:"",
         room:{
@@ -78,12 +86,17 @@ export default {
         this.$refs.title.reset();
       },
       addRoom(){
-        // this.room.id=
-        this.room.name = this.roomName
-        store.commit("addRooms", this.room)
-        this.dialog=false;
-        this.reset();
+        if(this.$refs.form.validate()) {
+          // this.room.id=
+          this.room.name = this.roomName
+          store.commit("addRooms", this.room)
+          this.dialog = false;
+          this.reset();
+        }
       },
+      closePopup(){
+        this.reset();
+      }
     }
 }
 </script>
