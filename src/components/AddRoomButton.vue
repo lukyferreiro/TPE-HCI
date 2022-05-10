@@ -19,6 +19,7 @@
 
         <v-card class="popup"
                 color="white--text"
+                @keyup.enter="addRoom"
         >
             <v-card-title>
                 <v-icon class="mr-2" color="white" size="45px"> mdi-home-outline </v-icon>
