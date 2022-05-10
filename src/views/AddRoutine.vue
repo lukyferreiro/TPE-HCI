@@ -175,7 +175,7 @@ export default {
 
 <style scoped>
     .routine{
-        margin-top: 120px;
+        margin-top: 150px;
     }
     .button{
       width: 500px;

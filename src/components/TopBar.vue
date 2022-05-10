@@ -71,7 +71,7 @@ export default {
 
 <style scoped>
 
-    header{
+    .toolbar{
         position: fixed;
         left: 0;
         top: 0;

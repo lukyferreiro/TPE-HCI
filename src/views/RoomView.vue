@@ -1,7 +1,7 @@
 <template>
     <div class="room">
 
-       <AddRoomButton/>
+        <AddRoomButton/>
 
         <div v-if="roomsAmount==0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
@@ -87,24 +87,4 @@ export default {
     margin: 10px;
     }
 
-    .buttonAddRoom{
-    bottom: 80px;
-    right: 50px;
-    }
-
-    .button2{
-    margin: 8px;
-    }
-
-    .popup{
-    background-color: #0F4C75;
-    }
-
-    .acceptButtom{
-    background-color: #B5D9F1;
-    color: #000000;
-    }
-    .expansion{
-    margin: 5px;
-    }
 </style>

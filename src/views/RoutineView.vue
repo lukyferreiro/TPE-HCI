@@ -1,15 +1,26 @@
 <template>
     <div class="routine">
           <v-btn :to="{name:'AddRoutine'}"
-                 color="secondary"
-                 rounded
                  class="button"
+                 rounded
+                 color="secondary"
+                 absolute
           >
             Agregar rutina
             <v-icon> mdi-plus </v-icon>
           </v-btn>
 
-        <h3 v-if="routinesAmount==0">No tienes rutinas creadas aún</h3>
+      <div v-if="routinesAmount==0">
+        <h3 class="text"> No tienes rutinas creadas aún. </h3>
+        <v-layout align-content-center>
+          <v-img alt="Imagen de fondo"
+                 :src="require(`@/assets/withoutRoutines.png`)"
+                 class="mx-auto"
+                 max-width="30%"
+                 max-height="30%"
+          />
+        </v-layout>
+      </div>
 
         <ul v-else >
             <div v-for="routine in routines" :key="routine">
@@ -85,28 +96,17 @@ export default {
 
 
 <style scoped>
+  .routine{
+    margin-top: 150px;
+  }
 
   .button{
-      margin: 8px;
+    position: fixed;
+    bottom: 80px;
+    right: 8px;
   }
-
-  .button2{
-      margin: 8px;
-    width: 20px;
-    height:20px;
-  }
-
-  .popup{
-      background-color: #0F4C75;
-  }
-
-  .acceptButtom{
-      background-color: #B5D9F1;
-      color: #000000;
-  }
-
-  .chip{
-      margin-left: 8px;
+  .text{
+    margin: 10px;
   }
 
   .routine{

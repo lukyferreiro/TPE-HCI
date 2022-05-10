@@ -91,11 +91,10 @@ export default {
 <style scoped>
 
   .button{
+    position: fixed;
     bottom: 80px;
-    right: 50px;
-    margin: 8px;
+    right: 8px;
   }
-
   .popup{
     background-color: #0F4C75;
   }
