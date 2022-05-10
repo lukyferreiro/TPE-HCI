@@ -25,6 +25,7 @@
             v-if="start"
             v-model="time"
             full-width
+            format="24hs"
         >
           <v-spacer></v-spacer>
           <v-btn
@@ -44,55 +45,58 @@
         </v-time-picker>
       </v-dialog>
     </v-col>
+
     <v-spacer></v-spacer>
+
     <v-col>
       <v-card flat>
         Repetir:
         <v-card-text>
-            <v-btn-toggle
-                v-model="days"
-                multiple
-                rounded
-            >
-              <v-btn>
-                D
-              </v-btn>
-              <v-btn>
-                L
-              </v-btn>
-              <v-btn>
-                M
-              </v-btn>
-              <v-btn>
-                X
-              </v-btn>
-              <v-btn>
-                J
-              </v-btn>
-              <v-btn>
-                V
-              </v-btn>
-              <v-btn>
-                S
-              </v-btn>
-            </v-btn-toggle>
+          <v-btn-toggle
+              v-model="mydays"
+              multiple
+              rounded
+              group
+          >
+            <div v-for="day in weekDays"
+                 :key="day.slug">
+              <DayButton :day=day.slug></DayButton>
+            </div>
+          </v-btn-toggle>
         </v-card-text>
       </v-card>
+
     </v-col>
 
   </v-row>
+
 </template>
 
 <script>
+import DayButton from "@/components/DayButton";
+import days from "@/store/days";
+
 export default {
   name: "TimeSelector",
+  props:{
+    days: []
+  } ,
+  components: {
+    DayButton
+  },
+
   data () {
     return {
       time:null,
       start: false,
-      days:[]
+      mydays: []
     }
   },
+  computed:{
+    weekDays(){
+      return days.days
+    }
+  }
 }
 </script>
 

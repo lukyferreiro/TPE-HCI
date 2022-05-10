@@ -5,19 +5,23 @@
       Agregar rutina
     </h2>
 
-    <v-container>
-      <v-text-field outlined
-                    ref="title"
-                    v-model="routinetitle"
-                    placeholder="Escriba el nombre de la nueva rutina*"
-                    counter
-                    autofocus
-                    clearable
-                    maxlength="50"
-      />
-    </v-container>
+    <v-form ref="form" lazy-validation>
+      <v-container>
+        <v-text-field outlined
+                      ref="title"
+                      v-model="routinetitle"
+                      placeholder="Escriba el nombre de la nueva rutina*"
+                      counter
+                      autofocus
+                      clearable
+                      maxlength="50"
+                      :rules="nameRules"
+                      required
+        />
+      </v-container>
+    </v-form>
 
-    <TimeSelector time="routinetime" days="routinedays"/>
+    <TimeSelector :to="{params:{days:routinedays}}"/>
 
     <v-divider class="mt-6 mx-4"></v-divider>
     <div class="d-flex flex-row align-center text-align-center">
@@ -128,13 +132,16 @@ export default {
   data(){
     return{
       edit: false,
+      nameRules:[
+        v => !!v || 'Campo Obligatorio'
+      ],
       roomLabel: {name:"Seleccionar Habitación"},
       deviceLabel: {name:"Agregar Dispositivo"},
       roomSelected:false,
       deviceSelect: false,
       routinetitle: "",
       routinetime: null,
-      routinedays: [], //0=domingo, 1=lunes ....
+      routinedays: [],
       routine:{
         name:"",
         rooms:[],
@@ -152,12 +159,15 @@ export default {
       this.$refs.title.reset();
     },
     addRoutine(){
-      this.routine.name=this.routinetitle;
-      this.routine.time=this.routinetime;
-      this.routine.days=this.routinedays;
-      store.commit("addRoutines", this.routine);
-      this.reset();
-      this.$router.go(-1);
+      if(this.$refs.form.validate()) {
+        console.log(this.routinedays)
+        this.routine.name = this.routinetitle;
+        this.routine.time = this.routinetime;
+        this.routine.days = this.routinedays;
+        store.commit("addRoutines", this.routine);
+        this.$router.go(-1);
+        this.reset();
+      }
     },
     selectRoom(room){
       this.roomLabel = room
