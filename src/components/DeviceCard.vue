@@ -22,21 +22,27 @@
 </template>
 
 <script>
-import store from "@/api/devices_store";
+import devices from "@/store/devices";
+import store from "@/store/index";
+// import devices from "@/store/devices";
 
 export default {
     name: "DeviceCard",
-    props:["id"],
+    props:["id", "room"],
     computed:{
-        device(){
-            return store.devices.find(
+      devices(){
+        return devices.devices
+      },
+      device(){
+            return this.devices.find(
                 device => device.id==this.id
             )
-        }
+      },
     },
-    methods:{
+  methods:{
         addDevice(){
-            console.log(this.id)
+          store.commit("addDevice", [this.room, this.device])
+          this.$router.go(-1);
         }
     }
 }

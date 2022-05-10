@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     rooms: [],
     routines: [],
+    // devices: [],
   },
   getters: {
     routinesAmount(state){
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    // setDevices(state,devices){
+    //   state.devices=devices
+    // },
     setRoutines(state, routines){
       state.routines = routines
     },
@@ -43,6 +47,10 @@ export default new Vuex.Store({
     },
     playRoutine(state, routine){
       state.routines[state.routines.indexOf(routine)].play = !state.routines[state.routines.indexOf(routine)].play
+    },
+    addDevice(state, arr){
+      //arr[0] = room, arr[1] = device
+      state.rooms[state.rooms.indexOf(arr[0])].devices.push(arr[1])
     }
   },
   actions: {

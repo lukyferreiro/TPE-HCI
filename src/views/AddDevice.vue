@@ -4,17 +4,17 @@
       <h1>{{room.name}}</h1>
     <v-spacer/>
     <v-row class="devices">
-      <DeviceCard class="device" id="1"/>
-      <DeviceCard class="device" id="2"/>
-      <DeviceCard class="device" id="3"/>
-      <DeviceCard class="device" id="4"/>
-      <DeviceCard class="device" id="5"/>
+      <DeviceCard class="device" id="1" :room="room"/>
+      <DeviceCard class="device" id="2" :room="room"/>
+      <DeviceCard class="device" id="3" :room="room"/>
+      <DeviceCard class="device" id="4" :room="room"/>
+      <DeviceCard class="device" id="5" :room="room"/>
     </v-row>
   </div>
 </template>
 
 <script>
-import store from '@/api/devices_store'
+// import store from '@/api/devices'
 import DeviceCard from "@/components/DeviceCard";
 
 export default {
@@ -24,14 +24,14 @@ export default {
   },
   data(){
     return {
-      devices: store.devices,
+      // devices: store.devices,
       room:this.$route.params.room
     }
   },
   methods:{
-    addDevice(id){
-      console.log(id);
-    }
+    // addDevice(id){
+    //   console.log(id);
+    // }
   }
 }
 </script>

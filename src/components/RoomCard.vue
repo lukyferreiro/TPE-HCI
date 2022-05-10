@@ -25,7 +25,6 @@
            <template v-slot:activator="{ on, attrs }">
               <v-btn :to="{name:'AddDevice', params:{room: room} }"
                   text
-                  @click="addDevice"
               >
                 Agregar dispositivo
                 <v-icon>mdi-plus-circle-outline</v-icon>
@@ -99,9 +98,9 @@ export default {
         }
     },
     methods: {
-        addDevice(){
-            console.log('add device in ' + this.room.name)
-        },
+        // addDevice(){
+        //     console.log('add device in ' + this.room.name)
+        // },
         editRoom(room2){
             this.edit=false;
             console.log('edit room to ' + room2.name);

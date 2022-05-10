@@ -17,7 +17,7 @@
 
         <ul v-else>
           <template>
-            <div v-for="room in rooms" :key="room">
+            <div v-for="room in rooms" :key="room.id">
               <RoomCard :room="room" />
             </div>
           </template>
@@ -80,7 +80,7 @@ export default {
 <style scoped>
 
     .room{
-        margin-top: 120px;
+        margin-top: 150px;
     }
 
     .text{

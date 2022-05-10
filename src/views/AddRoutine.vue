@@ -64,7 +64,7 @@
                @click="deviceSelect=true"
                :disabled="!roomSelected"
         >
-          {{deviceLabel}}
+          {{deviceLabel.name}}
           <v-icon color="white">mdi-plus-circle-outline</v-icon>
         </v-btn>
 
@@ -88,7 +88,10 @@
                  color="primary black--text"
                  @click="addDeviceToRoom(device)"
           >
-            {{ device }}
+<!--                <img :src="require(`@/assets/${device.image}`)"-->
+<!--                     :alt="device.name"-->
+<!--                />-->
+              {{ device.name }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -111,7 +114,6 @@
 import GoBack from "@/components/GoBack";
 import store from "@/store";
 import TimeSelector from "@/components/TimeSelector";
-
 export default {
   name: "addRoutineView",
   components: {
@@ -127,7 +129,7 @@ export default {
     return{
       edit: false,
       roomLabel: {name:"Seleccionar Habitación"},
-      deviceLabel: "Agregar Dispositivo",
+      deviceLabel: {name:"Agregar Dispositivo"},
       roomSelected:false,
       deviceSelect: false,
       routinetitle: "",
@@ -155,7 +157,7 @@ export default {
       this.routine.days=this.routinedays;
       store.commit("addRoutines", this.routine);
       this.reset();
-      this.$router.push('/routine');
+      this.$router.go(-1);
     },
     selectRoom(room){
       this.roomLabel = room

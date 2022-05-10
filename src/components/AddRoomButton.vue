@@ -65,8 +65,9 @@ export default {
         dialog: false,
         roomName:"",
         room:{
+          id:"",
           name:"",
-          devices: ['hola', 'q onda'],
+          devices:[],
           show: false
         },
       }
@@ -76,6 +77,7 @@ export default {
         this.$refs.title.reset();
       },
       addRoom(){
+        // this.room.id=
         this.room.name = this.roomName
         store.commit("addRooms", this.room)
         this.dialog=false;
