@@ -2,6 +2,7 @@
     <div class="room">
 
         <AddRoomButton/>
+        <EditVacuum/>
 
         <div v-if="roomsAmount==0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
@@ -30,6 +31,7 @@ import AddRoomButton from "@/components/AddRoomButton";
 import RoomCard from "@/components/RoomCard";
 import rooms from '@/api/rooms'
 import store from '@/store/index'
+import EditVacuum from '@/components/EditVacuum'
 
 export default {
     name: "RoomView",
@@ -37,6 +39,7 @@ export default {
       // EditView,
       AddRoomButton,
       RoomCard,
+      EditVacuum,
     },
     data(){
         return{

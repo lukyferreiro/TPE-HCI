@@ -26,6 +26,7 @@
             v-model="time"
             full-width
             format="24hs"
+            @change="changeTime(this.mytime)"
         >
           <v-spacer></v-spacer>
           <v-btn
@@ -75,19 +76,20 @@
 <script>
 import DayButton from "@/components/DayButton";
 import days from "@/store/days";
-
 export default {
   name: "TimeSelector",
-  props:{
-    days: []
-  } ,
+  props:[
+    days,
+    mytime
+  ] ,
   components: {
     DayButton
   },
 
   data () {
+    const date = new Date();
     return {
-      time:null,
+      time: date.getHours() + ":" + date.getMinutes(),
       start: false,
       mydays: []
     }
@@ -96,6 +98,9 @@ export default {
     weekDays(){
       return days.days
     }
+  },
+  methods:{
+    changeTime : t => this.time = t
   }
 }
 </script>

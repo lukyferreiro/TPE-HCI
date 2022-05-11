@@ -17,7 +17,7 @@
             </v-btn>
         </template>
 
-      <!--                v-on:keyup.enter="addRoom"-->
+
         <v-card class="popup"
                 color="white--text"
                 v-click-outside="closePopup"
@@ -33,7 +33,7 @@
                     <v-icon color="white" size="30px">mdi-window-close</v-icon>
                 </v-btn>
             </v-card-title>
-          <v-form ref="form" lazy-validation>
+          <v-form ref="form" lazy-validation @submit="submit">
             <v-card-text>
                     <v-text-field outlined
                                   ref="title"
@@ -84,6 +84,10 @@ export default {
     methods: {
       reset(){
         this.$refs.title.reset();
+      },
+      submit(e){
+        e.preventDefault();
+        this.addRoom()
       },
       addRoom(){
         if(this.$refs.form.validate()) {

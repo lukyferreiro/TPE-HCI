@@ -5,7 +5,7 @@
               padless
               outlined
               height="auto"
-
+              fixed
     >
         <v-card-text  tile class="flex text-center">
             <v-icon class="copyrightIcon" color="black"> mdi-copyright </v-icon>

@@ -22,7 +22,26 @@
 
             <div >
                 <v-card-title class="mx-auto">
+                  <v-dialog>
+                  <template v-slot:activator="{on, attrs}">
+                  <v-btn v-on="on"
+                         v-bind = "attrs"
+                    color = "transparent"
+                    depressed
+                    >
                     <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+
+                  </v-btn>
+                  </template>
+                    <v-card class="colorpicker">
+                      <v-color-picker
+                          dot-size="3"
+                          mode="hexa"
+                          swatches-max-height="125"
+
+                      ></v-color-picker>
+                    </v-card>
+                    </v-dialog>
                     <v-spacer/>
                     <h3 class="habitacion"> NOMBRE HABITACION </h3>
                     <v-spacer/>
@@ -77,6 +96,14 @@
                     <!--                            </v-text>-->
                   </v-btn>
                   </v-card-actions>
+              <v-card-actions class="cardText">
+                <v-btn
+                  color = "transparent"
+                  >
+                  Modo
+                </v-btn>
+
+              </v-card-actions>
                   <v-card-actions>
                         <v-btn class="acceptButton mx-auto"
                                color="error white--text"
@@ -94,6 +121,7 @@
 export default {
   name: "EditVacuum",
   data: () => ({
+    dialog: false,
     closeOnClick: true,
     play: true,
   }),
@@ -106,7 +134,9 @@ export default {
 </script>
 
 <style scoped>
-
+.colorpicker {
+  width: auto;
+}
   /*.habitacion{*/
   /*  margin-left: 100px;*/
   /*  margin-right: 100px;*/

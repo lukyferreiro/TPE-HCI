@@ -21,7 +21,7 @@
       </v-container>
     </v-form>
 
-    <TimeSelector :to="{params:{days:routinedays}}"/>
+    <TimeSelector :to="{params:{days:routinedays, mytime:routinetime}}"/>
 
     <v-divider class="mt-6 mx-4"></v-divider>
     <div class="d-flex flex-row align-center text-align-center">
