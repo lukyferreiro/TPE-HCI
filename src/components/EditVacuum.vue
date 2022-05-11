@@ -19,41 +19,42 @@
         <v-card class="popup"
                 color="black--text primary"
         >
-
             <div >
                 <v-card-title class="mx-auto">
-                  <v-dialog>
-                  <template v-slot:activator="{on, attrs}">
-                  <v-btn v-on="on"
-                         v-bind = "attrs"
-                    color = "transparent"
-                    depressed
-                    >
-                    <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+                    <v-dialog>
+                        <template v-slot:activator="{on, attrs}">
+                            <v-btn v-on="on"
+                                   v-bind = "attrs"
+                                   color = "transparent"
+                                   depressed
+                            >
+                                <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
 
-                  </v-btn>
-                  </template>
-                    <v-card class="colorpicker">
-                      <v-color-picker
-                          dot-size="3"
-                          mode="hexa"
-                          swatches-max-height="125"
-
-                      ></v-color-picker>
-                    </v-card>
+                            </v-btn>
+                        </template>
+                        <v-card class="colorpicker">
+                            <v-color-picker dot-size="3"
+                                            mode="hexa"
+                                            swatches-max-height="125"
+                            />
+                        </v-card>
                     </v-dialog>
+
                     <v-spacer/>
+
                     <h3 class="habitacion"> NOMBRE HABITACION </h3>
+
                     <v-spacer/>
+
                     <v-btn class="pt-0 mt-0"
                            color="transparent"
                            @click="dialog=false"
                            depressed
                     >
-                      <v-icon color="black" size="40px">mdi-window-close</v-icon>
+                        <v-icon color="black" size="40px">mdi-window-close</v-icon>
                     </v-btn>
 
-                  </v-card-title>
+                </v-card-title>
             </div>
 
             <div>

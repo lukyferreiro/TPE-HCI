@@ -26,7 +26,7 @@
             v-model="time"
             full-width
             format="24hs"
-            @change="changeTime(this.mytime)"
+            @input="changeTime()"
         >
           <v-spacer></v-spacer>
           <v-btn
@@ -54,10 +54,10 @@
         Repetir:
         <v-card-text>
           <v-btn-toggle
-              v-model="mydays"
+              v-model="days"
               multiple
               rounded
-              group
+              @change="changeDays"
           >
             <div v-for="day in weekDays"
                  :key="day.slug">
@@ -78,10 +78,7 @@ import DayButton from "@/components/DayButton";
 import days from "@/store/days";
 export default {
   name: "TimeSelector",
-  props:[
-    days,
-    mytime
-  ] ,
+  props:["mydays", "mytime"],
   components: {
     DayButton
   },
@@ -91,16 +88,21 @@ export default {
     return {
       time: date.getHours() + ":" + date.getMinutes(),
       start: false,
-      mydays: []
+      days: []
     }
   },
   computed:{
     weekDays(){
       return days.days
-    }
+    },
   },
   methods:{
-    changeTime : t => this.time = t
+    changeTime:function(){
+      this.$emit("changeTime", this.time)
+    },
+    changeDays:function(){
+      this.$emit("changeDays", this.days)
+    }
   }
 }
 </script>
