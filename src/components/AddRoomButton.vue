@@ -32,13 +32,13 @@
                     <v-text-field outlined
                                   ref="title"
                                   v-model="roomName"
-                                  placeholder="Escriba el nombre de la habitación *"
+                                  placeholder="Escriba el nombre de la habitación"
                                   background-color="white"
                                   color="black"
                                   counter
                                   autofocus
                                   clearable
-                                  maxlength="50"
+                                  maxlength="60"
                                   :rules="nameRules"
                                   required/>
                 </v-card-text>
@@ -64,7 +64,9 @@ export default {
     data(){
       return{
         nameRules:[
-          v => !!v || 'Campo Obligatorio *'
+          v => !!v || 'Campo Obligatorio',
+          v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
+            v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
         ],
         dialog: false,
         roomName:"",

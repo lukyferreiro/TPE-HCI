@@ -2,11 +2,10 @@
     <div>
         <v-card class="device"
                 v-on:click="addDevice()"
-                rounded
                 color="primary"
-                max-width="250"
-                max-height="250">
-            <v-avatar class="image ml-9"
+                max-width="200"
+                max-height="200" >
+            <v-avatar class="image mr-3 ml-7 mt-5 "
                       rounded
                       size="70%">
                 <img :src="require(`@/assets/${device.image}`)"

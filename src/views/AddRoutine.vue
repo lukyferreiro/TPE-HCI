@@ -10,7 +10,7 @@
                 <v-text-field outlined
                               ref="title"
                               v-model="routinetitle"
-                              placeholder="Escriba el nombre de la nueva rutina*"
+                              placeholder="Escriba el nombre de la nueva rutina"
                               counter
                               autofocus
                               clearable
@@ -61,7 +61,6 @@
                                     <v-icon color="white">mdi-plus-circle-outline</v-icon>
                                 </v-btn>
                             </template>
-
                             <v-card class="popup"
                                     color=" secondary white--text">
                                 <v-card-title>
@@ -74,17 +73,39 @@
                                         <v-icon color="white" size="30px">mdi-window-close</v-icon>
                                     </v-btn>
                                 </v-card-title>
+                              <v-row class="devices" align-content-md="auto">
                                 <v-card-actions v-for="device in routine.room.devices"
                                                 :key="device">
-                                    <v-btn class="acceptButtom"
-                                           color="primary black--text"
+                                  <v-card class="device"
+                                          v-on:click="addDeviceToRoom(device, routine)"
+                                          color="primary"
+                                          max-width="200"
+                                          max-height="200" >
+                                    <!--          <v-img class="mx-9 my-9"  max-height="50%" max-width="50%"
+                                                     :src="require(`@/assets/${device.image}`)"
+                                                     :alt="device.name"   >
+
+                                              </v-img>-->
+                                    <v-avatar class="image mr-3 ml-7 mt-5 "
+                                              rounded
+                                              size="70%">
+                                      <img :src="require(`@/assets/${device.image}`)"
+                                           :alt="device.name"/>
+                                    </v-avatar>
+                                    <v-card-title class="card">
+                                      {{device.name}}
+                                    </v-card-title>
+                                  </v-card>
+<!--                                    <v-btn class="acceptButtom"
+                                           color="primary black&#45;&#45;text"
                                            @click="addDeviceToRoom(device, routine)">
-                      <!--                <img :src="require(`@/assets/${device.image}`)"-->
-                      <!--                     :alt="device.name"-->
-                      <!--                />-->
+                      &lt;!&ndash;                <img :src="require(`@/assets/${device.image}`)"&ndash;&gt;
+                      &lt;!&ndash;                     :alt="device.name"&ndash;&gt;
+                      &lt;!&ndash;                />&ndash;&gt;
                                         {{ device.name }}
-                                    </v-btn>
+                                    </v-btn>-->
                                 </v-card-actions>
+                              </v-row>
                             </v-card>
                         </v-dialog>
                     </v-col>
@@ -228,7 +249,9 @@ export default {
     return{
       edit: false,
       nameRules:[
-        v => !!v || 'Campo Obligatorio'
+        v => !!v || 'Campo Obligatorio',
+        v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
+        v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
       ],
       roomSelected:false,
       routinetitle: "",

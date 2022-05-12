@@ -15,11 +15,37 @@
       </v-btn>
     </template>
 
-    <v-card color="black--text primary">
+    <v-card :color="colorset">
       <div>
         <v-card-title class="mx-auto">
-          <v-dialog>
-            <template v-slot:activator="{on, attrs}">
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  color="transparent"
+                  v-bind="attrs"
+                  v-on="on"
+                  depressed
+              >
+                <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                  v-for="(colors, index) in colors"
+                  :key="index"
+              >
+                <v-btn class="color-button"
+                    color="transparent"
+                    depressed
+                       @click="colorset=colors.hex"
+                >
+                <v-list-item-icon> <v-icon :color="colors.hex"> mdi-square</v-icon></v-list-item-icon>
+                <v-list-item-title>{{ colors.name }}</v-list-item-title>
+                </v-btn>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+<!--            <template v-slot:activator="{on, attrs}">
               <v-btn v-on="on"
                      v-bind = "attrs"
                      color="transparent"
@@ -28,13 +54,15 @@
                 <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
               </v-btn>
             </template>
-            <v-card class="colorpicker">
+            <div id="color-picker">
+              <color-picker-select :color-options="colors" empty-option="None"  ></color-picker-select>
+            </div>-->
+<!--            <v-card class="colorpicker">
               <v-color-picker dot-size="3"
                               mode="hexa"
                               swatches-max-height="125"
               />
-            </v-card>
-          </v-dialog>
+            </v-card>-->
 
           <v-spacer/>
           <h3 class="habitacion"> NOMBRE HABITACION </h3>
@@ -90,6 +118,25 @@ export default {
     data: () => ({
       dialog: false,
       closeOnClick: true,
+      colorset: "primary",
+      colors: [
+        {
+          "hex": "#DC143C",
+          "name": "Crimson"
+        },
+        {
+          "hex": "#20B2AA",
+          "name": "Light Sea Green"
+        },
+        {
+          "hex": "#008B8B",
+          "name": "Dark Cyan"
+        },
+        {
+          "hex": "#4682B4",
+          "name": "Steel Blue"
+        }
+      ]
     }),
 }
 </script>
@@ -104,6 +151,9 @@ export default {
     
     .colorpicker {
       width: auto;
+    }
+    .color-button{
+      text-transform: none;
     }
 
 </style>
