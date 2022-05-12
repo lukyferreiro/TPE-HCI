@@ -1,7 +1,7 @@
 <template>
-  <v-btn rounded>
-    {{day}}
-  </v-btn>
+    <v-btn rounded>
+        {{day}}
+    </v-btn>
 </template>
 
 <script>

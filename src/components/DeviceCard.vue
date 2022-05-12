@@ -1,22 +1,20 @@
 <template>
     <div>
-      <v-card class="device"
-              v-on:click="addDevice()"
+        <v-card class="device"
+                v-on:click="addDevice()"
                 rounded
                 color="primary"
                 max-width="250"
-                max-height="250"
-        >
-          <v-avatar class="image ml-9"
-                    rounded
-                    size="70%">
-            <img :src="require(`@/assets/${device.image}`)"
-                 :alt="device.name"
-            />
-          </v-avatar>
-          <v-card-title class="card">
-            {{device.name}}
-          </v-card-title>
+                max-height="250">
+            <v-avatar class="image ml-9"
+                      rounded
+                      size="70%">
+                <img :src="require(`@/assets/${device.image}`)"
+                     :alt="device.name"/>
+            </v-avatar>
+            <v-card-title class="card">
+                {{device.name}}
+            </v-card-title>
         </v-card>
     </div>
 </template>

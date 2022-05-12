@@ -2,7 +2,12 @@
     <div class="room">
 
         <AddRoomButton/>
-        <EditVacuum/>
+<!--        <EditVacuum/>-->
+<!--        <EditRefrigerator/>-->
+<!--        <EditHorno/>-->
+<!--        <EditDoor/>-->
+        <EditGrifo/>
+
 
         <div v-if="roomsAmount==0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
@@ -31,7 +36,11 @@ import AddRoomButton from "@/components/AddRoomButton";
 import RoomCard from "@/components/RoomCard";
 import rooms from '@/api/rooms'
 import store from '@/store/index'
-import EditVacuum from '@/components/EditVacuum'
+// import EditVacuum from '@/components/EditVacuum'
+// import EditRefrigerator from '@/components/EditRefrigerator'
+// import EditHorno from "@/components/EditHorno";
+// import EditDoor from '@/components/EditDoor'
+import EditGrifo from '@/components/EditGrifo'
 
 export default {
     name: "RoomView",
@@ -39,7 +48,11 @@ export default {
       // EditView,
       AddRoomButton,
       RoomCard,
-      EditVacuum,
+      // EditVacuum,
+      // EditRefrigerator,
+      // EditHorno,
+      // EditDoor,
+      EditGrifo,
     },
     data(){
         return{

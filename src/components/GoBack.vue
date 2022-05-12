@@ -2,7 +2,7 @@
     <v-btn @click="goBack"
            :color="color"
     >
-      {{ name }}
+        {{ name }}
     </v-btn>
 </template>
 

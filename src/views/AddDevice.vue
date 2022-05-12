@@ -1,16 +1,16 @@
 <template>
-  <div class="container">
-      <h3>Agregar dispositivo en: </h3>
-      <h1>{{room.name}}</h1>
-    <v-spacer/>
-    <v-row class="devices">
-      <DeviceCard class="device" id="1" :room="room"/>
-      <DeviceCard class="device" id="2" :room="room"/>
-      <DeviceCard class="device" id="3" :room="room"/>
-      <DeviceCard class="device" id="4" :room="room"/>
-      <DeviceCard class="device" id="5" :room="room"/>
-    </v-row>
-  </div>
+    <div class="container">
+        <h3>Agregar dispositivo en: </h3>
+        <h1>{{room.name}}</h1>
+        <v-spacer/>
+        <v-row class="devices">
+            <DeviceCard class="device" id="1" :room="room"/>
+            <DeviceCard class="device" id="2" :room="room"/>
+            <DeviceCard class="device" id="3" :room="room"/>
+            <DeviceCard class="device" id="4" :room="room"/>
+            <DeviceCard class="device" id="5" :room="room"/>
+        </v-row>
+    </div>
 </template>
 
 <script>

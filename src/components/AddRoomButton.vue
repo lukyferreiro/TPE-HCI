@@ -2,53 +2,48 @@
     <v-dialog scrollable
               overflow="auto"
               v-model="dialog"
-              width="1000"
-    >
+              width="1000">
         <template v-slot:activator="{ on, attrs }">
             <v-btn class="button"
                    rounded
                    color="secondary"
                    v-bind="attrs"
                    v-on="on"
-                   absolute
-            >
+                   absolute>
                 Agregar habitación
                 <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
             </v-btn>
         </template>
-
-
-        <v-card class="popup"
-                color="white--text"
-                v-click-outside="closePopup"
-        >
+      
+        <v-card color="secondary white--text"
+                v-click-outside="closePopup">
             <v-card-title>
                 <v-icon class="mr-2" color="white" size="45px"> mdi-home-outline </v-icon>
                 Agregar habitación
                 <v-spacer/>
                 <v-btn color="transparent"
                        @click="closePopup, dialog=false"
-                       depressed
-                >
+                       depressed>
                     <v-icon color="white" size="30px">mdi-window-close</v-icon>
                 </v-btn>
             </v-card-title>
-          <v-form ref="form" lazy-validation @submit="submit">
-            <v-card-text>
+            <v-form ref="form" lazy-validation @submit="submit">
+                <v-card-text>
                     <v-text-field outlined
                                   ref="title"
                                   v-model="roomName"
-                                  placeholder="Escriba el nombre de la habitación"
+                                  placeholder="Escriba el nombre de la habitación *"
+                                  background-color="white"
+                                  color="black"
                                   counter
                                   autofocus
                                   clearable
                                   maxlength="50"
                                   :rules="nameRules"
-                                  required
-                    />
-            </v-card-text>
-          </v-form>
-          <v-card-actions>
+                                  required/>
+                </v-card-text>
+            </v-form>
+            <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn class="acceptButtom"
                        color="primary black--text"
@@ -69,7 +64,7 @@ export default {
     data(){
       return{
         nameRules:[
-          v => !!v || 'Campo Obligatorio'
+          v => !!v || 'Campo Obligatorio *'
         ],
         dialog: false,
         roomName:"",
@@ -111,9 +106,6 @@ export default {
     position: fixed;
     bottom: 80px;
     right: 8px;
-  }
-  .popup{
-    background-color: #0F4C75;
   }
 
   .acceptButtom{

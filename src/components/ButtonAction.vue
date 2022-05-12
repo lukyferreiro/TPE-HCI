@@ -3,13 +3,10 @@
         <v-btn class="button"
                rounded
                plain
-               fab
-    
-        >
+               fab>
             {{content}}
             <v-icon>{{icon}}</v-icon>
         </v-btn>
-    
     </div> 
 </template>
 

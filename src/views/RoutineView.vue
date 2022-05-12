@@ -1,39 +1,37 @@
 <template>
     <div class="routine">
-          <v-btn :to="{name:'AddRoutine'}"
-                 class="button"
-                 rounded
-                 color="secondary"
-                 absolute
-          >
+        <v-btn :to="{name:'AddRoutine'}"
+               class="button"
+               rounded
+               color="secondary"
+               absolute
+        >
             Agregar rutina
             <v-icon> mdi-plus </v-icon>
-          </v-btn>
+        </v-btn>
 
-      <div v-if="routinesAmount==0">
-        <h3 class="text"> No tienes rutinas creadas aún. </h3>
-        <v-layout align-content-center>
-          <v-img alt="Imagen de fondo"
-                 :src="require(`@/assets/withoutRoutines.png`)"
-                 class="mx-auto"
-                 max-width="30%"
-                 max-height="30%"
-          />
-        </v-layout>
-      </div>
+        <div v-if="routinesAmount==0">
+            <h3 class="text"> No tienes rutinas creadas aún. </h3>
+            <v-layout align-content-center>
+                <v-img alt="Imagen de fondo"
+                       :src="require(`@/assets/withoutRoutines.png`)"
+                       class="mx-auto"
+                       max-width="30%"
+                       max-height="30%"/>
+            </v-layout>
+        </div>  
 
         <ul v-else >
             <div v-for="routine in routines" :key="routine">
-              <v-btn @click="playRoutine(routine)"
-                     plain
-                     fab
-              >
-                <v-icon v-if="routine.play">mdi-pause-circle-outline</v-icon>
-                <v-icon v-else> mdi-arrow-right-drop-circle-outline </v-icon>
-              </v-btn>
-              {{routine.name}}
+                <v-btn @click="playRoutine(routine)"
+                       plain
+                       fab
+                >
+                    <v-icon v-if="routine.play">mdi-pause-circle-outline</v-icon>
+                    <v-icon v-else> mdi-arrow-right-drop-circle-outline </v-icon>
+                </v-btn>
+                {{routine.name}}
             </div>
-
         </ul>
     </div>
 </template>

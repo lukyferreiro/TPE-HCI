@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
-    <v-app>
-      <TopBar/>
-      <FooterBar/>
-      <router-view :key="$route.path"/>
-    </v-app>
-  </div>
+    <div id="app">
+        <v-app>
+            <TopBar/>
+            <FooterBar/>
+            <router-view :key="$route.path"/>
+        </v-app>
+    </div>
 </template>
 
 <script>

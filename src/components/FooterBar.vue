@@ -5,8 +5,7 @@
               padless
               outlined
               height="auto"
-              fixed
-    >
+              fixed>
         <v-card-text  tile class="flex text-center">
             <v-icon class="copyrightIcon" color="black"> mdi-copyright </v-icon>
             {{new Date().getFullYear()}} ALMA - Todos los derechos reservados.

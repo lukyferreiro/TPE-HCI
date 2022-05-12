@@ -1,11 +1,12 @@
 <template>
-<div>
-  <h1>Not Found</h1>
-  <p>Oops que couldn't find that page. Try going to
-    <router-link :to="{name:'/'}">home
-    </router-link>
-  </p>
-</div>
+    <div>
+        <h1>Not Found</h1>
+        <p>Oops que couldn't find that page. Try going to
+            <router-link :to="{name:'/'}">
+                home
+            </router-link>
+        </p>
+    </div>
 </template>
 
 <script>
