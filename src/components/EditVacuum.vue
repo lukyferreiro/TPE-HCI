@@ -1,121 +1,121 @@
 <template>
-    <v-dialog scrollable
-              overflow="auto"
-              v-model="dialog"
-              width="1000"
+  <v-dialog scrollable
+            overflow="auto"
+            v-model="dialog"
+            width="1000"
+  >
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn class="button"
+             rounded
+             color="secondary"
+             v-bind="attrs"
+             v-on="on"
+             absolute
+      >
+        Editar Aspiradora
+      </v-btn>
+    </template>
+
+    <v-card class="popup"
+            color="black--text primary"
     >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn class="button"
-                 rounded
-                 color="secondary"
-                 v-bind="attrs"
-                 v-on="on"
-                 absolute
+      <div >
+        <v-card-title class="mx-auto">
+          <v-dialog>
+            <template v-slot:activator="{on, attrs}">
+              <v-btn v-on="on"
+                     v-bind = "attrs"
+                     color = "transparent"
+                     depressed
+              >
+                <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+
+              </v-btn>
+            </template>
+            <v-card class="colorpicker">
+              <v-color-picker dot-size="3"
+                              mode="hexa"
+                              swatches-max-height="125"
+              />
+            </v-card>
+          </v-dialog>
+
+          <v-spacer/>
+
+          <h3 class="habitacion"> NOMBRE HABITACION </h3>
+
+          <v-spacer/>
+
+          <v-btn class="pt-0 mt-0"
+                 color="transparent"
+                 @click="dialog=false"
+                 depressed
           >
-            Editar Aspiradora
+            <v-icon color="black" size="40px">mdi-window-close</v-icon>
           </v-btn>
-        </template>
 
-        <v-card class="popup"
-                color="black--text primary"
-        >
-            <div >
-                <v-card-title class="mx-auto">
-                    <v-dialog>
-                        <template v-slot:activator="{on, attrs}">
-                            <v-btn v-on="on"
-                                   v-bind = "attrs"
-                                   color = "transparent"
-                                   depressed
-                            >
-                                <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+        </v-card-title>
+      </div>
 
-                            </v-btn>
-                        </template>
-                        <v-card class="colorpicker">
-                            <v-color-picker dot-size="3"
-                                            mode="hexa"
-                                            swatches-max-height="125"
-                            />
-                        </v-card>
-                    </v-dialog>
+      <div>
+        <v-card-actions class="pt-0 mt-0 cardText">
+          <v-avatar class="image"
+                    rounded
+                    size="80px"
+          >
+            <v-img :src="require(`@/assets/robot-vacuum.png`)"
+                   alt="Aspiradora" />
+          </v-avatar>
+        </v-card-actions>
+        <v-card-actions class="cardText">
+          <h2>
+            Aspiradora
+            <v-icon color="black" size="30px">mdi-pencil-outline</v-icon>
+          </h2>
+        </v-card-actions>
 
-                    <v-spacer/>
+        <v-divider/>
 
-                    <h3 class="habitacion"> NOMBRE HABITACION </h3>
+        <v-card-actions class="cardText">
 
-                    <v-spacer/>
+          <v-switch v-model="closeOnClick"
+                    label="ENCENDER/APAGAR"
+                    color="secondary" />
 
-                    <v-btn class="pt-0 mt-0"
-                           color="transparent"
-                           @click="dialog=false"
-                           depressed
-                    >
-                        <v-icon color="black" size="40px">mdi-window-close</v-icon>
-                    </v-btn>
+        </v-card-actions>
+        <v-card-actions class="cardText">
+          <v-btn @click="playVacuum()"
+                 plain
+                 fab
+                 retain-focus-on-click
+                 v-ripple="false"
+          >
+            <v-icon v-if="play" color="black" size="40px" class="mr-3">mdi-pause-circle-outline</v-icon>
+            <v-icon v-else color="black" size="40px" class="mr-3"> mdi-arrow-right-drop-circle-outline </v-icon>
+            <!--                            <v-text>-->
+            Pausar/Reanudar
+            <!--                            </v-text>-->
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions class="cardText">
+          <v-btn
+              color = "transparent"
+          >
+            Modo
+          </v-btn>
 
-                </v-card-title>
-            </div>
-
-            <div>
-                <v-card-actions class="pt-0 mt-0 cardText">
-                    <v-avatar class="image"
-                              rounded
-                              size="80px"
-                              >
-                        <v-img :src="require(`@/assets/robot-vacuum.png`)"
-                               alt="Aspiradora" />
-                    </v-avatar>
-                </v-card-actions>
-              <v-card-actions class="cardText">
-                    <h2>
-                        Aspiradora
-                        <v-icon color="black" size="30px">mdi-pencil-outline</v-icon>
-                    </h2>
-                </v-card-actions>
-
-                <v-divider/>
-
-                <v-card-actions class="cardText">
-
-                    <v-switch v-model="closeOnClick"
-                              label="ENCENDER/APAGAR"
-                              color="secondary" />
-
-                </v-card-actions>
-                <v-card-actions class="cardText">
-                  <v-btn @click="playVacuum()"
-                         plain
-                         fab
-                         retain-focus-on-click
-                         v-ripple="false"
-                  >
-                    <v-icon v-if="play" color="black" size="40px" class="mr-3">mdi-pause-circle-outline</v-icon>
-                    <v-icon v-else color="black" size="40px" class="mr-3"> mdi-arrow-right-drop-circle-outline </v-icon>
-                    <!--                            <v-text>-->
-                    Pausar/Reanudar
-                    <!--                            </v-text>-->
-                  </v-btn>
-                  </v-card-actions>
-              <v-card-actions class="cardText">
-                <v-btn
-                  color = "transparent"
-                  >
-                  Modo
-                </v-btn>
-
-              </v-card-actions>
-                  <v-card-actions>
-                        <v-btn class="acceptButton mx-auto"
-                               color="error white--text"
-                        >
-                          Borrar dispositivo
-                          <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
-                        </v-btn>
-                </v-card-actions>
-            </div>
-        </v-card>
-    </v-dialog>
+        </v-card-actions>
+        <v-card-actions>
+          <v-btn class="acceptButton mx-auto"
+                 color="error white--text"
+          >
+            Borrar dispositivo
+            <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </div>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -138,15 +138,15 @@ export default {
 .colorpicker {
   width: auto;
 }
-  /*.habitacion{*/
-  /*  margin-left: 100px;*/
-  /*  margin-right: 100px;*/
-  /*}*/
+/*.habitacion{*/
+/*  margin-left: 100px;*/
+/*  margin-right: 100px;*/
+/*}*/
 
-  .cardText{
-    align-self: center;
-    justify-content: center;
-    justify-self: center;
-  }
+.cardText{
+  align-self: center;
+  justify-content: center;
+  justify-self: center;
+}
 
 </style>
