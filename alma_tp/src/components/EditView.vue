@@ -4,42 +4,37 @@
               v-model="dialog"
               width="1000"
     >
-        <v-card class="popup"
-                color="secondary white--text"
-                v-click-outside="closePopup"
-        >
+        <v-card color="secondary white--text"
+                v-click-outside="closePopup">
             <v-card-title>
                 <v-icon class="mr-2" color="white" size="45px"> mdi-home-outline </v-icon>
-<!--                {{content}}-->
                 Editar habitación
                 <v-spacer/>
                 <v-btn color="transparent"
                        @click="closePopup, dialog=false"
-                       depressed
-                >
+                       depressed>
                     <v-icon color="white" size="30px">mdi-window-close</v-icon>
                 </v-btn>
             </v-card-title>
             <v-card-text>
                 <v-text-field outlined
                               ref="title"
-                              v-model="roomName"
-                              placeholder="Escriba el nombre de la habitación *"
+                              v-model="newRoomName"
+                              placeholder="Escriba el nombre de la habitación"
                               background-color="white"
                               color="black"
                               counter
                               autofocus
                               clearable
-                              maxlength="50"
+                              maxlength="60"
                               required
-                              :rules="nameRules"
-                />
+                              :rules="nameRules"/>
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn class="acceptButtom"
+                <v-btn class="mb-2"
                        color="primary black--text"
-                       @click="editRoom(roomName)"
+                       @click="editRoom()"
                 >
                     Aceptar
                 </v-btn>
@@ -49,18 +44,18 @@
 </template>
 
 <script>
-//import store from "@/store";
-
+import {mapActions} from "vuex"
 export default {
     name: "EditView",
-    // props: ['content'],
     data(){
         return{
-            dialog:true,
-            roomName:'',
+            dialog: true,
+            newRoomName: "",
             nameRules:[
-              v => !!v || 'Campo Obligatorio *'
-            ],
+              v => !!v || 'Campo Obligatorio',
+              v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
+              v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
+          ],
         }
     },
     methods:{
@@ -69,13 +64,24 @@ export default {
         },
         submit(e){
           e.preventDefault();
-          this.addRoom()
+          this.editRoom()
         },
-        editRoom(room2){
-            // this.$refs.item.name=room2
-            console.log("quiero cambiar el nombre de "+ this.$refs.item.name + "to" + room2)
-            this.dialog=false;
+        ...mapActions("room",{
+          $editRoom: "edit",
+          $getAllRooms: "getAll",
+          $getRoom : "get"
+        }),
+        setResult(rooms){
+          console.log(rooms)
         },
+        async editRoom(){
+
+        },
+        // editRoom(room2){
+        //     // this.$refs.item.name=room2
+        //     console.log("quiero cambiar el nombre de "+ this.$refs.item.name + "to" + room2)
+        //     this.dialog=false;
+        // },
         closePopup(){
           this.reset();
         }

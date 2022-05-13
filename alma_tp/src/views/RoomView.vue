@@ -21,13 +21,16 @@
             </v-layout>
         </div>
 
-        <ul v-else>
-          <template>
-            <div v-for="room in $rooms" :key="room.id">
-              <RoomCard v-bind:room="room"/>
-            </div>
-          </template>
-        </ul>
+<!--        <ul v-else>-->
+<!--            <template>-->
+                <div v-else v-for="room in $rooms"
+                     :key="room.id">
+                  <v-card class="roomCard blue lighten-5">
+                    <RoomCard v-bind:room="room"/>
+                  </v-card>
+                </div>
+<!--            </template>-->
+<!--        </ul>-->
     </div>
 </template>
 
@@ -103,11 +106,20 @@ export default {
 <style scoped>
 
     .room{
-        margin-top: 150px;
+        margin-top: 130px;
+        max-width: 83%;
     }
 
     .text{
         margin: 10px;
+    }
+
+    .roomCard{
+      margin-left: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 10px;
     }
 
 </style>

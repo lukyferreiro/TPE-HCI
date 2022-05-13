@@ -64,7 +64,7 @@ export default {
         nameRules:[
           v => !!v || 'Campo Obligatorio',
           v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
-            v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
+          v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
         ],
         dialog: false,
         roomName:"",

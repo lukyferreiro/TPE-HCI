@@ -1,9 +1,9 @@
 <template>
     <v-row class="bar">
         <v-col>
-            <v-expansion-panels class="expansion" hover>
+            <v-expansion-panels class="expansion" hover flat>
                 <v-expansion-panel>
-                    <v-expansion-panel-header class="roomCard grey lighten-3">
+                    <v-expansion-panel-header class="roomText blue lighten-5">
                         {{this.room.name}}
                     </v-expansion-panel-header>
                     <v-expansion-panel-content v-for="device in room.devices" :key="device">
@@ -15,7 +15,7 @@
             </v-expansion-panels>
         </v-col>
 
-        <v-col cols="12" md="5">
+        <v-col col="12" md="3">
             <v-menu v-model="menu"
                     :close-on-content-click="false"
                     offset-x
@@ -111,13 +111,13 @@ export default {
         $showRoom: "show"
       }),
 
-        editRoom(room2){
+      editRoom(room2){
             this.edit=false;
             console.log('edit room to ' + room2.name);
-        },
-        editColor(){
+      },
+      editColor(){
             console.log('edit color in ' + this.room.name)
-        },
+      },
       setResult(room){
         console.log(room)
         // this.$getRoom(room)
@@ -146,11 +146,19 @@ export default {
 
 <style scoped>
 
+    .bar{
+      display: flex;
+    }
+
+    .expansion{
+      border-radius: 0px;
+    }
+
     .menu{
       width: 150px;
     }
 
-    .roomCard{
+    .roomText{
       font-size: 20px;
       font-weight: bold;
     }
