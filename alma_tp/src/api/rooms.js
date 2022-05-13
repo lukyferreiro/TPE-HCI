@@ -1,19 +1,5 @@
-const _rooms=[
-    // {   name: 'room1',
-    //     devices: [{name:'device1', file:'png'}, {name:'device2', file:'png'}],
-    //     show:false,
-    // }
-]
-
-export default{
-    getRooms(okCallback){
-        setTimeout(()=> okCallback(_rooms), 100 )
-    },
-}
-
-//API ROOM
 import {Api} from "@/api/api";
-class RoomApi{
+class RoomApi {
     static getUrl(slug){
         return `${Api.baseUrl}/rooms${slug ? `/${slug}` : ''}`
     }
@@ -39,6 +25,13 @@ class RoomApi{
     static async getRoom(idRoom){
         return await Api.get(RoomApi.getUrl(idRoom));
     }
+
+    static async showRoom(idRoom){
+     return await Api.put(RoomApi.getUrl(idRoom))
+    }
+    // showFalse(state, room){
+    //   state.rooms[state.rooms.indexOf(room)].show = false;
+    // },
 }
 
 export {RoomApi}

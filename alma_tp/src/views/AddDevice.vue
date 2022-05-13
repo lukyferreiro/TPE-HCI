@@ -4,17 +4,21 @@
         <h1>{{room.name}}</h1>
         <v-spacer/>
         <v-row class="devices">
-            <DeviceCard class="device" id="1" :room="room"/>
-            <DeviceCard class="device" id="2" :room="room"/>
-            <DeviceCard class="device" id="3" :room="room"/>
-            <DeviceCard class="device" id="4" :room="room"/>
-            <DeviceCard class="device" id="5" :room="room"/>
+            <!-- GRIFO -->
+            <DeviceCard class="device" id="dbrlsh7o5sn8ur4i" :room="room"/>
+<!--            &lt;!&ndash; HORNO &ndash;&gt;-->
+<!--            <DeviceCard class="device" id="im77xxyulpegfmv8" :room="room"/>-->
+<!--            &lt;!&ndash; PUERTA&ndash;&gt;-->
+<!--            <DeviceCard class="device" id="lsf78ly0eqrjbz91" :room="room"/>-->
+<!--            &lt;!&ndash; ASPIRADORA &ndash;&gt;-->
+<!--            <DeviceCard class="device" id="ofglvd9gqx8yfl3l" :room="room"/>-->
+<!--            &lt;!&ndash; HELADERA &ndash;&gt;-->
+<!--            <DeviceCard class="device" id="rnizejqr2di0okho" :room="room"/>-->
         </v-row>
     </div>
 </template>
 
 <script>
-// import store from '@/api/devices'
 import DeviceCard from "@/components/DeviceCard";
 
 export default {
@@ -24,14 +28,10 @@ export default {
   },
   data(){
     return {
-      // devices: store.devices,
       room:this.$route.params.room
     }
   },
   methods:{
-    // addDevice(id){
-    //   console.log(id);
-    // }
   }
 }
 </script>

@@ -80,7 +80,7 @@
 
 <script>
 import EditView from "@/components/EditView";
-import store from "@/store";
+import {mapActions} from "vuex";
 
 export default {
     name: "RoomCard",
@@ -95,9 +95,15 @@ export default {
         }
     },
     methods: {
-        // addDevice(){
-        //     console.log('add device in ' + this.room.name)
-        // },
+      ...mapActions("room",{
+        $addRoom: "add",
+        $editRoom: "edit",
+        $deleteRoom: "delete",
+        $getAllRooms: "getAll",
+        $getRoom : "get",
+        $showRoom: "show"
+      }),
+
         editRoom(room2){
             this.edit=false;
             console.log('edit room to ' + room2.name);
@@ -105,14 +111,27 @@ export default {
         editColor(){
             console.log('edit color in ' + this.room.name)
         },
-        deleteRoom(){
-            store.commit("deleteRoom", this.room)
-        },
-        showRoom(){
-          store.commit("showRoom", this.room);
+      setResult(room){
+        console.log(room)
+        // this.$getRoom(room)
+      },
+      async deleteRoom(room){
+        try {
+          await this.$deleteRoom(this.room.id);
+          this.setResult(room)
+        }catch (e){
+          this.setResult(e)
+        }
+      },
+      showRoom(){
+          let room = this.room;
+          room.show = !room.show;
+          this.$showRoom(room.id);
         },
         showFalse(){
-          store.commit("showFalse", this.room)
+          let room = this.room;
+          room.show = false;
+          this.$showRoom(room.id);
         }
     }
 }

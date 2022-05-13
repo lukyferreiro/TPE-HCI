@@ -57,8 +57,7 @@
 </template>
 
 <script>
-import store from "@/store";
-// import {mapActions} from "vuex"
+import {mapActions} from "vuex"
 export default {
     name: "AddRoomButton",
     data(){
@@ -70,12 +69,6 @@ export default {
         ],
         dialog: false,
         roomName:"",
-        room:{
-          id:"",
-          name:"",
-          devices:[],
-          show: false
-        },
       }
     },
     methods: {
@@ -86,38 +79,30 @@ export default {
         e.preventDefault();
         this.addRoom()
       },
-      // ...mapActions("room",{
-      //  $addRoom: "add",
-      //  $editRoom: "edit",
-      //  $deleteRoom: "delete",
-      //  $getAllRooms: "getAll",
-      //  $getRoom : "get:
-      // }),
-      // //result mapeado en v-model
-      // setResult(result){
-      //  console.log(this.result)
-      // }
-      // async addRoom(){
-      //   if(this.$refs.form.validate()) {
-      //     try{
-      //      let room = {
-      //        name: this.roomName,
-      //        meta: {devices: []}
-      //      }
-      //      room = await this.$addRoom(room)
-      //      this.setResult(room)
-      //     } catch(e){
-      //        this.setResult(e)
-      //     }
-      //     this.dialog = false;
-      //     this.reset();
-      //   }
-      // },
-      addRoom(){
+      ...mapActions("room",{
+       $addRoom: "add",
+       $editRoom: "edit",
+       $deleteRoom: "delete",
+       $getAllRooms: "getAll",
+       $getRoom : "get"
+      }),
+      setResult(rooms){
+        console.log(rooms)
+      },
+      async addRoom(){
         if(this.$refs.form.validate()) {
-          // this.room.id=
-          this.room.name = this.roomName
-          store.commit("addRooms", this.room)
+          try{
+           let room = {
+             name: this.roomName,
+             meta: {
+                    devices:[],
+                    show: false}
+           }
+           room = await this.$addRoom(room)
+           this.setResult(room.id)
+          } catch(e){
+             this.setResult(e.code)
+          }
           this.dialog = false;
           this.reset();
         }

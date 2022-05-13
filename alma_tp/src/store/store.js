@@ -2,12 +2,12 @@ export default {
     devices: [
         {
             name: "Aspiradora",
-            image: "robot-vacuum.png",
+            image: "vacuum.png",
             id: 1
         },
         {
             name: "Grifo",
-            image: "grifo-de-agua.png",
+            image: "faucet.png",
             id: 2
         },
         {

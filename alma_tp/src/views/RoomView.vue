@@ -6,7 +6,7 @@
 <!--        <EditRefrigerator/>-->
 <!--        <EditHorno/>-->
 <!--        <EditDoor/>-->
-        <EditGrifo/>
+<!--        <EditGrifo/>-->
 
 
         <div v-if="roomsAmount==0">
@@ -23,8 +23,8 @@
 
         <ul v-else>
           <template>
-            <div v-for="room in rooms" :key="room.id">
-              <RoomCard :room="room" />
+            <div v-for="room in $rooms" :key="room.id">
+              <RoomCard v-bind:room="room"/>
             </div>
           </template>
         </ul>
@@ -34,13 +34,14 @@
 <script>
 import AddRoomButton from "@/components/AddRoomButton";
 import RoomCard from "@/components/RoomCard";
-import rooms from '@/api/rooms'
-import store from '@/store/index'
+// import rooms from '@/api/rooms'
+// import store from '@/store/index'
 // import EditVacuum from '@/components/EditVacuum'
 // import EditRefrigerator from '@/components/EditRefrigerator'
 // import EditHorno from "@/components/EditHorno";
 // import EditDoor from '@/components/EditDoor'
-import EditGrifo from '@/components/EditGrifo'
+// import EditGrifo from '@/components/EditGrifo'
+import {mapActions, mapState} from "vuex";
 
 export default {
     name: "RoomView",
@@ -52,7 +53,7 @@ export default {
       // EditRefrigerator,
       // EditHorno,
       // EditDoor,
-      EditGrifo,
+      // EditGrifo,
     },
     data(){
         return{
@@ -63,19 +64,24 @@ export default {
         }
     },
     computed:{
-        rooms(){
-          return store.state.rooms
-        },
-        roomsAmount(){
-          return store.getters.roomsAmount
+      ...mapState("room",{
+            $rooms: "rooms"
+          }
+      ),
+      roomsAmount(){
+          return this.$getAllRooms().length
         }
     },
-    created() {
-         rooms.getRooms(rooms => {
-             store.commit("setRooms", rooms) })
-    },
     methods: {
-        addDevice(room){
+      ...mapActions("room",{
+        $addRoom: "add",
+        $editRoom: "edit",
+        $deleteRoom: "delete",
+        $getAllRooms: "getAll",
+        $getRoom : "get",
+        $showRoom: "show"
+      }),
+      addDevice(room){
             this.room.show=false
             console.log('add device in ' + room.name)
         },
@@ -86,9 +92,10 @@ export default {
         editColor(room){
             console.log('edit color in ' + room.name)
         },
-        deleteRoom(room){
-            this.rooms.splice(this.rooms.indexOf(room), 1);
-        }
+        setResult(room){
+          console.log(room)
+        },
+
     }
 }
 </script>
