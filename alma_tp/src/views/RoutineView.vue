@@ -96,6 +96,7 @@ export default {
 
     .routine{
       margin-top: 120px;
+      margin-bottom: 50px;
     }
 
     .button{

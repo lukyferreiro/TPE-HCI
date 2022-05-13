@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <h3>Agregar dispositivo en: </h3>
-        <h1>{{room.name}}</h1>
+        <GoBack name="Volver"/>
+        <h2>Agregar dispositivo en: {{room.name}} </h2>
         <v-spacer/>
         <v-row class="devices">
             <!-- GRIFO -->
@@ -20,10 +20,12 @@
 
 <script>
 import DeviceCard from "@/components/DeviceCard";
+import GoBack from "@/components/GoBack";
 
 export default {
   name: "AddDevice",
   components: {
+    GoBack,
     DeviceCard
   },
   data(){

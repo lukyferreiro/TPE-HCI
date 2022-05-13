@@ -39,47 +39,47 @@
                       <v-icon size="35" color="black">mdi-dots-vertical</v-icon>
                    </v-btn>
                 </template>
-                <v-list class="menu"
-                        v-if="room.show"
-                        v-click-outside="showFalse"
-                >
-                    <v-list-item>
-                        <v-list-item-action class="flex">
-                            <v-btn class="button"
-                                   plain
-                                   rounded
-                                   fab
-                                   @click="edit=true"
-                                   v-ripple="false"
-                            >
-                                Editar
-                                <v-icon class="ml-1">mdi-pencil-outline</v-icon>
-                                <EditView v-if="edit"/>
-                            </v-btn>
-                            <v-btn class="button"
-                                   plain
-                                   rounded
-                                   fab
-                                   @click="editColor()"
-                                   v-ripple="false"
-                            >
-                                Editar Color
-                                <v-icon class="ml-2">mdi-palette-outline</v-icon>
-                            </v-btn>
-
-                            <v-btn class="button"
-                                   plain
-                                   rounded
-                                   fab
-                                   @click="deleteRoom()"
-                                   v-ripple="false"
-                            >
-                                Borrar
-                                <v-icon class="ml-2">mdi-trash-can-outline</v-icon>
-                            </v-btn>
-                        </v-list-item-action>
-                    </v-list-item>
-                </v-list>
+                <div class="options"
+                     v-if="room.show"
+                     v-click-outside="showFalse">
+                    <v-card-actions class="options">
+                        <v-btn class="button"
+                               plain
+                               rounded
+                               fab
+                               @click="edit=true"
+                               v-ripple="false"
+                        >
+                            Editar nombre
+                            <v-icon class="ml-1">mdi-pencil-outline</v-icon>
+                            <EditView v-if="edit"/>
+                        </v-btn>
+                    </v-card-actions>
+                    <v-card-actions class="options">
+                        <v-btn class="button"
+                               plain
+                               rounded
+                               fab
+                               @click="editColor()"
+                               v-ripple="false"
+                        >
+                            Editar color
+                            <v-icon class="ml-2">mdi-palette-outline</v-icon>
+                        </v-btn>
+                    </v-card-actions>
+                    <v-card-actions class="options">
+                        <v-btn class="button"
+                               plain
+                               rounded
+                               fab
+                               @click="deleteRoom()"
+                               v-ripple="false"
+                        >
+                            Borrar habitación
+                            <v-icon class="ml-2">mdi-trash-can-outline</v-icon>
+                        </v-btn>
+                    </v-card-actions>
+                </div>
             </v-menu>
         </v-col>
     </v-row>
@@ -97,7 +97,7 @@ export default {
     props: ["room"],
     data(){
         return{
-            edit:false,
+            edit: false,
             menu: false,
         }
     },
@@ -146,16 +146,14 @@ export default {
 
 <style scoped>
 
-    .bar{
-      display: flex;
-    }
-
     .expansion{
-      border-radius: 0px;
+      border-radius: 0;
     }
 
-    .menu{
-      width: 150px;
+    .options{
+      justify-content: center;
+      width: 230px;
+      background-color: white;
     }
 
     .roomText{

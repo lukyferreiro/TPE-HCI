@@ -8,8 +8,7 @@
 <!--        <EditDoor/>-->
 <!--        <EditGrifo/>-->
 
-
-        <div v-if="roomsAmount==0">
+        <div v-if="$rooms.length===0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
             <v-layout align-content-center>
                 <v-img alt="Imagen de fondo"
@@ -20,17 +19,12 @@
                 />
             </v-layout>
         </div>
-
-<!--        <ul v-else>-->
-<!--            <template>-->
-                <div v-else v-for="room in $rooms"
-                     :key="room.id">
-                  <v-card class="roomCard blue lighten-5">
-                    <RoomCard v-bind:room="room"/>
-                  </v-card>
-                </div>
-<!--            </template>-->
-<!--        </ul>-->
+        <div v-else v-for="room in $rooms"
+             :key="room.id">
+            <v-card class="roomCard blue lighten-5">
+                <RoomCard v-bind:room="room"/>
+            </v-card>
+        </div>
     </div>
 </template>
 
@@ -98,7 +92,6 @@ export default {
         setResult(room){
           console.log(room)
         },
-
     }
 }
 </script>
@@ -108,6 +101,7 @@ export default {
     .room{
         margin-top: 130px;
         max-width: 83%;
+        margin-bottom: 50px;
     }
 
     .text{

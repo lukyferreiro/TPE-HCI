@@ -2,8 +2,7 @@
     <v-footer color="grey lighten-3"
               padless
               outlined
-              app
-              class="mt-3" >
+              class="mt-3 footer" >
         <v-card-text class="flex text-center text">
             <v-icon size="22" color="black"> mdi-copyright </v-icon>
             {{new Date().getFullYear()}} ALMA - Todos los derechos reservados.
@@ -22,6 +21,13 @@ export default {
   .text{
     font-weight: bold;
     font-size: 15px;
+  }
+
+  .footer{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 
 </style>
