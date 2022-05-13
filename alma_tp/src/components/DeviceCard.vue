@@ -24,13 +24,26 @@ import {mapActions} from "vuex";
 export default {
     name: "DeviceCard",
     props:["id", "room"],
-    computed:{
+    data(){
+      return({
+        device:{}
+      })
+    },
+  // computed:{
+  //   device: async function () {
+  //     const resp = await this.$getDevice(this.id)
+  //     console.log(resp)
+  //     return resp;
+  //   },
+  //
+  // },
+    created:{
       // ...mapState("devicesTypes",{
       //       $devices: "devicesTypes",
       //     }
       // ),
-      device(){
-        const resp= this.$getDevice(this.id)
+      device: async function () {
+        const resp = await this.$getDevice(this.id)
         console.log(resp)
         return resp;
       },
