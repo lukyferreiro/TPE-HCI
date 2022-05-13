@@ -2,7 +2,7 @@
     <div class="room">
 
         <AddRoomButton/>
-<!--        <EditVacuum/>-->
+        <EditVacuum/>
 <!--        <EditRefrigerator/>-->
 <!--        <EditHorno/>-->
 <!--        <EditDoor/>-->
@@ -33,7 +33,7 @@ import AddRoomButton from "@/components/AddRoomButton";
 import RoomCard from "@/components/RoomCard";
 // import rooms from '@/api/rooms'
 // import store from '@/store/index'
-// import EditVacuum from '@/components/EditVacuum'
+import EditVacuum from '@/components/EditVacuum'
 // import EditRefrigerator from '@/components/EditRefrigerator'
 // import EditHorno from "@/components/EditHorno";
 // import EditDoor from '@/components/EditDoor'
@@ -46,7 +46,7 @@ export default {
       // EditView,
       AddRoomButton,
       RoomCard,
-      // EditVacuum,
+      EditVacuum,
       // EditRefrigerator,
       // EditHorno,
       // EditDoor,
