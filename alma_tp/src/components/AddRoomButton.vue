@@ -45,10 +45,9 @@
             </v-form>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn class="acceptButtom"
+                <v-btn class="mb-2"
                        color="primary black--text"
-                       @click="addRoom"
-                >
+                       @click="addRoom">
                   Aceptar
                 </v-btn>
             </v-card-actions>
@@ -119,12 +118,7 @@ export default {
   .button{
     position: fixed;
     bottom: 80px;
-    right: 8px;
-  }
-
-  .acceptButtom{
-    background-color: #B5D9F1;
-    color: #000000;
+    right: 15px;
   }
 
 </style>

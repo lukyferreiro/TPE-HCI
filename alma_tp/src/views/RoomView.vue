@@ -107,7 +107,7 @@ export default {
     }
 
     .text{
-    margin: 10px;
+        margin: 10px;
     }
 
 </style>

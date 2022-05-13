@@ -4,10 +4,9 @@
                class="button"
                rounded
                color="secondary"
-               absolute
-        >
+               absolute>
             Agregar rutina
-            <v-icon> mdi-plus </v-icon>
+            <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
         </v-btn>
 
         <div v-if="routinesAmount==0">
@@ -94,20 +93,18 @@ export default {
 
 
 <style scoped>
-  .routine{
-    margin-top: 150px;
-  }
 
-  .button{
-    position: fixed;
-    bottom: 80px;
-    right: 8px;
-  }
-  .text{
-    margin: 10px;
-  }
+    .routine{
+      margin-top: 120px;
+    }
 
-  .routine{
-    margin-top: 120px;
-  }
+    .button{
+      position: fixed;
+      bottom: 80px;
+      right: 15px;
+    }
+    .text{
+      margin: 10px;
+    }
+
 </style>
