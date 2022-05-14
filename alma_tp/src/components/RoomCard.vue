@@ -6,7 +6,10 @@
                     <v-expansion-panel-header class="roomText blue lighten-5">
                         {{this.room.name}}
                     </v-expansion-panel-header>
-                    <v-expansion-panel-content v-for="device in room.devices" :key="device">
+                    <v-expansion-panel-content v-if="true" class="pt-2 pl-4 blue lighten-5" >
+                        <p>No tienes ningún dispositivo vinculado.</p>
+                    </v-expansion-panel-content>
+                    <v-expansion-panel-content v-else v-for="device in room.devices" :key="device">
                         <v-btn plain>
                             {{device.name}}
                         </v-btn>
@@ -170,6 +173,11 @@ export default {
       text-transform: none;
       font-size: 17px;
       color: black;
+      font-weight: bold;
+    }
+
+    p{
+      font-size: 17px;
       font-weight: bold;
     }
 
