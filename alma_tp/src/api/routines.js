@@ -24,16 +24,20 @@ class RoutineApi {
         return `${Api.baseUrl}/routines${slug ? `/${slug}` : ''}`
     }
 
+    static getUrlExecute(slug){
+        return `${Api.baseUrl}/routines${slug ? `/${slug}` : ''}/execute`
+    }
+
     static async addRoutine(routine){
         return await Api.post(RoutineApi.getUrl(), routine);
     }
 
     static async editRoutine(routine){
-        return await Api.put(RoutineApi.getUrl(routine.id) + "/execute", routine);
+        return await Api.put(RoutineApi.getUrl(routine.id), routine);
     }
 
     static async executeRoutine(routine){
-        return await Api.put(RoutineApi.getRoutine(routine.id), routine);
+        return await Api.put(RoutineApi.getUrlExecute(routine.id), routine);
     }
 
     static async deleteRoutine(idRoutine){
