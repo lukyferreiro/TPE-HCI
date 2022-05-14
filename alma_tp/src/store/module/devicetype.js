@@ -6,14 +6,14 @@ export default {
         devicesTypes: [],
     },
     actions:{
-        async getAll({commit}){
-            const result =  await DeviceTypesApi.getAll();
+        async getAllTypes({commit}){
+            const result =  await DeviceTypesApi.getAllTypes();
             commit("update", result);
             return result;
         },
-        async getDevice({dispatch}, idDevice){
-            const result =  await DeviceTypesApi.getDevice(idDevice);
-            dispatch("getAll", result);
+        async getDeviceType({dispatch}, idDeviceType){
+            const result =  await DeviceTypesApi.getDeviceType(idDeviceType);
+            dispatch("getAllTypes", result);
             return result;
         },
     },

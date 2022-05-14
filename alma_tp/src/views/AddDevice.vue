@@ -6,14 +6,14 @@
         <v-row class="devices">
             <!-- GRIFO -->
             <DeviceCard class="device" id="dbrlsh7o5sn8ur4i" :room="room"/>
-<!--            &lt;!&ndash; HORNO &ndash;&gt;-->
-<!--            <DeviceCard class="device" id="im77xxyulpegfmv8" :room="room"/>-->
-<!--            &lt;!&ndash; PUERTA&ndash;&gt;-->
-<!--            <DeviceCard class="device" id="lsf78ly0eqrjbz91" :room="room"/>-->
-<!--            &lt;!&ndash; ASPIRADORA &ndash;&gt;-->
-<!--            <DeviceCard class="device" id="ofglvd9gqx8yfl3l" :room="room"/>-->
-<!--            &lt;!&ndash; HELADERA &ndash;&gt;-->
-<!--            <DeviceCard class="device" id="rnizejqr2di0okho" :room="room"/>-->
+            <!-- HORNO -->
+            <DeviceCard class="device" id="im77xxyulpegfmv8" :room="room"/>
+            <!-- PUERTA-->
+            <DeviceCard class="device" id="lsf78ly0eqrjbz91" :room="room"/>
+            <!-- ASPIRADORA -->
+            <DeviceCard class="device" id="ofglvd9gqx8yfl3l" :room="room"/>
+            <!-- HELADERA -->
+            <DeviceCard class="device" id="rnizejqr2di0okho" :room="room"/>
         </v-row>
     </div>
 </template>
@@ -21,19 +21,22 @@
 <script>
 import DeviceCard from "@/components/DeviceCard";
 import GoBack from "@/components/GoBack";
+// import devicetype from "@/store/module/devicetype";
 
 export default {
   name: "AddDevice",
+  props: ["room"],
   components: {
     GoBack,
     DeviceCard
   },
   data(){
     return {
-      room:this.$route.params.room
+      // room: this.$route.params.room
     }
   },
   methods:{
+
   }
 }
 </script>

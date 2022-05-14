@@ -5,14 +5,14 @@
                 color="primary"
                 max-width="200"
                 max-height="200" >
-            <v-avatar class="image mr-3 ml-7 mt-5 "
+            <v-avatar class="image mr-3 ml-7 mt-5"
                       rounded
                       size="70%">
-                <img :src="require(`@/assets/${device.name}`)"
-                     :alt="device.name"/>
+                <v-img :src="require(`@/assets/${myDevice.name}.png`)"
+                       :alt="myDevice.name"/>
             </v-avatar>
             <v-card-title class="card">
-                {{device.name}}
+                {{myDevice.name}}
             </v-card-title>
         </v-card>
     </div>
@@ -25,18 +25,23 @@ export default {
     name: "DeviceCard",
     props:["id", "room"],
     data(){
-      return({
-        device:{}
-      })
+        return({
+            myDevice: {}
+        })
     },
-  // computed:{
-  //   device: async function () {
-  //     const resp = await this.$getDevice(this.id)
-  //     console.log(resp)
-  //     return resp;
-  //   },
-  //
-  // },
+
+    async mounted(){
+        this.myDevice = await this.setDevice(this.id);
+    },
+
+    // computed:{
+    //   device: async function () {
+    //     const resp = await this.$getDevice(this.id)
+    //     console.log(resp)
+    //     return resp;
+    //   },
+    //
+    // },
     created:{
       // ...mapState("devicesTypes",{
       //       $devices: "devicesTypes",
@@ -48,41 +53,51 @@ export default {
         return resp;
       },
     },
-  methods:{
-    ...mapActions("devicesTypes",{
-      $getAll: "getAll",
-      $getDevice: "getDevice"
-    }),
-    ...mapActions("devices",{
-      $addDevice: "add",
-    }),
-    setResult(device){
-       console.log(device)
-    },
-    async addDevice(){
-      console.log(this.device.name)
-      try{
-        let device = {
-          name: this.device.name,
-          meta: {
-            roomId:this.room.id,
-            actions: this.device.actions
+
+    methods:{
+        ...mapActions("devicesTypes",{
+          $getAllTypes: "getAllTypes",
+          $getDeviceType: "getDeviceType"
+        }),
+
+        ...mapActions("devices",{
+          $addDevice: "add",
+        }),
+
+        async setDevice(id){
+          const resp = await this.$getDeviceType(id)
+          console.log(resp)
+          return resp;
+        },
+
+        setResult(device){
+           console.log(device)
+        },
+
+        async addDevice(){
+          try{
+            let device = {
+              name: this.device.name,
+              meta: {
+                roomId:this.room.id,
+                actions: this.device.actions
+              }
+            }
+            device = await this.$addDevice(device)
+            this.setResult(device.id)
+          } catch(e){
+            this.setResult(e.code)
           }
-        }
-        device = await this.$addDevice(device)
-        this.setResult(device.id)
-      } catch(e){
-        this.setResult(e.code)
-      }
-      this.$router.go(-1);
-    }
-  }
+          this.$router.go(-1);
+        },
+    },
 }
 </script>
 
 <style scoped>
 
-.card{
-  justify-content: center;
-}
+    .card{
+      justify-content: center;
+    }
+
 </style>

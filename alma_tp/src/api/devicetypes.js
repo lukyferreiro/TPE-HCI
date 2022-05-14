@@ -5,11 +5,11 @@ class DeviceTypesApi{
         return `${Api.baseUrl}/devicetypes${slug ? `/${slug}` : ''}`
     }
 
-    static async getDevice(idDevice){
-        return await Api.get(DeviceTypesApi.getUrl(idDevice));
+    static async getDeviceType(idDeviceType){
+        return await Api.get(DeviceTypesApi.getUrl(idDeviceType));
     }
 
-    static async getAll(){
+    static async getAllTypes(){
         return await Api.get(DeviceTypesApi.getUrl());
     }
 

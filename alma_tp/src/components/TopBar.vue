@@ -18,8 +18,8 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn :to="{name:'RoomView'}"
-               class="menu-button"
+        <v-btn class="menu-button"
+               :to="{name:'RoomView'}"
                plain
                retain-focus-on-click
                v-ripple="false">
@@ -28,8 +28,8 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn :to="{name:'RoutineView'}"
-               class="menu-button"
+        <v-btn class="menu-button"
+               :to="{name:'RoutineView'}"
                plain
                retain-focus-on-click
                v-ripple="false">
@@ -83,5 +83,6 @@ export default {
       text-decoration: underline;
       font-weight: bold;
     }
+
 
 </style>

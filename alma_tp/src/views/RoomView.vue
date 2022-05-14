@@ -8,7 +8,7 @@
 <!--        <EditDoor/>-->
 <!--        <EditGrifo/>-->
 
-        <div v-if="$rooms.length===0">
+        <div v-if="roomsAmount===0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
             <v-img alt="Imagen de fondo"
                    :src="require(`@/assets/withoutDevices.png`)"
@@ -21,7 +21,7 @@
              :key="room.id"
              class="withRooms">
             <v-card class="roomCard blue lighten-5">
-                <RoomCard v-bind:room="room"/>
+                <RoomCard :room="room"/>
             </v-card>
         </div>
     </div>
@@ -99,7 +99,6 @@ export default {
 
     .room{
         margin-top: 130px;
-        /*max-width: 83%;*/
         margin-bottom: 50px;
     }
 

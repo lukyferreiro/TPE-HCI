@@ -95,7 +95,9 @@ export default {
              name: this.roomName,
              meta: {
                     devices:[],
-                    show: false}
+                    show: false,
+                    color: ""
+             }
            }
            room = await this.$addRoom(room)
            this.setResult(room.id)

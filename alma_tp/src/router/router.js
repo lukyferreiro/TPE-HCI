@@ -40,6 +40,7 @@ const routes = [
   {
     path: '/room/add_devices',
     name: 'AddDevice',
+    props: true,
     component:() => import(/*webPackChunkName: "details" */ '../views/AddDevice.vue'),
   },
   {
