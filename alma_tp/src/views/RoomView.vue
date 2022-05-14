@@ -10,17 +10,16 @@
 
         <div v-if="$rooms.length===0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
-            <v-layout align-content-center>
-                <v-img alt="Imagen de fondo"
-                       :src="require(`@/assets/withoutDevices.png`)"
-                       class="mx-auto"
-                       max-width="60%"
-                       max-height="60%"
-                />
-            </v-layout>
+            <v-img alt="Imagen de fondo"
+                   :src="require(`@/assets/withoutDevices.png`)"
+                   class="mx-auto"
+                   max-width="60%"
+                   max-height="60%"
+            />
         </div>
         <div v-else v-for="room in $rooms"
-             :key="room.id">
+             :key="room.id"
+             class="withRooms">
             <v-card class="roomCard blue lighten-5">
                 <RoomCard v-bind:room="room"/>
             </v-card>
@@ -100,8 +99,12 @@ export default {
 
     .room{
         margin-top: 130px;
-        max-width: 83%;
+        /*max-width: 83%;*/
         margin-bottom: 50px;
+    }
+
+    .withRooms{
+      max-width: 83%;
     }
 
     .text{

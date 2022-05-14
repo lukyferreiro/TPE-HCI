@@ -16,7 +16,7 @@
           </v-btn>
         </template>
 
-        <v-card :color="colorset" class="border">
+        <v-card :color="colorset">
             <div>
                 <v-card-title class="mx-auto">
                     <v-menu offset-y>
@@ -86,22 +86,24 @@
 
                 <v-card-actions class="cardText">
                     <v-switch v-model="closeOnClick"
-                              label="Encender/Apagar"
                               color="secondary"
                               class="text"
-                              hide-details/>
+                              hide-details>
+                        <template v-slot:label>
+                           <span class="switchLabel">Encender/Apagar</span>
+                        </template>
+                    </v-switch>
                 </v-card-actions>
                 <v-card-actions class="cardText">
-                    <v-btn class="text"
+                    <v-btn class="pauseAndReanude"
                            @click="playVacuum()"
                            plain
                            fab
-                           retain-focus-on-click
                            v-ripple="false"
                     >
-                      <v-icon v-if="play" color="black" size="40px" class="mr-3">mdi-pause-circle-outline</v-icon>
-                      <v-icon v-else color="black" size="40px" class="mr-3"> mdi-arrow-right-drop-circle-outline </v-icon>
-                      Pausar/Reanudar
+                        <v-icon v-if="play" color="black" size="40px" class="mr-3">mdi-pause-circle-outline</v-icon>
+                        <v-icon v-else color="black" size="40px" class="mr-3"> mdi-arrow-right-drop-circle-outline </v-icon>
+                        Pausar/Reanudar
                     </v-btn>
                 </v-card-actions>
                 <v-card-actions class="cardText">
@@ -211,13 +213,18 @@ export default {
 
 <style scoped>
 
+  .switchLabel {
+    color: black;
+    font-weight: bold;
+  }
+
   .cardText{
     align-self: center;
     justify-content: center;
     justify-self: center;
   }
 
-  .text{
+  .pauseAndReanude{
     text-transform: none;
     color: black;
     font-weight: bold;

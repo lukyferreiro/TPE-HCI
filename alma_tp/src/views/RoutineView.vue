@@ -14,7 +14,7 @@
             <v-layout align-content-center>
                 <v-img alt="Imagen de fondo"
                        :src="require(`@/assets/withoutRoutines.png`)"
-                       class="mx-auto"
+                       class="mx-auto my-15"
                        max-width="30%"
                        max-height="30%"/>
             </v-layout>

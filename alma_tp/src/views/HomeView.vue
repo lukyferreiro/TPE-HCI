@@ -1,16 +1,16 @@
 <template>
     <div class="home">
-        <div>
-            <h1>Bienvenidos a ALMA :D-</h1>
+        <div class="text">
+            <h1>Bienvenidos a ALMA :D</h1>
         </div>
-        <div class="imageDerecha">
-          <v-img alt="Imagen de fondo"
-                 :src="require(`@/assets/welcomeHome.png`)"
-                 max-width="80%"
-                 max-height="80%"
-          />
+        <div class="image">
+            <v-img alt="Imagen de fondo"
+                   :src="require(`@/assets/welcomeHome.png`)"
+                   class="mx-auto"
+                   max-width="80%"
+                   max-height="80%"
+            />
         </div>
-
     </div>
 </template>
 
@@ -29,7 +29,11 @@ export default {
     align-items: center;
   }
 
-  .imageDerecha{
+  .text{
+
+  }
+
+  .image{
     margin-top: 30px;
   }
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="help">
+    <div class="help ml-15 mr-15">
         <h2>Habitaciones</h2>
         <h3>Agregar habitaciones</h3>
         <p>Ir a la pestaña de habitaciones y clicker en el boton "Agregar habitación" que se encuentra
@@ -33,7 +33,7 @@ export default {
 <style scoped>
 
   .help{
-    margin-top: 120px;
+    margin-top: 140px;
   }
 
 </style>
