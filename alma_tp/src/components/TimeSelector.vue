@@ -12,30 +12,31 @@
                                   label="Tiempo de inicio"
                                   prepend-icon="mdi-clock-time-four-outline"
                                   readonly
+                                  color="black"
                                   v-bind="attrs"
-                                  v-on="on"/>
+                                  v-on="on" />
                 </template>
                 <v-time-picker v-if="start"
                                v-model="time"
+                               color="primary"
                                full-width
                                format="24hs"
                                @input="changeTime()">
-                    <v-spacer></v-spacer>
                     <v-btn text
-                           color="primary"
+                           color="secondary"
                            @click="start = false">
                         Cancel
                     </v-btn>
-                    <v-btn text
-                           color="primary"
+                    <v-spacer></v-spacer>
+                    <v-btn color="secondary"
                            @click="$refs.dialog.save(time)">
-                        OK
+                        Aceptar
                     </v-btn>
                 </v-time-picker>
             </v-dialog>
         </v-col>
 
-        <v-spacer></v-spacer>
+        <v-spacer ></v-spacer>
 
         <v-col>
             <v-card flat>

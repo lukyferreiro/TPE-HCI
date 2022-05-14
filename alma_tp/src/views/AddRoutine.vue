@@ -1,7 +1,7 @@
 <template>
-    <div class="routine">
+    <div class="routine ml-15 mr-15">
         <h2>
-            <v-icon> mdi-clipboard-list-outline </v-icon>
+            <v-icon color="black" size="50px" class="mL-3"> mdi-clipboard-list-outline </v-icon>
             Agregar rutina
         </h2>
 
@@ -10,11 +10,11 @@
                 <v-text-field outlined
                               ref="title"
                               v-model="routinetitle"
-                              placeholder="Escriba el nombre de la nueva rutina"
+                              placeholder="Ingresar el nombre de la nueva rutina"
                               counter
                               autofocus
                               clearable
-                              maxlength="50"
+                              maxlength="60"
                               :rules="nameRules"
                               required/>
             </v-container>
@@ -308,8 +308,9 @@ export default {
 
 <style scoped>
     .routine{
-        margin-top: 150px;
+        margin-top: 140px;
     }
+
     .button{
       width: 500px;
       margin: 10px;

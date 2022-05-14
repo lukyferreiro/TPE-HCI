@@ -1,6 +1,16 @@
 <template>
     <div class="home">
-        <h1>Welcome :)</h1>
+        <div>
+            <h1>Bienvenidos a ALMA :D-</h1>
+        </div>
+        <div class="imageDerecha">
+          <v-img alt="Imagen de fondo"
+                 :src="require(`@/assets/welcomeHome.png`)"
+                 max-width="80%"
+                 max-height="80%"
+          />
+        </div>
+
     </div>
 </template>
 
@@ -14,6 +24,13 @@ export default {
 
   .home{
     margin-top: 120px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .imageDerecha{
+    margin-top: 30px;
   }
 
 </style>

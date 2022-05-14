@@ -16,7 +16,7 @@
           </v-btn>
         </template>
 
-        <v-card :color="colorset">
+        <v-card :color="colorset" class="border">
             <div>
                 <v-card-title class="mx-auto">
                     <v-menu offset-y>
@@ -48,7 +48,7 @@
                     </v-menu>
 
                     <v-spacer/>
-                    <h3 class="habitacion"> NOMBRE HABITACION </h3>
+                    <h3> NOMBRE HABITACION </h3>
                     <v-spacer/>
 
                     <v-btn class="pt-0 mt-0"
@@ -75,7 +75,8 @@
                     <h2>
                         Aspiradora
                         <v-btn color="transparent"
-                               depressed>
+                               depressed
+                               plain>
                             <v-icon color="black" size="30px">mdi-pencil-outline</v-icon>
                         </v-btn>
                     </h2>
@@ -85,11 +86,14 @@
 
                 <v-card-actions class="cardText">
                     <v-switch v-model="closeOnClick"
-                              label="ENCENDER/APAGAR"
-                              color="secondary"/>
+                              label="Encender/Apagar"
+                              color="secondary"
+                              class="text"
+                              hide-details/>
                 </v-card-actions>
                 <v-card-actions class="cardText">
-                    <v-btn @click="playVacuum()"
+                    <v-btn class="text"
+                           @click="playVacuum()"
                            plain
                            fab
                            retain-focus-on-click
@@ -105,7 +109,7 @@
                        <v-select :items="modeType"
                                  item-text="mode"
                                  label="Modo:"
-                                 class="mode"
+                                 class="mode text"
                                  color="black"
                                  dense
                                  return-object
@@ -119,7 +123,7 @@
                         <v-select :items="rooms"
                                   item-text="room"
                                   label="Donde limpiar:"
-                                  class="dondeLimpiar"
+                                  class="dondeLimpiar text"
                                   color="black"
                                   dense
                                   return-object
@@ -133,7 +137,7 @@
                         <v-select :items="rooms"
                                   item-text="room"
                                   label="Base carga:"
-                                  class="baseCarga"
+                                  class="baseCarga text"
                                   color="black"
                                   dense
                                   return-object
@@ -176,20 +180,24 @@ export default {
       colorset: "primary",
       colors: [
         {
-          "hex": "#DC143C",
-          "name": "Crimson"
+          "hex": "#BBDEFB",
+          "name": "Light Blue"
         },
         {
-          "hex": "#20B2AA",
-          "name": "Light Sea Green"
+          "hex": "#B39DDB",
+          "name": "Light Purple"
         },
         {
-          "hex": "#008B8B",
-          "name": "Dark Cyan"
+          "hex": "#A5D6A7",
+          "name": "Light Green"
         },
         {
-          "hex": "#4682B4",
-          "name": "Steel Blue"
+          "hex": "#FFF59D",
+          "name": "Light Yellow"
+        },
+        {
+          "hex": "#F8BBD0",
+          "name": "Light Pink"
         }
       ]
     }),
@@ -202,27 +210,21 @@ export default {
 </script>
 
 <style scoped>
+
   .cardText{
     align-self: center;
     justify-content: center;
     justify-self: center;
   }
 
-  .colorpicker {
-    width: auto;
+  .text{
+    text-transform: none;
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
   }
 
-  .mode{
-    width: auto;
-    max-width: 180px;
-  }
-
-  .dondeLimpiar{
-    width: auto;
-    max-width: 180px;
-  }
-
-  .baseCarga{
+  .mode, .dondeLimpiar, .baseCarga{
     width: auto;
     max-width: 180px;
   }
