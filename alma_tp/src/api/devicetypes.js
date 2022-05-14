@@ -4,6 +4,7 @@ class DeviceTypesApi{
     static getUrl(slug){
         return `${Api.baseUrl}/devicetypes${slug ? `/${slug}` : ''}`
     }
+
     static async getDevice(idDevice){
         return await Api.get(DeviceTypesApi.getUrl(idDevice));
     }

@@ -27,6 +27,26 @@ class DeviceApi {
         return await Api.get(DeviceApi.getUrl(idDevice));
     }
 
+    // GET /devices/events
+    // static async getAllEvents(device){
+    //     return await Api.get(DeviceApi.getUrl() + `/events`);
+    // }
+
+    // GET /devices/{deviceId}/state
+    // static async getEvent(device){
+    //     return await Api.get(DeviceApi.getUrl(device.id) + `/state`);
+    // }
+
+    // GET /devices/{deviceId}/events
+    // static async getEvent(device){
+    //     return await Api.get(DeviceApi.getUrl(device.id) + `/events`);
+    // }
+
+    //PUT /devices/{deviceId}/{actionName}
+    // static async executeAction(device){
+    //     return await Api.put(DeviceApi.getUrl(device.id) + `...`, device);
+    // }
+
 }
 
 export {DeviceApi}

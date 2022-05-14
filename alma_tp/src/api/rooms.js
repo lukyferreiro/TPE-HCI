@@ -27,7 +27,7 @@ class RoomApi {
     }
 
     static async showRoom(idRoom){
-     return await Api.put(RoomApi.getUrl(idRoom))
+        return await Api.put(RoomApi.getUrl(idRoom))
     }
     // showFalse(state, room){
     //   state.rooms[state.rooms.indexOf(room)].show = false;
