@@ -14,6 +14,7 @@
                               counter
                               autofocus
                               clearable
+                              color="black"
                               maxlength="60"
                               :rules="nameRules"
                               required/>
@@ -217,14 +218,18 @@
       <!--    </div>-->
 
         <v-divider></v-divider>
-
-        <GoBack name="Cancelar"
-                color="secondary white--text ma-8"/>
-
-        <v-btn color="secondary white--text"
-               @click="addRoutine">
-            Aceptar
-        </v-btn>
+        <div class="acceptAndCancel">
+            <div>
+                <GoBack name="Cancelar"
+                        color="secondary white--text ma-8"/>
+            </div>
+            <div>
+                <v-btn color="secondary white--text"
+                       @click="addRoutine">
+                    Aceptar
+                </v-btn>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -315,4 +320,11 @@ export default {
       width: 500px;
       margin: 10px;
     }
+
+    .acceptAndCancel{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
 </style>

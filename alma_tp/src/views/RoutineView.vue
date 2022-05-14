@@ -20,18 +20,16 @@
             </v-layout>
         </div>  
 
-        <ul v-else >
-            <div v-for="routine in routines" :key="routine">
-                <v-btn @click="playRoutine(routine)"
-                       plain
-                       fab
-                >
-                    <v-icon v-if="routine.play">mdi-pause-circle-outline</v-icon>
-                    <v-icon v-else> mdi-arrow-right-drop-circle-outline </v-icon>
-                </v-btn>
-                {{routine.name}}
-            </div>
-        </ul>
+        <div v-else v-for="routine in routines"
+             :key="routine">
+            <v-btn @click="playRoutine(routine)"
+                   plain
+                   fab>
+                <v-icon v-if="routine.play">mdi-pause-circle-outline</v-icon>
+                <v-icon v-else> mdi-arrow-right-drop-circle-outline </v-icon>
+            </v-btn>
+            {{routine.name}}
+        </div>
     </div>
 </template>
 

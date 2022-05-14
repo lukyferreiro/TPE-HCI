@@ -184,19 +184,19 @@ export default {
           "name": "Light Blue"
         },
         {
-          "hex": "#B39DDB",
+          "hex": "#D1C4E9",
           "name": "Light Purple"
         },
         {
-          "hex": "#A5D6A7",
+          "hex": "#DCEDC8",
           "name": "Light Green"
         },
         {
-          "hex": "#FFF59D",
+          "hex": "#FFF9C4",
           "name": "Light Yellow"
         },
         {
-          "hex": "#F8BBD0",
+          "hex": "#FCE4EC",
           "name": "Light Pink"
         }
       ]
