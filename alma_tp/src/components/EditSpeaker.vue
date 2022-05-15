@@ -3,20 +3,21 @@
         <div>
             <v-card-actions class="cardText">
                 <v-slider v-model="volume"
-                          :color="black"
+                          color="black"
                           track-color="black"
                           track-fill-color="black"
                           always-dirty
-                          min="0"
-                          max="10"
+                          :min="minVolume"
+                          :max="maxVolume"
+                          hide-details
                       >
                     <template v-slot:prepend>
-                        <v-icon color="black"
+                        <v-icon color="black" size="25px"
                                 @click="decrementVolume">
                             mdi-minus </v-icon>
                     </template>
                     <template v-slot:append>
-                        <v-icon color="black"
+                        <v-icon color="black" size="25px"
                                 @click="incrementVolume">
                             mdi-plus</v-icon>
                     </template>
@@ -76,7 +77,7 @@
                     <v-select :items="genres"
                               item-text="genre"
                               label="Genero:"
-                              class="genre text"
+                              class="genre"
                               color="black"
                               dense
                               return-object
@@ -104,6 +105,8 @@ export default {
     data: () => ({
         play: true,
         volume: 0,
+        minVolume: 0,
+        maxVolume: 10,
         genres: [
             {genre: "Pop", id: 1},
             {genre: "Trap", id: 2},
@@ -111,10 +114,15 @@ export default {
     }),
     methods: {
       decrementVolume () {
+        if(this.volume===this.minVolume){
+          return;
+        }
         this.volume--;
       },
       incrementVolume () {
-        console.log(this.colorset)
+        if(this.volume===this.maxVolume){
+          return;
+        }
         this.volume++;
       },
       playSpeaker(){

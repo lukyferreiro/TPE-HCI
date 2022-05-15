@@ -30,6 +30,8 @@
         <v-spacer></v-spacer>
 
         <v-btn class="menu-button"
+               @click="updateRoutines()"
+               :to="{name:'RoutineView'}"
                plain
                retain-focus-on-click
                v-ripple="false">
@@ -57,13 +59,22 @@ import {mapActions} from "vuex";
 
 export default {
     name: "TopBar",
-  methods:{
-    ...mapActions("room",{
-      $getAllRooms: "getAll",
-    }),
+    methods:{
+      ...mapActions("room",{
+        $getAllRooms: "getAll",
+      }),
+
+      // ...mapActions("routine",{
+      //   $getAllRoutines: "getAll",
+      // }),
+
       async updateRooms(){
         await this.$getAllRooms();
-      }
+      },
+
+      // async updateRoutines(){
+      //   await this.$getAllRoutines();
+      // }
   }
 }
 </script>

@@ -26,20 +26,20 @@ const routes = [
   },
   {
     path: '/routine/add',
-    name: 'AddRoutine',
-    component:() => import(/*webPackChunkName: "details" */ '../views/AddRoutine.vue')
+    name: 'AddRoutineView',
+    component:() => import(/*webPackChunkName: "details" */ '../views/AddRoutineView.vue')
   },
   {
     path: '/room/add_devices',
-    name: 'AddDevice',
+    name: 'AddDeviceView',
     props: true,
-    component:() => import(/*webPackChunkName: "details" */ '../views/AddDevice.vue'),
+    component:() => import(/*webPackChunkName: "details" */ '../views/AddDeviceView.vue'),
   },
   {
     path: '/room/edit_devices',
-    name: 'EditDevice',
+    name: 'EditDeviceView',
     props: true,
-    component:() => import(/*webPackChunkName: "details" */ '../views/EditDevice.vue'),
+    component:() => import(/*webPackChunkName: "details" */ '../views/EditDeviceView.vue'),
   },
   {
     path: "/404",

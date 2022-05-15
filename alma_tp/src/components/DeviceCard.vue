@@ -1,40 +1,40 @@
-  <template>
-      <div>
-            <v-card class="device"
-                    :to="{name:'EditDevice' , params:{id: this.id,
-                                                      deviceName: this.deviceName,
-                                                      device: this.device,
-                                                      roomId: this.roomId,
-                                                      image:this.image}}"
-                    color="primary"
-                    max-width="250"
-                    max-height="250" >
-              <v-avatar rounded
-                        size="70%">
-                <v-img class="image"
-                       :src="image"
-                       :alt="name"/>
-              </v-avatar>
-              <v-card-title class="card">
+<template>
+    <div>
+        <v-card class="device"
+                color="primary"
+                max-width="200"
+                max-height="200"
+                :to="{name:'EditDeviceView' , params:{idType: this.idType,
+                                                  deviceName: this.deviceName,
+                                                  roomId: this.roomId,
+                                                  device: this.device,
+                                                  image:this.image}}">
+            <v-card-actions class="image">
+                <v-img :src="image"
+                       :alt="name"
+                       max-height="50%"
+                       max-width="50%"/>
+            </v-card-actions>
+            <v-card-title class="card">
                 {{deviceName}}
-              </v-card-title>
-            </v-card>
-      </div>
-  </template>
+            </v-card-title>
+        </v-card>
+    </div>
+</template>
 
 <script>
 import {mapActions} from "vuex";
 
 export default {
     name: "DeviceCard",
-    props:["id","deviceName", "roomId"],
+    props:["idType","deviceName", "roomId"],
     data(){
       return({
         device: null,
       })
     },
     async created() {
-      this.device = await this.$getDeviceType(this.id)
+      this.device = await this.$getDeviceType(this.idType)
     },
     computed: {
       name() {
@@ -50,10 +50,7 @@ export default {
           $getDeviceType: "getDeviceType",
           $editDeviceType:"editDeviceType"
         }),
-
     },
-
-
 }
 </script>
 
@@ -61,7 +58,8 @@ export default {
 
     .card{
       justify-content: center;
-
+      font-size: 25px;
+      font-weight: bold;
     }
 
     .image{

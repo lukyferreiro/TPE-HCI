@@ -49,7 +49,7 @@
                     offset-x
             >
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn :to="{name:'AddDevice', params:{room: room} }"
+                    <v-btn :to="{name:'AddDeviceView', params:{room: room} }"
                            class="addButton"
                            color="secondary"
                            outlined

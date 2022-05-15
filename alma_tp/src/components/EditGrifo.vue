@@ -1,98 +1,60 @@
 <template>
-    <v-dialog scrollable
-              overflow="auto"
-              v-model="dialog"
-              width="1000"
-    >
-        <template v-slot:activator="{ on, attrs }">
-            <v-btn class="button"
-                   rounded
-                   color="secondary"
-                   v-bind="attrs"
-                   v-on="on"
-                   absolute>
-              Editar Grifo
-            </v-btn>
-        </template>
-
-        <v-card :color="colorset">
-            <div>
-                <v-card-title class="mx-auto">
-                    <v-menu offset-y>
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="transparent"
-                                   v-bind="attrs"
-                                   v-on="on"
-                                   depressed
-                            >
-                                <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
-                            </v-btn>
-                        </template>
-                        <v-list>
-                            <v-list-item v-for="(color, index) in colors"
-                                         :key="index"
-                            >
-                                <v-btn class="color-button"
-                                       color="transparent"
-                                       depressed
-                                       @click="colorset=color.hex"
-                                >
-                                    <v-list-item-icon>
-                                        <v-icon :color="color.hex"> mdi-square</v-icon>
-                                    </v-list-item-icon>
-                                    <v-list-item-title>{{ color.name }}</v-list-item-title>
-                                </v-btn>
-                            </v-list-item>
-                        </v-list>
-                    </v-menu>
-
-                    <v-spacer/>
-                    <h3 class="habitacion"> NOMBRE HABITACION </h3>
-                    <v-spacer/>
-
-                    <v-btn class="pt-0 mt-0"
-                           color="transparent"
-                           @click="dialog=false"
-                           depressed
-                    >
-                        <v-icon color="black" size="40px">mdi-window-close</v-icon>
-                    </v-btn>
-                </v-card-title>
-            </div>
-
-            <div>
-                <v-card-actions class="pt-0 mt-0 cardText">
-                    <v-avatar class="image"
-                              rounded
-                              size="80px">
-                        <v-img :src="require(`@/assets/faucet.png`)"
-                               alt="Grifo" />
-                    </v-avatar>
-                </v-card-actions>
-                <v-card-actions class="cardText">
-                    <h2>
-                        Grifo
-                        <v-btn color="transparent"
-                               depressed>
-                          <v-icon color="black" size="30px">mdi-pencil-outline</v-icon>
-                        </v-btn>
-                    </h2>
-                </v-card-actions>
-
-                <v-divider/>
-
-                <v-card-actions>
-                    <v-btn class="acceptButton mx-auto"
-                           color="error white--text"
-                    >
-                        Borrar dispositivo
-                        <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
-                    </v-btn>
-                </v-card-actions>
-            </div>
-        </v-card>
-    </v-dialog>
+    <v-card :color="colorset">
+        <div>
+            <v-card-actions class="cardText">
+                <v-switch v-model="closeOnClick"
+                          color="secondary"
+                          class="text"
+                          hide-details>
+                    <template v-slot:label>
+                        <span class="switchLabel">Reproducir/Detener</span>
+                    </template>
+                </v-switch>
+            </v-card-actions>
+            <v-card-actions class="cardText">
+                <v-btn class="openAndCloseFaucet"
+                       @click="openFaucet()"
+                       plain
+                       fab
+                       v-ripple="false" >
+                       <v-icon v-if="open" color="black" size="40px" class="mr-3">mdi-water-pump</v-icon>
+                       <v-icon v-else color="black" size="40px" class="mr-3"> mdi-water-pump-off </v-icon>
+                       Abrir/Cerrar
+                </v-btn>
+            </v-card-actions>
+            <v-card-actions class="cardText">
+                <div class="slider">
+                    <v-slider v-model="cantDispensar"
+                              color="black"
+                              track-color="black"
+                              track-fill-color="black"
+                              :min="minDispensar"
+                              :max="maxDispensar"
+                              label="Cantidad a dispensar"
+                              thumb-label
+                              hide-details/>
+                </div>
+                <div class="sliderSelector">
+                    <v-select :items="unidades"
+                              item-text="unidades"
+                              color="black"
+                              dense
+                              return-object
+                              persistent-placeholder
+                              placeholder="Unidades"/>
+                </div>
+            </v-card-actions>
+            <v-card-actions class="cardText">
+                <v-btn class="acceptButton mx-auto"
+                       color="error white--text">
+                  Borrar dispositivo
+                  <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
+                </v-btn>
+            </v-card-actions>
+        </div>
+    </v-card>
 </template>
+
 
 <script>
 export default {
@@ -100,6 +62,15 @@ export default {
     data: () => ({
       dialog: false,
       closeOnClick: true,
+      open: false,
+      cantDispensar: 0,
+      minDispensar: 0,
+      maxDispensar: 100,
+      unidades: ["Litros", "Mililitros"],
+      data: () => ({
+            panel: [0, 1],
+            unidades: false,
+          }),
       colorset: "primary",
       colors: [
         {
@@ -120,6 +91,11 @@ export default {
         }
       ]
     }),
+    methods: {
+        openFaucet(){
+            this.open = !this.open;
+        },
+    }
 }
 </script>
 
@@ -130,12 +106,25 @@ export default {
       justify-content: center;
       justify-self: center;
     }
-    
-    .colorpicker {
-      width: auto;
+
+    .switchLabel {
+        color: black;
+        font-weight: bold;
     }
-    .color-button{
-      text-transform: none;
+    .openAndCloseFaucet{
+        text-transform: none;
+        color: black;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .slider{
+      width: 300px;
+    }
+
+    .sliderSelector{
+      width: auto;
+      max-width: 100px;
     }
 
 </style>

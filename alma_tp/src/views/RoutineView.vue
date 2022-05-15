@@ -1,6 +1,6 @@
 <template>
     <div class="routine">
-        <v-btn :to="{name:'AddRoutine'}"
+        <v-btn :to="{name:'AddRoutineView'}"
                class="button"
                rounded
                color="secondary"

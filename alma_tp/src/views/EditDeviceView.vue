@@ -1,21 +1,21 @@
 <template>
     <v-card :color="colorset" class=" edit ">
         <div>
-            <v-card-title>
-                <!-- <v-icon color="black" size="50px" class="mL-3"> mdi-clipboard-list-outline </v-icon> -->
+            <v-card-title class="titleCard">
+<!--                 <v-icon color="black" size="50px" class="mL-3"> mdi-clipboard-list-outline </v-icon>-->
                 Editar Dispositivo : {{ this.deviceName }}
             </v-card-title>
 
-          <v-card-actions class="pt-0 mt-0 cardText">
-            <v-avatar class="image"
-                      rounded
-                      size="80px">
-              <v-img :src={image}
-                     :alt={deviceName} />
-            </v-avatar>
-          </v-card-actions>
+            <v-card-actions class="pt-0 mt-0 cardText">
+                <v-avatar class="image"
+                          rounded
+                          size="80px">
+                    <v-img :src="image"
+                           :alt="deviceName" />
+                </v-avatar>
+            </v-card-actions>
 
-          <v-form ref="form" lazy-validation @submit="submit">
+            <v-form ref="form" lazy-validation @submit="submit">
                 <v-container>
                     <v-text-field outlined
                                   ref="title"
@@ -63,10 +63,10 @@
         </div>
 
         <v-divider/>
-        <EditDoor v-if="deviceName == 'Puerta'"/>
-        <EditGrifo v-else-if="deviceName == 'Grifo'"/>
-        <EditHorno v-else-if="deviceName == 'Horno'"/>
-        <EditRefrigerator v-else-if="deviceName == 'Heladera'"/>
+        <EditDoor v-if="deviceName === 'Puerta'"/>
+        <EditGrifo v-else-if="deviceName === 'Grifo'"/>
+        <EditHorno v-else-if="deviceName === 'Horno'"/>
+        <EditRefrigerator v-else-if="deviceName === 'Heladera'"/>
         <EditSpeaker v-else :colorset="this.colorset"/>
         <v-divider/>
 
@@ -93,12 +93,12 @@ import EditGrifo from "@/components/EditGrifo";
 import EditHorno from "@/components/EditHorno";
 import EditRefrigerator from "@/components/EditRefrigerator";
 import EditSpeaker from "@/components/EditSpeaker";
+import EditDoor from "@/components/EditDoor";
 
 export default {
-  name: "EditDevice",
-  components: {EditSpeaker, EditRefrigerator, EditHorno, EditGrifo},
-
-  props:["id", "deviceName", "device", "roomId", "image"],
+  name: "EditDeviceView",
+  components: {EditSpeaker, EditRefrigerator, EditHorno, EditGrifo, EditDoor},
+  props:["idType", "deviceName", "roomId", "device", "image"],
   data(){
     return({
       nameRules:[
@@ -184,6 +184,16 @@ export default {
 </script>
 
 <style scoped>
+
+  .cardText{
+    justify-content: center;
+  }
+
+  .titleCard{
+      font-weight: bold;
+      font-size: 25px;
+  }
+
   .edit{
     margin-top: 140px;
     margin-bottom: 120px;

@@ -239,7 +239,7 @@ import store from "@/store";
 import TimeSelector from "@/components/TimeSelector";
 
 export default {
-  name: "addRoutineView",
+  name: "AddRoutineView",
   components: {
     TimeSelector,
     GoBack
