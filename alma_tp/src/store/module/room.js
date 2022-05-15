@@ -4,7 +4,7 @@ export default {
     namespaced: true,
     state:{
         rooms: [],
-        roomsAmount: 0,
+        // roomsAmount: 0,
     },
     actions:{
         async getAll({commit}){

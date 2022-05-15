@@ -21,7 +21,14 @@
                                 <v-btn class="button"
                                        plain
                                        rounded
-                                       fab>
+                                       fab
+                                       :to="{name: 'EditDevice', params:{id: device.id,
+                                                      deviceName: device.name,
+                                                      device: device,
+                                                      roomId: room.id,
+                                                      edit:true
+                                                      }}"
+                                >
                                     <v-icon class="ml-1">mdi-pencil-outline</v-icon>
                                 </v-btn>
                                 <v-btn class="button"
@@ -147,7 +154,8 @@ export default {
         $getRoom : "get",
         $showRoom: "show",
         $getDevices: "getAllDevices",
-        $getDevice: "getDevice"
+        $getDevice: "getDevice",
+        $editDevice : "editDevice"
       }),
       ...mapActions("devices",{
         $getAll: "getAll",
@@ -179,7 +187,7 @@ export default {
           let room = this.room;
           room.show = false;
           this.$showRoom(room.id);
-        }
+        },
     }
 }
 </script>

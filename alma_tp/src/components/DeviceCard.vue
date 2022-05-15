@@ -5,7 +5,8 @@
                                                       deviceName: this.deviceName,
                                                       device: this.device,
                                                       roomId: this.roomId,
-                                                      image:this.image}}"
+                                                      edit: false
+                                                      }}"
                     color="primary"
                     max-width="250"
                     max-height="250" >

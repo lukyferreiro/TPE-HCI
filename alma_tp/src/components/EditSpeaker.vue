@@ -114,7 +114,6 @@ export default {
         this.volume--;
       },
       incrementVolume () {
-        console.log(this.colorset)
         this.volume++;
       },
       playSpeaker(){

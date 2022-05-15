@@ -10,8 +10,8 @@
             <v-avatar class="image"
                       rounded
                       size="80px">
-              <v-img :src={image}
-                     :alt={deviceName} />
+<!--              <v-img :src=require(`../assets/${this.device.name}.png`)-->
+<!--                     :alt={deviceName} />-->
             </v-avatar>
           </v-card-actions>
 
@@ -63,10 +63,10 @@
         </div>
 
         <v-divider/>
-        <EditDoor v-if="deviceName == 'Puerta'"/>
-        <EditGrifo v-else-if="deviceName == 'Grifo'"/>
-        <EditHorno v-else-if="deviceName == 'Horno'"/>
-        <EditRefrigerator v-else-if="deviceName == 'Heladera'"/>
+        <EditDoor v-if="deviceName == 'Puerta'" :colorset="this.colorset"/>
+        <EditGrifo v-else-if="deviceName == 'Grifo'" :colorset="this.colorset"/>
+        <EditHorno v-else-if="deviceName == 'Horno'" :colorset="this.colorset"/>
+        <EditRefrigerator v-else-if="deviceName == 'Heladera'" :colorset="this.colorset"/>
         <EditSpeaker v-else :colorset="this.colorset"/>
         <v-divider/>
 
@@ -98,7 +98,7 @@ export default {
   name: "EditDevice",
   components: {EditSpeaker, EditRefrigerator, EditHorno, EditGrifo},
 
-  props:["id", "deviceName", "device", "roomId", "image"],
+  props:["id", "deviceName", "device", "roomId", "edit"],
   data(){
     return({
       nameRules:[
@@ -148,21 +148,28 @@ export default {
     },
 
     async addDevice(){
+
       try{
-        let device = {
-          type:{
-            id: this.device.id,
-          },
-          name: this.devName,
-          meta: {
-            roomId:this.roomId,
-            actions: this.device.actions
+        if(!this.edit) {
+          let device = {
+            type:{
+              id: this.device.id,
+            },
+            name: this.devName,
+            meta: {
+              roomId:this.roomId,
+              actions: this.device.actions
+            }
           }
+          device = await this.$add(device)
+          let idS = [this.roomId, device.id]
+          device = await this.$addDevice(idS)
+          await this.setResult(idS[1])
+        }else{
+
+          // let idS = [this.roomId, device]
+          // device = await this.$editDevice(idS)
         }
-        device = await this.$add(device)
-        let idS = [this.roomId, device.id]
-        device = await this.$addDevice(idS)
-        await this.setResult(idS[1])
       } catch(e){
         await this.setResult(e.code)
       }
