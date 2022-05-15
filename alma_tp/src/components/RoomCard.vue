@@ -21,20 +21,14 @@
                                 <v-btn class="button"
                                        plain
                                        rounded
-                                       fab>
+                                       fab
+                                       :to="{name: 'EditDeviceView' , params:{idType: device.type.id,
+                                                  deviceName: device.name,
+                                                  roomId: room.id,
+                                                  device: device,
+                                                  edit: true}}"
+                                >
                                     <v-icon class="ml-1">mdi-pencil-outline</v-icon>
-                                </v-btn>
-                                <v-btn class="button"
-                                       plain
-                                       rounded
-                                       fab>
-                                    <v-icon class="ml-2">mdi-palette-outline</v-icon>
-                                </v-btn>
-                                <v-btn class="button"
-                                       plain
-                                       rounded
-                                       fab>
-                                    <v-icon class="ml-2">mdi-trash-can-outline</v-icon>
                                 </v-btn>
                             </div>
                         </v-row>
@@ -147,11 +141,13 @@ export default {
         $getRoom : "get",
         $showRoom: "show",
         $getDevices: "getAllDevices",
-        $getDevice: "getDevice"
       }),
+
       ...mapActions("devices",{
         $getAll: "getAll",
+        $deleteDevice : "delete"
       }),
+
       editRoom(room2){
             this.edit=false;
             console.log('edit room to ' + room2.name);
@@ -164,6 +160,10 @@ export default {
       },
       async deleteRoom(room){
         try {
+          let devices = await this.$getDevices
+          await Array.from(devices).forEach(device => {
+            this.$deleteDevice(device.id)
+          })
           await this.$deleteRoom(this.room.id);
           this.setResult(room)
         }catch (e){

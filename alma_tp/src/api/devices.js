@@ -12,7 +12,7 @@ class DeviceApi {
 
     static async editDevice(device){
         //devuelve true o false si lo pudo modificar o no
-        return await Api.put(DeviceApi.getUrl(device.id), device);
+        return await Api.put(DeviceApi.getUrl(device[0]), device[1]);
     }
 
     static async deleteDevice(idDevice){

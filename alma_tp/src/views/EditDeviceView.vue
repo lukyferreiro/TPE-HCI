@@ -8,8 +8,8 @@
                 <div class="image">
                     <v-avatar rounded
                               size="80px">
-                        <v-img :src="image"
-                               :alt="deviceName" />
+<!--                        <v-img :src="image"-->
+<!--                               :alt="deviceName" />-->
                     </v-avatar>
                 </div>
                 <v-spacer/>
@@ -63,11 +63,20 @@
             </v-form>
         </div>
 
-        <EditDoor v-if="deviceName === 'Puerta'"/>
-        <EditGrifo v-else-if="deviceName === 'Grifo'"/>
-        <EditHorno v-else-if="deviceName === 'Horno'"/>
-        <EditRefrigerator v-else-if="deviceName === 'Heladera'"/>
+        <EditDoor v-if="deviceName == 'Puerta'" :colorset="this.colorset"/>
+        <EditGrifo v-else-if="deviceName == 'Grifo'" :colorset="this.colorset"/>
+        <EditHorno v-else-if="deviceName == 'Horno'" :colorset="this.colorset"/>
+        <EditRefrigerator v-else-if="deviceName == 'Heladera'" :colorset="this.colorset"/>
         <EditSpeaker v-else :colorset="this.colorset"/>
+
+      <v-card-actions v-if="edit">
+        <v-btn class="acceptButton mx-auto"
+               color="error white--text"
+        >
+          Borrar dispositivo
+          <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
+        </v-btn>
+      </v-card-actions>
 
         <div class="acceptAndCancel">
             <div class="mr-8">
@@ -97,7 +106,7 @@ import EditDoor from "@/components/EditDoor";
 export default {
   name: "EditDeviceView",
   components: {EditSpeaker, EditRefrigerator, EditHorno, EditGrifo, EditDoor},
-  props:["idType", "deviceName", "roomId", "device", "image"],
+  props:["idType", "deviceName", "roomId", "device", "edit"],
   data(){
     return({
       nameRules:[
@@ -136,10 +145,10 @@ export default {
 
     ...mapActions("devices",{
       $add: "add",
+      $editDevice: "edit"
     }),
     ...mapActions("room",{
       $addDevice: "addDevice",
-      $editDevice: "editDevice"
     }),
 
     async setResult(device){
@@ -147,29 +156,48 @@ export default {
     },
 
     async addDevice(){
-      try{
-        let device = {
-          type:{
-            id: this.device.id,
-          },
-          name: this.devName,
-          meta: {
-            roomId:this.roomId,
-            actions: this.device.actions
+      if(this.$refs.form.validate()) {
+        try{
+          if(!this.edit) {
+            let device = {
+              type: {
+                id: this.device.id,
+              },
+              name: this.devName,
+              meta: {
+                roomId: this.roomId,
+                actions: this.device.actions
+              }
+            }
+            device = await this.$add(device)
+            let idS = [this.roomId, device.id]
+            device = await this.$addDevice(idS)
+            await this.setResult(idS[1])
+          }else{
+            let device = {
+              name: this.devName,
+              meta: {
+                roomId: this.roomId,
+                actions: this.device.actions
+              }
+            }
+            let idS = [this.device.id , device]
+            await this.$editDevice(idS)
           }
+        } catch(e){
+          await this.setResult(e.code)
         }
-        device = await this.$add(device)
-        let idS = [this.roomId, device.id]
-        device = await this.$addDevice(idS)
-        await this.setResult(idS[1])
-      } catch(e){
-        await this.setResult(e.code)
+        this.goBack()
       }
-      this.goBack()
     },
     goBack(){
       this.reset();
-      this.$router.go(-2);
+      let num = -2;
+      if(this.edit)
+        num= -1
+
+      this.$router.go(num);
+
     },
     reset(){
       this.$refs.title.reset();

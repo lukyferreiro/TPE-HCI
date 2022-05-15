@@ -30,6 +30,10 @@ class RoomApi {
         return await Api.delete(RoomApi.getUrl(idRoom));
     }
 
+    static async deleteDevice(idDevice){
+        return await Api.delete(RoomApi.getUrl(null,idDevice));
+    }
+
     static async getAll(){
         return await Api.get(RoomApi.getUrl());
     }

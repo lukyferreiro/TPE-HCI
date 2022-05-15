@@ -41,17 +41,18 @@ export default {
             return result;
         },
 
-        async editDevice({dispatch}, idS){
-            const result = await RoomApi.editDevice(idS);
-            dispatch("getAll");
-            return result;
-        },
-
         async delete({dispatch}, idRoom){
             const result = await RoomApi.deleteRoom(idRoom);
             dispatch("getAll");
             return result;
         },
+
+        async deleteDevice({dispatch}, idDevice){
+            const result = await RoomApi.deleteDevice(idDevice);
+            dispatch("getAll");
+            return result;
+        },
+
         async show({dispatch}, idRoom){
             const result = await RoomApi.showRoom(idRoom);
             //para asegurarme de no perderme nada
