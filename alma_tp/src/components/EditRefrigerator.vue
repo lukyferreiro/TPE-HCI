@@ -29,6 +29,17 @@
             </div>
         </v-card-actions>
         <v-card-actions class="cardText">
+          <div class="selectMode">
+            <v-select :items="modo"
+                      item-text="modo"
+                      color="black"
+                      dense
+                      return-object
+                      persistent-placeholder
+                      placeholder="Modo"/>
+          </div>
+        </v-card-actions>
+        <v-card-actions class="cardText">
             <v-btn class="acceptButton mx-auto"
                    color="error white--text">
               Borrar dispositivo
@@ -49,6 +60,7 @@ export default {
       maxTemperatura: 8,
       minTemperaturaFreezer: -8,
       maxTemperaturaFreezer: -2,
+      modo: ["Normal", "Fiesta", "Vacaciones"],
     }),
 }
 </script>
@@ -61,25 +73,11 @@ export default {
       justify-self: center;
     }
 
-    .switchLabel {
-        color: black;
-        font-weight: bold;
-    }
-
     .slider{
           width: 300px;
     }
 
-    .selectorFuenteCalor, .selectorModo{
-      margin-left: 10px;
-      margin-right: 10px;
-    }
-
-    .selectorFuenteCalor{
-      max-width: 140px;
-    }
-
-    .selectorModo{
+    .selectMode{
       max-width: 120px;
     }
 </style>

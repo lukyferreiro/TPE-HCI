@@ -48,6 +48,17 @@
                               placeholder="Modo Grill"/>
                 </div>
             </v-card-actions>
+          <v-card-actions class="cardText">
+            <div class="selectorModo">
+              <v-select :items="modoConveccion"
+                        item-text="modoConveccion"
+                        color="black"
+                        dense
+                        return-object
+                        persistent-placeholder
+                        placeholder="Modo Conveccion"/>
+            </div>
+          </v-card-actions>
 
             <v-card-actions class="cardText">
                 <v-btn class="acceptButton mx-auto"
@@ -70,6 +81,7 @@ export default {
       maxTemperatura: 290,
       fuenteCalor: ["Abajo", "Arriba", "Convencional"],
       modoGrill: ["Apagado", "Economico", "Completo"],
+      modoConveccion: ["Apagado", "Economico", "Convencional"]
     }),
 }
 </script>
@@ -97,11 +109,11 @@ export default {
     }
 
     .selectorFuenteCalor{
-      max-width: 140px;
+      max-width: 180px;
     }
 
     .selectorModo{
-      max-width: 120px;
+      max-width: 180px;
     }
 
 </style>
