@@ -1,10 +1,9 @@
 <template>
-    <v-card :color="colorset">
+    <v-card color="transparent" flat>
         <div>
-            <v-card-actions class="cardText">
+            <v-card-actions class="cardText pt-0">
                 <v-switch v-model="closeOnClick"
                           color="secondary"
-                          class="text"
                           hide-details>
                     <template v-slot:label>
                         <span class="switchLabel">Reproducir/Detener</span>
@@ -31,7 +30,8 @@
                               :min="minDispensar"
                               :max="maxDispensar"
                               label="Cantidad a dispensar"
-                              thumb-label
+                              thumb-label="always"
+                              thumb-size="25px"
                               hide-details/>
                 </div>
                 <div class="sliderSelector">
@@ -71,25 +71,6 @@ export default {
             panel: [0, 1],
             unidades: false,
           }),
-      colorset: "primary",
-      colors: [
-        {
-          "hex": "#DC143C",
-          "name": "Crimson"
-        },
-        {
-          "hex": "#20B2AA",
-          "name": "Light Sea Green"
-        },
-        {
-          "hex": "#008B8B",
-          "name": "Dark Cyan"
-        },
-        {
-          "hex": "#4682B4",
-          "name": "Steel Blue"
-        }
-      ]
     }),
     methods: {
         openFaucet(){
@@ -100,7 +81,7 @@ export default {
 </script>
 
 <style scoped>
-    
+
     .cardText{
       align-self: center;
       justify-content: center;
@@ -123,6 +104,7 @@ export default {
     }
 
     .sliderSelector{
+      margin-left: 5px;
       width: auto;
       max-width: 100px;
     }

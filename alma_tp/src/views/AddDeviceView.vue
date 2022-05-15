@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="text">
-          <h2>Agregar dispositivo en: <span>{{room.name}}</span> </h2>
+            <h2>Agregar dispositivo en: <span>{{room.name}}</span> </h2>
         </div>
         <v-spacer/>
         <v-row class="devices">

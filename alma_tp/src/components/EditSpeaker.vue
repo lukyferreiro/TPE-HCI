@@ -1,7 +1,7 @@
 <template>
-    <v-card :color="colorset">
+    <v-card color="transparent" flat>
         <div>
-            <v-card-actions class="cardText">
+            <v-card-actions class="cardText pt-0">
                 <v-slider v-model="volume"
                           color="black"
                           track-color="black"

@@ -1,16 +1,16 @@
 <template>
     <div class="room">
-
         <AddRoomButton/>
-
         <div v-if="$roomsAmount==0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
-            <v-img alt="Imagen de fondo"
-                   :src="require(`@/assets/withoutDevices.png`)"
-                   class="mx-auto"
-                   max-width="60%"
-                   max-height="60%"
-            />
+            <div class="imagen">
+                <v-img alt="Imagen de fondo"
+                       :src="require(`@/assets/withoutDevices.png`)"
+                       class="mx-auto"
+                       max-width="60%"
+                       max-height="60%"
+                />
+            </div>
         </div>
         <div v-else v-for="room in $rooms"
              :key="room.id"
@@ -87,12 +87,19 @@ export default {
         margin-bottom: 50px;
     }
 
-    .withRooms{
-      max-width: 83%;
+    .text{
+      margin: 10px;
+      padding-left: 15px;
+      font-size: 30px;
+      font-weight: bold;
     }
 
-    .text{
-        margin: 10px;
+    .imagen{
+      padding-top: 5vh;
+    }
+
+    .withRooms{
+      max-width: 83%;
     }
 
     .roomCard{

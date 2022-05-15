@@ -8,7 +8,7 @@
                         {{room.name}}
                     </v-expansion-panel-header>
                     <v-expansion-panel-content v-if="roomDevices===0" class="pt-2 pl-4 blue lighten-5" >
-                      <p>No tienes ningún dispositivo vinculado.</p>
+                        <p>No tienes ningún dispositivo vinculado.</p>
                     </v-expansion-panel-content>
                     <v-expansion-panel-content v-else
                                                v-for="device in this.devices" :key="device.id"

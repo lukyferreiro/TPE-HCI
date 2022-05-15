@@ -11,13 +11,13 @@
 
         <div v-if="routinesAmount==0">
             <h3 class="text"> No tienes rutinas creadas aún. </h3>
-            <v-layout align-content-center>
+            <div class="imagen">
                 <v-img alt="Imagen de fondo"
                        :src="require(`@/assets/withoutRoutines.png`)"
-                       class="mx-auto my-15"
+                       class="mx-auto"
                        max-width="30%"
                        max-height="30%"/>
-            </v-layout>
+            </div>
         </div>  
 
         <div v-else v-for="routine in routines"
@@ -93,17 +93,25 @@ export default {
 <style scoped>
 
     .routine{
-      margin-top: 120px;
+      margin-top: 130px;
       margin-bottom: 50px;
+    }
+
+    .text{
+      margin: 10px;
+      padding-left: 15px;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .imagen{
+      padding-top: 5vh;
     }
 
     .button{
       position: fixed;
       bottom: 80px;
       right: 15px;
-    }
-    .text{
-      margin: 10px;
     }
 
 </style>

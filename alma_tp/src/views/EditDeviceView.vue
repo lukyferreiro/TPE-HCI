@@ -1,26 +1,57 @@
 <template>
-    <v-card :color="colorset" class=" edit ">
+    <v-card :color="colorset" class="edit">
         <div>
             <v-card-title class="titleCard">
 <!--                 <v-icon color="black" size="50px" class="mL-3"> mdi-clipboard-list-outline </v-icon>-->
                 Editar Dispositivo : {{ this.deviceName }}
+
+                <div class="image">
+                    <v-avatar rounded
+                              size="80px">
+                        <v-img :src="image"
+                               :alt="deviceName" />
+                    </v-avatar>
+                </div>
+                <v-spacer/>
+                <div>
+                    <v-card-title class="mx-auto">
+                        <v-menu offset-y>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn color="transparent"
+                                       v-bind="attrs"
+                                       v-on="on"
+                                       depressed
+                                >
+                                    <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+                                </v-btn>
+                            </template>
+                            <v-list>
+                                <v-list-item v-for="(color, index) in colors"
+                                             :key="index"
+                                >
+                                    <v-btn class="color-button"
+                                           color="transparent"
+                                           depressed
+                                           @click="colorset=color.hex">
+                                        <v-list-item-icon>
+                                            <v-icon :color="color.hex"> mdi-square</v-icon>
+                                        </v-list-item-icon>
+                                        <v-list-item-title>{{ color.name }}</v-list-item-title>
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                    </v-card-title>
+                </div>
             </v-card-title>
 
-            <v-card-actions class="pt-0 mt-0 cardText">
-                <v-avatar class="image"
-                          rounded
-                          size="80px">
-                    <v-img :src="image"
-                           :alt="deviceName" />
-                </v-avatar>
-            </v-card-actions>
-
             <v-form ref="form" lazy-validation @submit="submit">
-                <v-container>
+                <v-container class="pb-0">
                     <v-text-field outlined
                                   ref="title"
                                   v-model="devName"
                                   placeholder="Escriba el nombre del dispositivo"
+                                  background-color="white"
                                   counter
                                   autofocus
                                   clearable
@@ -30,45 +61,13 @@
                                   required/>
                 </v-container>
             </v-form>
-            <div>
-                <v-card-title class="mx-auto">
-                    <v-menu offset-y>
-                        <template v-slot:activator="{ on, attrs }">
-                            <v-btn color="transparent"
-                                   v-bind="attrs"
-                                   v-on="on"
-                                   depressed
-                            >
-                                <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
-                            </v-btn>
-                        </template>
-                        <v-list>
-                            <v-list-item v-for="(color, index) in colors"
-                                        :key="index"
-                            >
-                                <v-btn class="color-button"
-                                       color="transparent"
-                                       depressed
-                                       @click="colorset=color.hex">
-                                    <v-list-item-icon>
-                                        <v-icon :color="color.hex"> mdi-square</v-icon>
-                                    </v-list-item-icon>
-                                    <v-list-item-title>{{ color.name }}</v-list-item-title>
-                                </v-btn>
-                            </v-list-item>
-                        </v-list>
-                    </v-menu>
-                </v-card-title>
-            </div>
         </div>
 
-        <v-divider/>
         <EditDoor v-if="deviceName === 'Puerta'"/>
         <EditGrifo v-else-if="deviceName === 'Grifo'"/>
         <EditHorno v-else-if="deviceName === 'Horno'"/>
         <EditRefrigerator v-else-if="deviceName === 'Heladera'"/>
         <EditSpeaker v-else :colorset="this.colorset"/>
-        <v-divider/>
 
         <div class="acceptAndCancel">
             <div class="mr-8">
@@ -185,13 +184,18 @@ export default {
 
 <style scoped>
 
-  .cardText{
-    justify-content: center;
-  }
-
   .titleCard{
       font-weight: bold;
       font-size: 25px;
+  }
+
+  .image{
+    position: absolute;
+    margin-left: 46%;
+  }
+
+  .ingresarNombre{
+    margin-bottom: 0;
   }
 
   .edit{
