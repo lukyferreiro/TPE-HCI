@@ -29,7 +29,7 @@
         <v-divider class="mt-6 mx-4"></v-divider>
 
         <v-col>
-            <div v-for="routine in routines" :key="routine">
+            <div v-for="routine in $routines" :key="routine">
                 <v-row>
                     <v-btn class="button"
                            color="secondary"
@@ -125,7 +125,7 @@
                         </v-btn>
                     </template>
                     <v-list>
-                        <v-list-item v-for="(room, index) in rooms"
+                        <v-list-item v-for="(room, index) in $rooms"
                                      :key="index">
                             <v-list-item-action>
                                 <v-btn class="button"
@@ -139,83 +139,6 @@
                 </v-menu>
             </div>
         </v-col>
-
-      <!--    <div class="d-flex flex-row align-center text-align-center">-->
-      <!--      <v-menu offset-y>-->
-      <!--        <template v-slot:activator="{ on, attrs }">-->
-      <!--          <v-btn-->
-      <!--              rounded-->
-      <!--              class="button"-->
-      <!--              color="secondary"-->
-      <!--              dark-->
-      <!--              v-bind="attrs"-->
-      <!--              v-on="on"-->
-      <!--          >-->
-      <!--            {{roomLabel.name}}-->
-      <!--          </v-btn>-->
-      <!--        </template>-->
-      <!--        <v-list>-->
-      <!--          <v-list-item-->
-      <!--              v-for="(room, index) in rooms"-->
-      <!--              :key="index"-->
-      <!--          >-->
-      <!--            <v-list-item-action>-->
-      <!--              <v-btn class="button"-->
-      <!--                      plain-->
-      <!--                     @click="selectRoom(room)">-->
-      <!--                {{ room.name }}-->
-      <!--              </v-btn>-->
-      <!--            </v-list-item-action>-->
-      <!--          </v-list-item>-->
-      <!--        </v-list>-->
-      <!--      </v-menu>-->
-      <!--    <v-dialog scrollable-->
-      <!--              overflow="auto"-->
-      <!--              v-model="deviceSelect"-->
-      <!--              width="1000"-->
-      <!--    >-->
-      <!--      <template v-slot:activator="{ on, attrs }">-->
-      <!--        <v-btn class = "button2"-->
-      <!--               color = "secondary white&#45;&#45;text"-->
-      <!--               rounded-->
-      <!--               v-bind="attrs"-->
-      <!--               v-on="on"-->
-      <!--               @click="deviceSelect=true"-->
-      <!--               :disabled="!roomSelected"-->
-      <!--        >-->
-      <!--          {{deviceLabel.name}}-->
-      <!--          <v-icon color="white">mdi-plus-circle-outline</v-icon>-->
-      <!--        </v-btn>-->
-
-      <!--      </template>-->
-
-      <!--      <v-card class="popup"-->
-      <!--              color=" secondary white&#45;&#45;text"-->
-      <!--      >-->
-      <!--        <v-card-title>-->
-      <!--&lt;!&ndash;          Agregar Dispositivo en: {{roomLabel.name}}&ndash;&gt;-->
-      <!--          <v-spacer/>-->
-      <!--          <v-btn color="transparent"-->
-      <!--                 @click="deviceSelect=false"-->
-      <!--                 depressed-->
-      <!--          >-->
-      <!--            <v-icon color="white" size="30px">mdi-window-close</v-icon>-->
-      <!--          </v-btn>-->
-      <!--        </v-card-title>-->
-      <!--        <v-card-actions v-for="device in roomLabel.devices" :key="device">-->
-      <!--          <v-btn class="acceptButtom"-->
-      <!--                 color="primary black&#45;&#45;text"-->
-      <!--                 @click="addDeviceToRoom(device)"-->
-      <!--          >-->
-      <!--&lt;!&ndash;                <img :src="require(`@/assets/${device.image}`)"&ndash;&gt;-->
-      <!--&lt;!&ndash;                     :alt="device.name"&ndash;&gt;-->
-      <!--&lt;!&ndash;                />&ndash;&gt;-->
-      <!--              {{ device.name }}-->
-      <!--          </v-btn>-->
-      <!--        </v-card-actions>-->
-      <!--      </v-card>-->
-      <!--    </v-dialog>-->
-      <!--    </div>-->
 
         <v-divider></v-divider>
         <div class="acceptAndCancel">
@@ -235,8 +158,8 @@
 
 <script>
 import GoBack from "@/components/GoBack";
-import store from "@/store";
 import TimeSelector from "@/components/TimeSelector";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "AddRoutineView",
@@ -245,9 +168,12 @@ export default {
     GoBack
   },
   computed: {
-    rooms() {
-      return store.state.rooms
-    },
+    ...mapState("room",{
+      $rooms: "rooms"
+    }),
+    ...mapState("routine",{
+      $routines: "routines"
+    })
   },
   data(){
     const date = new Date();
@@ -258,35 +184,63 @@ export default {
         v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
         v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
       ],
-      roomSelected:false,
       routinetitle: "",
       routinetime: date.getHours() + ":" + date.getMinutes(),
       routinedays: [],
-      routine:{
-        name:"",
-        rooms:[],
-        time:null,
-        days:[],
-        play: false
-      },
+      // routine:{
+      //   name:"",
+      //   rooms:[],
+      //   time:null,
+      //   days:[],
+      //   play: false
+      // },
       roomtitle:"",
       routines:[],
       click: false,
+      roomSelected:false,
+
     }
   },
   methods:{
+    ...mapActions("routine",{
+      $addRoutine: "add",
+      $editRoutine: "edit",
+      $deleteRoutine: "delete",
+      $executeRoutine: "execute",
+      $getRoutine: "get",
+      $getAll: "getAll"
+    }),
+
     reset() {
       this.$refs.title.reset();
     },
-    addRoutine(){
-      if(this.$refs.form.validate()) {
-        this.routine.name = this.routinetitle;
-        this.routine.time = this.routinetime;
-        this.routine.days = this.routinedays;
-        store.commit("addRoutines", this.routine);
+    async addRoutine() {
+      if (this.$refs.form.validate()) {
+        let routine = {
+          name: this.routinetitle,
+          actions: [
+            // {
+            //   "device": {
+            //     "id": "c39181d52abe5555"
+            //   },
+            //   "actionName": "turnOff",
+            //   "params": [],
+            //   "meta": {}
+            // },
+          ],
+          meta: {
+            routinetime: this.routinetime,
+            routinedays: this.routinedays
+          }
+        }
+        routine = await this.$addRoutine(routine)
+        this.setResult(routine.id)
         this.$router.go(-1);
         this.reset();
       }
+    },
+    setResult(routine){
+      console.log(routine)
     },
     updateTime(newVal){
       this.routinetime=newVal
@@ -295,7 +249,6 @@ export default {
       this.routinedays=newVal
     },
     selectRoom(room){
-      console.log(room.name)
       this.routines.push({room: room,
         devices:[],
         deviceSelect: false,

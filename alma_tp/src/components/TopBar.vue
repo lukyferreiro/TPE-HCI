@@ -64,17 +64,17 @@ export default {
         $getAllRooms: "getAll",
       }),
 
-      // ...mapActions("routine",{
-      //   $getAllRoutines: "getAll",
-      // }),
+      ...mapActions("routine",{
+        $getAllRoutines: "getAll",
+      }),
 
       async updateRooms(){
         await this.$getAllRooms();
       },
 
-      // async updateRoutines(){
-      //   await this.$getAllRoutines();
-      // }
+      async updateRoutines(){
+        await this.$getAllRoutines();
+      }
   }
 }
 </script>

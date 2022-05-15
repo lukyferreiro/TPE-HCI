@@ -9,7 +9,7 @@
             <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
         </v-btn>
 
-        <div v-if="routinesAmount==0">
+        <div v-if="$routinesAmount==0">
             <h3 class="text"> No tienes rutinas creadas aún. </h3>
             <div class="imagen">
                 <v-img alt="Imagen de fondo"
@@ -20,7 +20,7 @@
             </div>
         </div>  
 
-        <div v-else v-for="routine in routines"
+        <div v-else v-for="routine in $routines"
              :key="routine">
             <v-btn @click="playRoutine(routine)"
                    plain
@@ -36,7 +36,7 @@
 <script>
 // import EditView from "@/components/EditView";
 import store from '@/store/index';
-import routines from "@/api/routines";
+import {mapActions, mapState} from "vuex";
 
 export default {
     name: "RoutineView",
@@ -50,19 +50,28 @@ export default {
         }
     },
   computed:{
-    routines(){
-      return store.state.routines
-    },
-    routinesAmount(){
-      return store.getters.routinesAmount
-    }
+      ...mapState("routine",{
+        $routines: "routines",
+        $routinesAmount: "routinesAmount"
+      }),
+    // routinesAmount(){
+    //   return store.getters.routinesAmount
+    // }
   },
-  created() {
-    routines.getRoutines(routines => {
-      store.commit("setRoutines", routines) })
-  },
+  // created() {
+  //   routines.getRoutines(routines => {
+  //     store.commit("setRoutines", routines) })
+  // },
 
   methods: {
+      ...mapActions("routine",{
+        $addRoutine: "add",
+        $editRoutine: "edit",
+        $deleteRoutine: "delete",
+        $executeRoutine: "execute",
+        $getRoutine: "get",
+        $getAll: "getAll"
+      }),
       playRoutine(routine){
         store.commit("playRoutine", routine)
       },

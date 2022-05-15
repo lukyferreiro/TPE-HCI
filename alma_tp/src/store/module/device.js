@@ -19,7 +19,6 @@ export default {
         },
         async add({dispatch}, device){
             const result = await DeviceApi.addDevice(device);
-            console.log('device added')
             dispatch("getAll");
             return result;
         },
