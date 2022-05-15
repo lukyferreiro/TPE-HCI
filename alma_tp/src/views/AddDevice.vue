@@ -1,27 +1,22 @@
 <template>
     <div class="container">
-        <GoBack name="Volver"/>
         <h2>Agregar dispositivo en: {{room.name}} </h2>
         <v-spacer/>
         <v-row class="devices">
-            <!-- GRIFO -->
-            <DeviceCard class="device" id="dbrlsh7o5sn8ur4i" :room="room"/>
-            <!-- HORNO -->
-            <DeviceCard class="device" id="im77xxyulpegfmv8" :room="room"/>
-            <!-- PUERTA-->
-            <DeviceCard class="device" id="lsf78ly0eqrjbz91" :room="room"/>
-            <!-- ASPIRADORA -->
-            <DeviceCard class="device" id="ofglvd9gqx8yfl3l" :room="room"/>
-            <!-- HELADERA -->
-            <DeviceCard class="device" id="rnizejqr2di0okho" :room="room"/>
+            <DeviceCard class="device" id="dbrlsh7o5sn8ur4i" deviceName="Grifo" :roomId="room.id"/>
+            <DeviceCard class="device" id="im77xxyulpegfmv8" deviceName="Horno" :roomId="room.id"/>
+            <DeviceCard class="device" id="lsf78ly0eqrjbz91" deviceName="Puerta" :roomId="room.id"/>
+            <DeviceCard class="device" id="c89b94e8581855bc" deviceName="Parlante" :roomId="room.id"/>
+            <DeviceCard class="device" id="rnizejqr2di0okho" deviceName="Heladera" :roomId="room.id"/>
         </v-row>
+      <GoBack name="Aceptar" color="secondary"/>
+
     </div>
 </template>
 
 <script>
 import DeviceCard from "@/components/DeviceCard";
 import GoBack from "@/components/GoBack";
-// import devicetype from "@/store/module/devicetype";
 
 export default {
   name: "AddDevice",
@@ -32,7 +27,6 @@ export default {
   },
   data(){
     return {
-      // room: this.$route.params.room
     }
   },
   methods:{

@@ -31,7 +31,7 @@
                 <v-card-text>
                     <v-text-field outlined
                                   ref="title"
-                                  v-model="roomName"
+                                  v-model="name"
                                   placeholder="Escriba el nombre de la habitación"
                                   background-color="white"
                                   color="black"
@@ -67,7 +67,7 @@ export default {
           v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
         ],
         dialog: false,
-        roomName:"",
+        name:"",
       }
     },
     methods: {
@@ -92,9 +92,8 @@ export default {
         if(this.$refs.form.validate()) {
           try{
            let room = {
-             name: this.roomName,
+             name: this.name,
              meta: {
-                    devices:[],
                     show: false,
                     color: ""
              }

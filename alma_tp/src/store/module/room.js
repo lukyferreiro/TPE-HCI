@@ -3,12 +3,18 @@ import {RoomApi} from "@/api/rooms";
 export default {
     namespaced: true,
     state:{
-        rooms: []
+        rooms: [],
+        roomsAmount: 0,
     },
     actions:{
         async getAll({commit}){
             const result =  await RoomApi.getAll();
             commit("update", result);
+            return result;
+        },
+        async getAllDevices({dispatch}, idRoom){
+            const result =  await RoomApi.getAllDevices(idRoom);
+            dispatch("getAll");
             return result;
         },
         async get({dispatch}, idRoom){
@@ -17,8 +23,15 @@ export default {
             dispatch("getAll");
             return result;
         },
+
         async add({dispatch}, room){
             const result = await RoomApi.addRoom(room);
+            dispatch("getAll");
+            return result;
+        },
+
+        async addDevice({dispatch}, idS){
+            const result = await RoomApi.addDevice(idS);
             dispatch("getAll");
             return result;
         },
@@ -27,6 +40,13 @@ export default {
             dispatch("getAll");
             return result;
         },
+
+        async editDevice({dispatch}, idS){
+            const result = await RoomApi.editDevice(idS);
+            dispatch("getAll");
+            return result;
+        },
+
         async delete({dispatch}, idRoom){
             const result = await RoomApi.deleteRoom(idRoom);
             dispatch("getAll");
@@ -43,6 +63,7 @@ export default {
     mutations: {
         update(state, rooms){
             state.rooms = rooms
+            state.roomsAmount = state.rooms.length
         }
-    }
+    },
 }

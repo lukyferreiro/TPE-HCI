@@ -1,18 +1,43 @@
 <template>
-    <v-row class="bar">
+    <v-row
+ class="bar">
         <v-col>
             <v-expansion-panels class="expansion" hover flat>
                 <v-expansion-panel>
                     <v-expansion-panel-header class="roomText blue lighten-5">
                         {{room.name}}
                     </v-expansion-panel-header>
-                    <v-expansion-panel-content v-if="room.meta.devices.length===0" class="pt-2 pl-4 blue lighten-5" >
-                        <p>No tienes ningún dispositivo vinculado.</p>
+                    <v-expansion-panel-content v-if="roomDevices===0" class="pt-2 pl-4 blue lighten-5" >
+                      <p>No tienes ningún dispositivo vinculado.</p>
                     </v-expansion-panel-content>
-                    <v-expansion-panel-content v-else v-for="device in room.meta.devices" :key="device">
-                        <v-btn plain>
-                            {{device.name}}
-                        </v-btn>
+                    <v-expansion-panel-content v-else
+                                               v-for="device in this.devices" :key="device.id"
+                                               class="pt-2 pl-4 blue lighten-5 flex">
+                        <v-row>
+                            <v-btn plain>
+                                {{device.name}}
+                            </v-btn>
+                            <div>
+                                <v-btn class="button"
+                                       plain
+                                       rounded
+                                       fab>
+                                    <v-icon class="ml-1">mdi-pencil-outline</v-icon>
+                                </v-btn>
+                                <v-btn class="button"
+                                       plain
+                                       rounded
+                                       fab>
+                                    <v-icon class="ml-2">mdi-palette-outline</v-icon>
+                                </v-btn>
+                                <v-btn class="button"
+                                       plain
+                                       rounded
+                                       fab>
+                                    <v-icon class="ml-2">mdi-trash-can-outline</v-icon>
+                                </v-btn>
+                            </div>
+                        </v-row>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -102,6 +127,15 @@ export default {
         return{
             edit: false,
             menu: false,
+            devices: null
+        }
+    },
+    async created() {
+      this.devices = await this.$getDevices(this.room.id)
+    },
+    computed:{
+        roomDevices(){
+          return this.devices ? this.devices.length : 0
         }
     },
     methods: {
@@ -111,9 +145,13 @@ export default {
         $deleteRoom: "delete",
         $getAllRooms: "getAll",
         $getRoom : "get",
-        $showRoom: "show"
+        $showRoom: "show",
+        $getDevices: "getAllDevices",
+        $getDevice: "getDevice"
       }),
-
+      ...mapActions("devices",{
+        $getAll: "getAll",
+      }),
       editRoom(room2){
             this.edit=false;
             console.log('edit room to ' + room2.name);
@@ -123,7 +161,6 @@ export default {
       },
       setResult(room){
         console.log(room)
-        // this.$getRoom(room)
       },
       async deleteRoom(room){
         try {

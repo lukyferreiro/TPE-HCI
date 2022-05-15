@@ -19,6 +19,7 @@
         <v-spacer></v-spacer>
 
         <v-btn class="menu-button"
+               @click="updateRooms()"
                :to="{name:'RoomView'}"
                plain
                retain-focus-on-click
@@ -29,7 +30,6 @@
         <v-spacer></v-spacer>
 
         <v-btn class="menu-button"
-               :to="{name:'RoutineView'}"
                plain
                retain-focus-on-click
                v-ripple="false">
@@ -53,8 +53,18 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
-    name: "TopBar"
+    name: "TopBar",
+  methods:{
+    ...mapActions("room",{
+      $getAllRooms: "getAll",
+    }),
+      async updateRooms(){
+        await this.$getAllRooms();
+      }
+  }
 }
 </script>
 

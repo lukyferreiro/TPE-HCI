@@ -1,102 +1,70 @@
-<template>
-    <div>
-        <v-card class="device"
-                v-on:click="addDevice()"
-                color="primary"
-                max-width="200"
-                max-height="200" >
-            <v-avatar class="image mr-3 ml-7 mt-5"
-                      rounded
-                      size="70%">
-                <v-img :src="require(`@/assets/${myDevice.name}.png`)"
-                       :alt="myDevice.name"/>
-            </v-avatar>
-            <v-card-title class="card">
-                {{myDevice.name}}
-            </v-card-title>
-        </v-card>
-    </div>
-</template>
+  <template>
+      <div>
+            <v-card class="device"
+                    :to="{name:'EditDevice' , params:{id: this.id,
+                                                      deviceName: this.deviceName,
+                                                      device: this.device,
+                                                      roomId: this.roomId,
+                                                      image:this.image}}"
+                    color="primary"
+                    max-width="250"
+                    max-height="250" >
+              <v-avatar rounded
+                        size="70%">
+                <v-img class="image"
+                       :src="image"
+                       :alt="name"/>
+              </v-avatar>
+              <v-card-title class="card">
+                {{deviceName}}
+              </v-card-title>
+            </v-card>
+      </div>
+  </template>
 
 <script>
 import {mapActions} from "vuex";
 
 export default {
     name: "DeviceCard",
-    props:["id", "room"],
+    props:["id","deviceName", "roomId"],
     data(){
-        return({
-            myDevice: {}
-        })
+      return({
+        device: null,
+      })
     },
-
-    async mounted(){
-        this.myDevice = await this.setDevice(this.id);
+    async created() {
+      this.device = await this.$getDeviceType(this.id)
     },
-
-    // computed:{
-    //   device: async function () {
-    //     const resp = await this.$getDevice(this.id)
-    //     console.log(resp)
-    //     return resp;
-    //   },
-    //
-    // },
-    created:{
-      // ...mapState("devicesTypes",{
-      //       $devices: "devicesTypes",
-      //     }
-      // ),
-      device: async function () {
-        const resp = await this.$getDevice(this.id)
-        console.log(resp)
-        return resp;
+    computed: {
+      name() {
+        return this.device ? this.device.name : ""
       },
+      image() {
+        return this.device ? require(`@/assets/${this.name}.png`)  : require(`@/assets/unknown.png`)
+      }
     },
-
-    methods:{
+   methods:{
         ...mapActions("devicesTypes",{
           $getAllTypes: "getAllTypes",
-          $getDeviceType: "getDeviceType"
+          $getDeviceType: "getDeviceType",
+          $editDeviceType:"editDeviceType"
         }),
 
-        ...mapActions("devices",{
-          $addDevice: "add",
-        }),
-
-        async setDevice(id){
-          const resp = await this.$getDeviceType(id)
-          console.log(resp)
-          return resp;
-        },
-
-        setResult(device){
-           console.log(device)
-        },
-
-        async addDevice(){
-          try{
-            let device = {
-              name: this.device.name,
-              meta: {
-                roomId:this.room.id,
-                actions: this.device.actions
-              }
-            }
-            device = await this.$addDevice(device)
-            this.setResult(device.id)
-          } catch(e){
-            this.setResult(e.code)
-          }
-          this.$router.go(-1);
-        },
     },
+
+
 }
 </script>
 
 <style scoped>
 
     .card{
+      justify-content: center;
+
+    }
+
+    .image{
       justify-content: center;
     }
 

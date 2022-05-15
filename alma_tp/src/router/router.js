@@ -23,14 +23,6 @@ const routes = [
     path: '/routine',
     name: 'RoutineView',
     component:() => import(/*webPackChunkName: "details" */ '../views/RoutineView.vue'),
-    // children:[
-    //   {
-    //     path: ':add',
-    //     name: 'AddRoutine',
-    //     component: () => import(/*webPackChunkName: "details" */ '../views/AddRoutine.vue'),
-    //     props:true
-    //   }
-    // ]
   },
   {
     path: '/routine/add',
@@ -42,6 +34,12 @@ const routes = [
     name: 'AddDevice',
     props: true,
     component:() => import(/*webPackChunkName: "details" */ '../views/AddDevice.vue'),
+  },
+  {
+    path: '/room/edit_devices',
+    name: 'EditDevice',
+    props: true,
+    component:() => import(/*webPackChunkName: "details" */ '../views/EditDevice.vue'),
   },
   {
     path: "/404",

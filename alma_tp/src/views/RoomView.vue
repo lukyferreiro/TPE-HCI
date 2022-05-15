@@ -2,13 +2,8 @@
     <div class="room">
 
         <AddRoomButton/>
-        <EditVacuum/>
-<!--        <EditRefrigerator/>-->
-<!--        <EditHorno/>-->
-<!--        <EditDoor/>-->
-<!--        <EditGrifo/>-->
 
-        <div v-if="roomsAmount===0">
+        <div v-if="$roomsAmount==0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
             <v-img alt="Imagen de fondo"
                    :src="require(`@/assets/withoutDevices.png`)"
@@ -30,26 +25,13 @@
 <script>
 import AddRoomButton from "@/components/AddRoomButton";
 import RoomCard from "@/components/RoomCard";
-// import rooms from '@/api/rooms'
-// import store from '@/store/index'
-import EditVacuum from '@/components/EditVacuum'
-// import EditRefrigerator from '@/components/EditRefrigerator'
-// import EditHorno from "@/components/EditHorno";
-// import EditDoor from '@/components/EditDoor'
-// import EditGrifo from '@/components/EditGrifo'
 import {mapActions, mapState} from "vuex";
 
 export default {
     name: "RoomView",
     components: {
-      // EditView,
       AddRoomButton,
       RoomCard,
-      EditVacuum,
-      // EditRefrigerator,
-      // EditHorno,
-      // EditDoor,
-      // EditGrifo,
     },
     data(){
         return{
@@ -61,14 +43,17 @@ export default {
     },
     computed:{
       ...mapState("room",{
-            $rooms: "rooms"
+            $rooms: "rooms",
+            $roomsAmount: "roomsAmount"
           }
       ),
-      roomsAmount(){
-          return this.$getAllRooms().length
-        }
+      // roomsAmount(){
+      //   console.log(this.$getAllRooms())
+      //     return this.$getAllRooms().length
+      //   }
     },
-    methods: {
+
+  methods: {
       ...mapActions("room",{
         $addRoom: "add",
         $editRoom: "edit",

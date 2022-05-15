@@ -10,7 +10,7 @@
                 <v-text-field outlined
                               ref="title"
                               v-model="routinetitle"
-                              placeholder="Ingresar el nombre de la nueva rutina"
+                              placeholder="Escriba el nombre de la rutina"
                               counter
                               autofocus
                               clearable

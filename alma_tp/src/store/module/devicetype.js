@@ -16,6 +16,11 @@ export default {
             dispatch("getAllTypes", result);
             return result;
         },
+        async editDeviceType({dispatch}, deviceType){
+            const result =  await DeviceTypesApi.editDeviceType(deviceType);
+            dispatch("getAllTypes", result);
+            return result;
+        }
     },
     mutations: {
         update(state, devices){

@@ -13,6 +13,10 @@ class DeviceTypesApi{
         return await Api.get(DeviceTypesApi.getUrl());
     }
 
+    static async editDeviceType(device){
+        return await  Api.put(DeviceTypesApi.getUrl(device.id), device)
+    }
+
 }
 
 export {DeviceTypesApi}
