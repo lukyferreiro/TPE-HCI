@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex"
+import {mapActions,mapState} from "vuex"
 export default {
     name: "AddRoomButton",
     data(){
@@ -65,11 +65,17 @@ export default {
           v => !!v || 'Campo Obligatorio',
           v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
           v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
+          v => this.$rooms.find( o => o.name === v) == null || 'El nombre ingresado ya existe',
         ],
         dialog: false,
         name:"",
       }
     },
+     computed:{
+        ...mapState("room",{
+          $rooms:"rooms"
+        }),
+       },
     methods: {
       reset(){
         this.$refs.title.reset();

@@ -29,22 +29,15 @@
             </div>
         </v-card-actions>
         <v-card-actions class="cardText">
-          <div class="selectMode">
-            <v-select :items="modo"
-                      item-text="modo"
-                      color="black"
-                      dense
-                      return-object
-                      persistent-placeholder
-                      placeholder="Modo"/>
-          </div>
-        </v-card-actions>
-        <v-card-actions class="cardText">
-            <v-btn class="acceptButton mx-auto"
-                   color="error white--text">
-              Borrar dispositivo
-              <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
-            </v-btn>
+            <div class="selectMode">
+                <v-select :items="modo"
+                          item-text="modo"
+                          color="black"
+                          dense
+                          return-object
+                          persistent-placeholder
+                          placeholder="Modo"/>
+            </div>
         </v-card-actions>
     </v-card>
 </template>

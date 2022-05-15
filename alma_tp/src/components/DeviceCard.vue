@@ -8,7 +8,9 @@
                                                   deviceName: this.deviceName,
                                                   roomId: this.roomId,
                                                   device: this.device,
-                                                  edit: false}}">
+                                                  image: this.image,
+                                                  edit: false,
+                                                  }}">
             <v-card-actions class="image">
                 <v-img :src="image"
                        :alt="name"

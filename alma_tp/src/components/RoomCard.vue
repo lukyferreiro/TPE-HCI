@@ -26,6 +26,7 @@
                                                   deviceName: device.name,
                                                   roomId: room.id,
                                                   device: device,
+                                                  image: device.meta.image,
                                                   edit: true}}"
                                 >
                                     <v-icon class="ml-1">mdi-pencil-outline</v-icon>

@@ -86,7 +86,6 @@
                     </v-select>
                 </div>
             </v-card-actions>
-
         </div>
     </v-card>
 </template>

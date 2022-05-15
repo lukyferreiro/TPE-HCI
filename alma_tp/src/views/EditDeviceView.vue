@@ -3,47 +3,47 @@
         <div>
             <v-card-title class="titleCard">
 <!--                 <v-icon color="black" size="50px" class="mL-3"> mdi-clipboard-list-outline </v-icon>-->
-                Editar Dispositivo : {{ this.deviceName }}
-
-                <div class="image">
-                    <v-avatar rounded
-                              size="80px">
-<!--                        <v-img :src="image"-->
-<!--                               :alt="deviceName" />-->
-                    </v-avatar>
-                </div>
-                <v-spacer/>
-                <div>
-                    <v-card-title class="mx-auto">
-                        <v-menu offset-y>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn color="transparent"
-                                       v-bind="attrs"
-                                       v-on="on"
-                                       depressed
-                                >
-                                    <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
-                                </v-btn>
-                            </template>
-                            <v-list>
-                                <v-list-item v-for="(color, index) in colors"
-                                             :key="index"
-                                >
-                                    <v-btn class="color-button"
-                                           color="transparent"
-                                           depressed
-                                           @click="colorset=color.hex">
-                                        <v-list-item-icon>
-                                            <v-icon :color="color.hex"> mdi-square</v-icon>
-                                        </v-list-item-icon>
-                                        <v-list-item-title>{{ color.name }}</v-list-item-title>
-                                    </v-btn>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
-                    </v-card-title>
-                </div>
+                <p v-if="edit"> Editar dispositivo: {{ this.deviceName }} </p>
+                <p v-else> Agregar dispositivo: {{ this.deviceName }} </p>
+                  <v-menu offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn color="transparent"
+                             v-bind="attrs"
+                             v-on="on"
+                             depressed
+                             fab
+                      >
+                        <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item v-for="(color, index) in colors"
+                                   :key="index"
+                      >
+                        <v-btn class="color-button"
+                               color="transparent"
+                               depressed
+                               @click="colorset=color.hex">
+                          <v-list-item-icon>
+                            <v-icon :color="color.hex"> mdi-square</v-icon>
+                          </v-list-item-icon>
+                          <v-list-item-title>{{ color.name }}</v-list-item-title>
+                        </v-btn>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
             </v-card-title>
+          <v-card-actions class="image">
+            <div >
+              <v-avatar rounded
+                        size="30%">
+                <v-img :src="image"
+                       :alt="deviceName" />
+              </v-avatar>
+            </div>
+          </v-card-actions>
+          
+          <v-spacer/>
 
             <v-form ref="form" lazy-validation @submit="submit">
                 <v-container class="pb-0">
@@ -69,14 +69,14 @@
         <EditRefrigerator v-else-if="deviceName == 'Heladera'" :colorset="this.colorset"/>
         <EditSpeaker v-else :colorset="this.colorset"/>
 
-      <v-card-actions v-if="edit">
-        <v-btn class="acceptButton mx-auto"
-               color="error white--text"
-        >
-          Borrar dispositivo
-          <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
-        </v-btn>
-      </v-card-actions>
+        <v-card-actions v-if="edit">
+            <v-btn class="acceptButton mx-auto"
+                   color="error white--text"
+            >
+                Borrar dispositivo
+                <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
+            </v-btn>
+        </v-card-actions>
 
         <div class="acceptAndCancel">
             <div class="mr-8">
@@ -106,14 +106,16 @@ import EditDoor from "@/components/EditDoor";
 export default {
   name: "EditDeviceView",
   components: {EditSpeaker, EditRefrigerator, EditHorno, EditGrifo, EditDoor},
-  props:["idType", "deviceName", "roomId", "device", "edit"],
+  props:["idType", "deviceName", "roomId", "device", "image", "edit"],
   data(){
     return({
       nameRules:[
         v => !!v || 'Campo Obligatorio',
         v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
         v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
+        v => this.allDevices.find( o => o.name === v) == null || 'El nombre ingresado ya existe'
       ],
+      allDevices: null,
       devName:"",
       colorset: "primary",
       colors: [
@@ -141,11 +143,17 @@ export default {
 
     })
   },
+  async created() {
+      this.allDevices = await this.$getAll()
+      // console.log(this.allDevices)
+    },
+
   methods:{
 
     ...mapActions("devices",{
       $add: "add",
-      $editDevice: "edit"
+      $editDevice: "edit",
+      $getAll: "getAll"
     }),
     ...mapActions("room",{
       $addDevice: "addDevice",
@@ -166,7 +174,8 @@ export default {
               name: this.devName,
               meta: {
                 roomId: this.roomId,
-                actions: this.device.actions
+                actions: this.device.actions,
+                image: this.image
               }
             }
             device = await this.$add(device)
@@ -218,8 +227,8 @@ export default {
   }
 
   .image{
-    position: absolute;
-    margin-left: 46%;
+    position: center;
+    margin-left: 20%;
   }
 
   .ingresarNombre{

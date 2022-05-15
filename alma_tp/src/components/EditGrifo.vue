@@ -44,13 +44,6 @@
                               placeholder="Unidades"/>
                 </div>
             </v-card-actions>
-            <v-card-actions class="cardText">
-                <v-btn class="acceptButton mx-auto"
-                       color="error white--text">
-                  Borrar dispositivo
-                  <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
-                </v-btn>
-            </v-card-actions>
         </div>
     </v-card>
 </template>

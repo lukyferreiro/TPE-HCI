@@ -29,118 +29,137 @@
         <v-divider class="mt-6 mx-4"></v-divider>
 
         <v-col>
-            <div v-for="routine in $routines" :key="routine">
-                <v-row>
-                    <v-btn class="button"
-                           color="secondary"
-                           rounded>
-                      {{routine.room.name}}
-                    </v-btn>
-                    <v-col>
-                        <div v-for="device in routines[routines.indexOf(routine)].devices"
-                             :key="device.id">
-                            <v-btn class = "button"
-                                   color = "secondary white--text"
-                                   rounded>
-                              {{device.name}}
-                            </v-btn>
-                        </div>
 
-                        <v-dialog scrollable
-                                  overflow="auto"
-                                  v-model="routine.deviceSelect"
-                                  width="1000">
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn class = "button2"
-                                       color = "secondary white--text"
-                                       rounded
-                                       v-bind="attrs"
-                                       v-on="on"
-                                       @click="routine.deviceSelect=true"
-                                       :disabled="!roomSelected">
-                                    Agregar Dispositivo
-                                    <v-icon color="white">mdi-plus-circle-outline</v-icon>
-                                </v-btn>
-                            </template>
-                            <v-card class="popup"
-                                    color=" secondary white--text">
-                                <v-card-title>
-                                    Agregar Dispositivo en: {{routine.room.name}}
-                                    <v-spacer/>
-                                    <v-btn color="transparent"
-                                           @click="routine.deviceSelect=false"
-                                           depressed
-                                    >
-                                        <v-icon color="white" size="30px">mdi-window-close</v-icon>
-                                    </v-btn>
-                                </v-card-title>
-                              <v-row class="devices" align-content-md="auto">
-                                <v-card-actions v-for="device in routine.room.devices"
-                                                :key="device">
-                                  <v-card class="device"
-                                          v-on:click="addDeviceToRoom(device, routine)"
-                                          color="primary"
-                                          max-width="200"
-                                          max-height="200" >
-                                    <!--          <v-img class="mx-9 my-9"  max-height="50%" max-width="50%"
-                                                     :src="require(`@/assets/${device.image}`)"
-                                                     :alt="device.name"   >
+<!--   copy paste viejo        -->
+        <div class="d-flex flex-row align-center text-align-center">
+          <v-col>
+            <v-row>
+              <div v-for="(room, index) in rooms"
+                  :key="index">
+              <v-chip color="secondary white--text">
+                {{room.room.name}}
+              </v-chip>
 
-                                              </v-img>-->
-                                    <v-avatar class="image mr-3 ml-7 mt-5 "
-                                              rounded
-                                              size="70%">
-                                      <img :src="require(`@/assets/${device.image}`)"
-                                           :alt="device.name"/>
-                                    </v-avatar>
-                                    <v-card-title class="card">
-                                      {{device.name}}
-                                    </v-card-title>
-                                  </v-card>
-<!--                                    <v-btn class="acceptButtom"
-                                           color="primary black&#45;&#45;text"
-                                           @click="addDeviceToRoom(device, routine)">
-                      &lt;!&ndash;                <img :src="require(`@/assets/${device.image}`)"&ndash;&gt;
-                      &lt;!&ndash;                     :alt="device.name"&ndash;&gt;
-                      &lt;!&ndash;                />&ndash;&gt;
-                                        {{ device.name }}
-                                    </v-btn>-->
-                                </v-card-actions>
-                              </v-row>
-                            </v-card>
-                        </v-dialog>
-                    </v-col>
-                </v-row>
-            </div>
-            <div>
+                <v-chip v-for="dev in rooms[index].selectedDevices"
+                        :key="dev.id"
+                    color="secondary white--text">
+                  {{dev.name}}
+                </v-chip>
+
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                      rounded
+                      class="button"
+                      color="secondary"
+                      dark
+                      v-bind="attrs"
+                      v-on="on"
+                  >
+                    Agregar Dispositivo
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item
+                      v-for="dev in rooms[index].devices"
+                      :key="dev.id"
+                  >
+                    <v-list-item-action>
+                      <v-btn class="button"
+                             plain
+                             @click="addDeviceToRoom(dev, index)">
+                        {{ dev.name }}
+                      </v-btn>
+
+                    </v-list-item-action>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+              </div>
+            </v-row>
+
+
+<!--            menu habitacion-->
                 <v-menu offset-y>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn rounded
-                               class="button"
-                               color="secondary"
-                               dark
-                               v-bind="attrs"
-                               v-on="on">
-                            Seleccionar Habitacion
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        rounded
+                        class="button"
+                        color="secondary"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                      Seleccionar Habitación
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item
+                        v-for="room in $rooms"
+                        :key="room.id"
+                    >
+                      <v-list-item-action>
+                        <v-btn class="button"
+                               plain
+                               @click="selectRoom(room)">
+                          {{ room.name }}
                         </v-btn>
-                    </template>
-                    <v-list>
-                        <v-list-item v-for="(room, index) in $rooms"
-                                     :key="index">
-                            <v-list-item-action>
-                                <v-btn class="button"
-                                       plain
-                                       @click="selectRoom(room)">
-                                    {{ room.name }}
-                                </v-btn>
-                            </v-list-item-action>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
-            </div>
-        </v-col>
 
-        <v-divider></v-divider>
+                      </v-list-item-action>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+          </v-col>
+          <!--                  <v-dialog scrollable-->
+          <!--                            overflow="auto"-->
+          <!--                            v-model="deviceSelect"-->
+          <!--                            width="1000"-->
+          <!--                  >-->
+          <!--                    <template v-slot:activator="{ on, attrs }">-->
+          <!--                      <v-btn class = "button2"-->
+          <!--                             color = "secondary white&#45;&#45;text"-->
+          <!--                             rounded-->
+          <!--                             v-bind="attrs"-->
+          <!--                             v-on="on"-->
+          <!--                             @click="deviceSelect=true"-->
+          <!--                             :disabled="!roomSelected"-->
+          <!--                      >-->
+          <!--                        {{deviceLabel.name}}-->
+          <!--                        <v-icon color="white">mdi-plus-circle-outline</v-icon>-->
+          <!--                      </v-btn>-->
+
+          <!--                    </template>-->
+
+          <!--                    <v-card class="popup"-->
+          <!--                            color=" secondary white&#45;&#45;text"-->
+          <!--                    >-->
+          <!--                      <v-card-title>-->
+          <!--                        Agregar Dispositivo en: {{roomLabel.name}}-->
+          <!--                        <v-spacer/>-->
+          <!--                        <v-btn color="transparent"-->
+          <!--                               @click="deviceSelect=false"-->
+          <!--                               depressed-->
+          <!--                        >-->
+          <!--                          <v-icon color="white" size="30px">mdi-window-close</v-icon>-->
+          <!--                        </v-btn>-->
+          <!--                      </v-card-title>-->
+          <!--                      <v-card-actions v-for="device in roomLabel.devices" :key="device">-->
+          <!--                        <v-btn class="acceptButtom"-->
+          <!--                               color="primary black&#45;&#45;text"-->
+          <!--                               @click="addDeviceToRoom(device)"-->
+          <!--                        >-->
+          <!--                              <img :src="require(`@/assets/${device.image}`)"-->
+          <!--                                   :alt="device.name"-->
+          <!--                              />-->
+          <!--                            {{ device.name }}-->
+          <!--                        </v-btn>-->
+          <!--                      </v-card-actions>-->
+          <!--                    </v-card>-->
+          <!--                  </v-dialog>-->
+        </div>
+
+
+          <v-divider></v-divider>
         <div class="acceptAndCancel">
             <div>
                 <GoBack name="Cancelar"
@@ -153,6 +172,7 @@
                 </v-btn>
             </div>
         </div>
+        </v-col>
     </div>
 </template>
 
@@ -167,14 +187,6 @@ export default {
     TimeSelector,
     GoBack
   },
-  computed: {
-    ...mapState("room",{
-      $rooms: "rooms"
-    }),
-    ...mapState("routine",{
-      $routines: "routines"
-    })
-  },
   data(){
     const date = new Date();
     return{
@@ -187,19 +199,30 @@ export default {
       routinetitle: "",
       routinetime: date.getHours() + ":" + date.getMinutes(),
       routinedays: [],
-      // routine:{
-      //   name:"",
-      //   rooms:[],
-      //   time:null,
-      //   days:[],
-      //   play: false
-      // },
+      actions: [
+        // {
+        //   "device": {
+        //     "id": "c39181d52abe5555"
+        //   },
+        //   "actionName": "turnOff",
+        //   "params": [],
+        //   "meta": {}
+        // },
+      ],
       roomtitle:"",
-      routines:[],
       click: false,
       roomSelected:false,
-
+      rooms: []
     }
+  },
+  computed: {
+    ...mapState("room",{
+      $rooms: "rooms"
+    }),
+    ...mapState("routine",{
+      $routines: "routines"
+    }),
+
   },
   methods:{
     ...mapActions("routine",{
@@ -211,6 +234,10 @@ export default {
       $getAll: "getAll"
     }),
 
+    ...mapActions("room",{
+      $getDevices: "getAllDevices"
+    }),
+
     reset() {
       this.$refs.title.reset();
     },
@@ -218,16 +245,7 @@ export default {
       if (this.$refs.form.validate()) {
         let routine = {
           name: this.routinetitle,
-          actions: [
-            // {
-            //   "device": {
-            //     "id": "c39181d52abe5555"
-            //   },
-            //   "actionName": "turnOff",
-            //   "params": [],
-            //   "meta": {}
-            // },
-          ],
+          actions: this.actions,
           meta: {
             routinetime: this.routinetime,
             routinedays: this.routinedays
@@ -248,17 +266,25 @@ export default {
     updateDays(newVal){
       this.routinedays=newVal
     },
-    selectRoom(room){
-      this.routines.push({room: room,
-        devices:[],
-        deviceSelect: false,
-      });
+    async selectRoom(room){
+      let device = await this.$getDevices(room.id)
+      this.rooms.push({room:room, devices: device, selectedDevices: [],actions:[]});
       this.roomSelected=true;
     },
-    addDeviceToRoom(device, routine){
-      const r =this.routines[this.routines.indexOf(routine)]
-      r.deviceSelect=false;
-      r.devices.push(device)
+
+    addDeviceToRoom(device, indexRoom){
+      let action = {
+        device: {
+          id: device.id
+        },
+        actionName: device.name,
+        params: [],
+        meta: device.actions
+      }
+      let room = this.rooms[indexRoom]
+      room.selectedDevices.push(device)
+      room.actions.push(action);
+      this.actions.push(action)
     }
   }
 }
