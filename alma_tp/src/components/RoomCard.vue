@@ -160,7 +160,8 @@ export default {
       },
       async deleteRoom(room){
         try {
-          let devices = await this.$getDevices
+          let devices = await this.$getDevices(this.room.id)
+          console.log(devices)
           await Array.from(devices).forEach(device => {
             this.$deleteDevice(device.id)
           })
