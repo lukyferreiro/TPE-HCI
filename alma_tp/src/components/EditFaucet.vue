@@ -1,15 +1,6 @@
 <template>
     <v-card color="transparent" flat>
         <div>
-            <v-card-actions class="cardText pt-0">
-                <v-switch v-model="closeOnClick"
-                          color="secondary"
-                          hide-details>
-                    <template v-slot:label>
-                        <span class="switchLabel">Reproducir/Detener</span>
-                    </template>
-                </v-switch>
-            </v-card-actions>
             <v-card-actions class="cardText">
                 <v-btn class="openAndCloseFaucet"
                        @click="openFaucet()"
@@ -18,7 +9,8 @@
                        v-ripple="false" >
                        <v-icon v-if="open" color="black" size="40px" class="mr-3">mdi-water-pump</v-icon>
                        <v-icon v-else color="black" size="40px" class="mr-3"> mdi-water-pump-off </v-icon>
-                       Abrir/Cerrar
+                  <v-text v-if="open">Abierto</v-text>
+                  <v-text v-else>Cerrado</v-text>
                 </v-btn>
             </v-card-actions>
             <v-card-actions class="cardText">

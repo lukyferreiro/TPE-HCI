@@ -5,20 +5,22 @@
                 <v-switch v-model="closeOnClick"
                           color="secondary"
                           class="text"
+                          true-value="Abrir"
+                          false-value="Cerrar"
+                          :label="`${closeOnClick}`"
                           hide-details>
-                    <template v-slot:label>
-                        <span class="switchLabel">Abrir/Cerrar</span>
-                    </template>
+
                 </v-switch>
             </v-card-actions>
             <v-card-actions class="cardText">
-                <v-switch v-model="closeOnClick"
+                <v-switch v-model="blockOnSwitch"
                           color="secondary"
                           class="text"
+                          true-value="Desbloquear"
+                          false-value="Bloquear"
+                          :label="`${blockOnSwitch}`"
+                          :disabled="closeOnClick=='Abrir'"
                           hide-details>
-                    <template v-slot:label>
-                        <span class="switchLabel">Bloquear/Desbloquear</span>
-                    </template>
                 </v-switch>
             </v-card-actions>
         </div>
@@ -31,7 +33,8 @@ export default {
     name: "EditDoor",
     data: () => ({
       dialog: false,
-      closeOnClick: true,
+      closeOnClick: 'Cerrar',
+      blockOnSwitch: 'Bloquear',
       open: false,
     }),
 }

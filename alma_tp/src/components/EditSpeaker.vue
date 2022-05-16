@@ -32,10 +32,11 @@
                 <v-switch v-model="closeOnClick"
                           color="secondary"
                           class="text"
+                          true-value="Reproducir"
+                          false-value="Detener"
+                          :label="`${closeOnClick}`"
                           hide-details>
-                    <template v-slot:label>
-                       <span class="switchLabel">Reproducir/Detener</span>
-                    </template>
+
                 </v-switch>
             </v-card-actions>
             <v-card-actions class="cardText">
@@ -80,13 +81,13 @@
                 <div class="genre">
                     <v-select :items="genres"
                               item-text="genre"
-                              label="Genero:"
+                              label="Género:"
                               class="genre"
                               color="black"
                               dense
                               return-object
                               persistent-placeholder
-                              placeholder="Seleccionar el genero">
+                              placeholder="Seleccionar el género">
                     </v-select>
                 </div>
             </v-card-actions>
@@ -99,6 +100,7 @@ export default {
     name: "EditSpeaker",
     props:["colorset"],
     data: () => ({
+        closeOnClick: 'Detener',
         play: true,
         volume: 0,
         minVolume: 0,
