@@ -66,25 +66,25 @@
         <EditRefrigerator v-else-if="idType === 'rnizejqr2di0okho'" :colorset="this.myColor" :device="device"/>
         <EditSpeaker v-else :colorset="this.myColor" :device="device"/>
 
-        <v-card-actions v-if="edit">
-            <v-btn class="acceptButton mx-auto"
-                   color="error white--text"
-                   @click="deleteDevice">
-                Borrar dispositivo
-                <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
-            </v-btn>
-        </v-card-actions>
-
         <div class="acceptAndCancel">
-            <div class="mr-8">
+            <div>
                 <v-btn color="secondary white--text"
-                       @click="goBack">
+                       @click="goBack"
+                       x-large>
                     Cancelar
+                </v-btn>
+            </div>
+            <div v-if="edit">
+                <v-btn color="error white--text"
+                       @click="deleteDevice">
+                    Borrar dispositivo
+                    <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
                 </v-btn>
             </div>
             <div>
                 <v-btn color="secondary white--text"
-                       @click="addDevice">
+                       @click="addDevice"
+                       x-large>
                   Aceptar
                 </v-btn>
             </div>
@@ -249,9 +249,14 @@ computed:{
   }
 
   .acceptAndCancel{
-    margin: 8px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 10% 20px;
+    /*margin-top: 10px;*/
+    /*margin-bottom: 20px;*/
+    /*margin-right: 10%;*/
+    /*margin-left: 10%;*/
   }
 
   .image{
