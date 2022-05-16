@@ -1,2 +1,6 @@
 {"_id":"4a9dd7eceffe9682","name":"miroom","meta":{"show":false,"color":""}}
 {"$$indexCreated":{"fieldName":"name","unique":true,"sparse":false}}
+{"_id":"ef7944abd08607c8","name":"pepe","meta":{"show":false,"color":""}}
+{"$$deleted":true,"_id":"ef7944abd08607c8"}
+{"_id":"16045eed4eb51e99","name":"pepe","meta":{"show":false,"color":""}}
+{"$$deleted":true,"_id":"4a9dd7eceffe9682"}

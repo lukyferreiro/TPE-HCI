@@ -12,7 +12,7 @@
                     <v-expansion-panel-content v-else
                                                v-for="device in this.devices" :key="device.id"
                                                class="pt-2 pl-4 blue lighten-5">
-                        <div>
+                        <div class="deviceCardInRoom">
                             <v-card color="primary"
                                     max-width="120"
                                     max-height="120"
@@ -28,7 +28,7 @@
                                            max-height="50%"
                                            max-width="50%"/>
                                 </v-card-actions>
-                                <v-card-title class="cardDevice">
+                                <v-card-title class="deviceText">
                                     {{device.name}}
                                 </v-card-title>
                             </v-card>
@@ -61,12 +61,12 @@
         <div class="roomConfiguration">
             <div class="addDeviceButton">
                 <v-btn :to="{name:'AddDeviceView', params:{room: room} }"
-                       class="addButton"
+                       class="addDeviceButtonText pl-2"
                        color="secondary"
                        outlined
                        v-ripple="false" >
+                    <v-icon class="mr-2" size="26">mdi-plus-circle-outline</v-icon>
                     Agregar dispositivo
-                    <v-icon class="ml-2" size="26">mdi-plus-circle-outline</v-icon>
                 </v-btn>
             </div>
             <div class="overflowButton">
@@ -86,43 +86,45 @@
                     <div class="options"
                          v-if="room.show"
                          v-click-outside="showFalse">
-                        <v-card-actions class="options">
-                            <v-btn class="button"
-                                   plain
-                                   rounded
-                                   fab
-                                   @click="edit=true"
-                                   v-ripple="false"
-                            >
-                                Editar nombre
-                                <v-icon class="ml-1">mdi-pencil-outline</v-icon>
-                                <EditView v-if="edit"/>
-                            </v-btn>
-                        </v-card-actions>
-                        <v-card-actions class="options">
-                            <v-btn class="button"
-                                   plain
-                                   rounded
-                                   fab
-                                   @click="editColor()"
-                                   v-ripple="false"
-                            >
-                                Editar color
-                                <v-icon class="ml-2">mdi-palette-outline</v-icon>
-                            </v-btn>
-                        </v-card-actions>
-                        <v-card-actions class="options">
-                            <v-btn class="button"
-                                   plain
-                                   rounded
-                                   fab
-                                   @click="deleteRoom()"
-                                   v-ripple="false"
-                            >
-                                Borrar habitación
-                                <v-icon class="ml-2">mdi-trash-can-outline</v-icon>
-                            </v-btn>
-                        </v-card-actions>
+                        <v-list>
+                            <v-list-item>
+                                <v-btn class="button buttonEditName"
+                                       plain
+                                       rounded
+                                       fab
+                                       @click="edit=true"
+                                       v-ripple="false"
+                                >
+                                    <v-icon class="mr-2">mdi-pencil-outline</v-icon>
+                                    Editar nombre
+                                    <EditView v-if="edit"/>
+                                </v-btn>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-btn class="button buttonEditColor"
+                                       plain
+                                       rounded
+                                       fab
+                                       @click="editColor()"
+                                       v-ripple="false"
+                                >
+                                    <v-icon class="mr-2">mdi-palette-outline</v-icon>
+                                    Editar color
+                                </v-btn>
+                            </v-list-item>
+                            <v-list-item>
+                                <v-btn class="button buttonDelete"
+                                       plain
+                                       rounded
+                                       fab
+                                       @click="deleteRoom()"
+                                       v-ripple="false"
+                                >
+                                    <v-icon class="mr-2">mdi-trash-can-outline</v-icon>
+                                    Borrar habitación
+                                </v-btn>
+                            </v-list-item>
+                        </v-list>
                     </div>
                 </v-menu>
             </div>
@@ -227,7 +229,11 @@ export default {
       font-weight: bold;
     }
 
-    .cardDevice{
+    .deviceCardInRoom{
+      display: inline-block;
+    }
+
+    .deviceText{
       justify-content: center;
       font-size: 15px;
       font-weight: bold;
@@ -244,6 +250,15 @@ export default {
       color: black;
       font-weight: bold;
     }
+    .buttonEditName{
+      padding-left: 75px;
+    }
+    .buttonEditColor{
+      padding-left: 65px;
+    }
+    .buttonDelete{
+      padding-left: 91px;
+    }
 
     p{
       font-size: 17px;
@@ -258,6 +273,10 @@ export default {
     .addDeviceButton{
       padding-top: 20px;
     }
+    .addDeviceButtonText{
+      font-size: 15px;
+      font-weight: bold;
+    }
 
     .overflowButton{
       padding-top: 10px;
@@ -267,11 +286,6 @@ export default {
       justify-content: center;
       width: 230px;
       background-color: white;
-    }
-
-    .addButton{
-      font-size: 15px;
-      font-weight: bold;
     }
 
 </style>
