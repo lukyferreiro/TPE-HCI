@@ -14,8 +14,8 @@
                                                class="pt-2 pl-4 blue lighten-5">
                         <div class="deviceCardInRoom">
                             <v-card color="primary"
-                                    max-width="120"
-                                    max-height="120"
+                                    max-width="220"
+                                    max-height="220"
                                     :to="{name: 'EditDeviceView', params:{idType: device.type.id,
                                                               deviceName: device.name,
                                                               roomId: room.id,
@@ -25,34 +25,14 @@
                                 <v-card-actions class="imageDeviceInRoom">
                                     <v-img :src="device.meta.image"
                                            :alt="device.name"
-                                           max-height="50%"
-                                           max-width="50%"/>
+                                           max-height="40%"
+                                           max-width="40%"/>
                                 </v-card-actions>
                                 <v-card-title class="deviceText">
                                     {{device.name}}
                                 </v-card-title>
                             </v-card>
                         </div>
-
-<!--                        <v-row>-->
-<!--                            <v-btn plain>-->
-<!--                                {{device.name}}-->
-<!--                            </v-btn>-->
-<!--                            <div>-->
-<!--                                <v-btn class="button"-->
-<!--                                       plain-->
-<!--                                       rounded-->
-<!--                                       fab-->
-<!--                                       :to="{name: 'EditDeviceView' , params:{idType: device.type.id,-->
-<!--                                                  deviceName: device.name,-->
-<!--                                                  roomId: room.id,-->
-<!--                                                  device: device,-->
-<!--                                                  image: device.meta.image,-->
-<!--                                                  edit: true}}">-->
-<!--                                    <v-icon class="ml-1">mdi-pencil-outline</v-icon>-->
-<!--                                </v-btn>-->
-<!--                            </div>-->
-<!--                        </v-row>-->
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -225,7 +205,7 @@ export default {
     }
 
     .roomText{
-      font-size: 20px;
+      font-size: 25px;
       font-weight: bold;
     }
 
@@ -237,7 +217,7 @@ export default {
       justify-content: center;
       font-size: 15px;
       font-weight: bold;
-      padding: 0;
+      padding: 0 5px 5px;
     }
 
     .imageDeviceInRoom{
