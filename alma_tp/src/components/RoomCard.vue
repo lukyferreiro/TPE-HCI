@@ -11,95 +11,121 @@
                     </v-expansion-panel-content>
                     <v-expansion-panel-content v-else
                                                v-for="device in this.devices" :key="device.id"
-                                               class="pt-2 pl-4 blue lighten-5 flex">
-                        <v-row>
-                            <v-btn plain>
-                                {{device.name}}
-                            </v-btn>
-                            <div>
-                                <v-btn class="button"
-                                       plain
-                                       rounded
-                                       fab
-                                       :to="{name: 'EditDeviceView' , params:{idType: device.type.id,
-                                                  deviceName: device.name,
-                                                  roomId: room.id,
-                                                  device: device,
-                                                  image: device.meta.image,
-                                                  edit: true}}">
-                                    <v-icon class="ml-1">mdi-pencil-outline</v-icon>
-                                </v-btn>
-                            </div>
-                        </v-row>
+                                               class="pt-2 pl-4 blue lighten-5">
+                        <div>
+                            <v-card color="primary"
+                                    max-width="120"
+                                    max-height="120"
+                                    :to="{name: 'EditDeviceView', params:{idType: device.type.id,
+                                                              deviceName: device.name,
+                                                              roomId: room.id,
+                                                              device: device,
+                                                              image: device.meta.image,
+                                                              edit: true}}">
+                                <v-card-actions class="imageDeviceInRoom">
+                                    <v-img :src="device.meta.image"
+                                           :alt="device.name"
+                                           max-height="50%"
+                                           max-width="50%"/>
+                                </v-card-actions>
+                                <v-card-title class="cardDevice">
+                                    {{device.name}}
+                                </v-card-title>
+                            </v-card>
+                        </div>
+
+<!--                        <v-row>-->
+<!--                            <v-btn plain>-->
+<!--                                {{device.name}}-->
+<!--                            </v-btn>-->
+<!--                            <div>-->
+<!--                                <v-btn class="button"-->
+<!--                                       plain-->
+<!--                                       rounded-->
+<!--                                       fab-->
+<!--                                       :to="{name: 'EditDeviceView' , params:{idType: device.type.id,-->
+<!--                                                  deviceName: device.name,-->
+<!--                                                  roomId: room.id,-->
+<!--                                                  device: device,-->
+<!--                                                  image: device.meta.image,-->
+<!--                                                  edit: true}}">-->
+<!--                                    <v-icon class="ml-1">mdi-pencil-outline</v-icon>-->
+<!--                                </v-btn>-->
+<!--                            </div>-->
+<!--                        </v-row>-->
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
         </v-col>
 
         <div class="roomConfiguration">
-            <v-btn :to="{name:'AddDeviceView', params:{room: room} }"
-                   class="addButton"
-                   color="secondary"
-                   outlined
-                   v-ripple="false" >
-                Agregar dispositivo
-                <v-icon class="ml-2" size="26">mdi-plus-circle-outline</v-icon>
-            </v-btn>
-            <v-menu v-model="menu"
-                    :close-on-content-click="false"
-                    offset-x>
-                <template v-slot:activator="{ on, attrs }">
-                   <v-btn fab
-                          v-ripple="false"
-                          plain
-                          v-bind="attrs"
-                          v-on="on"
-                          @click="showRoom">
-                      <v-icon size="35" color="black">mdi-dots-vertical</v-icon>
-                   </v-btn>
-                </template>
-                <div class="options"
-                     v-if="room.show"
-                     v-click-outside="showFalse">
-                    <v-card-actions class="options">
-                        <v-btn class="button"
-                               plain
-                               rounded
-                               fab
-                               @click="edit=true"
-                               v-ripple="false"
-                        >
-                            Editar nombre
-                            <v-icon class="ml-1">mdi-pencil-outline</v-icon>
-                            <EditView v-if="edit"/>
-                        </v-btn>
-                    </v-card-actions>
-                    <v-card-actions class="options">
-                        <v-btn class="button"
-                               plain
-                               rounded
-                               fab
-                               @click="editColor()"
-                               v-ripple="false"
-                        >
-                            Editar color
-                            <v-icon class="ml-2">mdi-palette-outline</v-icon>
-                        </v-btn>
-                    </v-card-actions>
-                    <v-card-actions class="options">
-                        <v-btn class="button"
-                               plain
-                               rounded
-                               fab
-                               @click="deleteRoom()"
-                               v-ripple="false"
-                        >
-                            Borrar habitación
-                            <v-icon class="ml-2">mdi-trash-can-outline</v-icon>
-                        </v-btn>
-                    </v-card-actions>
-                </div>
-            </v-menu>
+            <div class="addDeviceButton">
+                <v-btn :to="{name:'AddDeviceView', params:{room: room} }"
+                       class="addButton"
+                       color="secondary"
+                       outlined
+                       v-ripple="false" >
+                    Agregar dispositivo
+                    <v-icon class="ml-2" size="26">mdi-plus-circle-outline</v-icon>
+                </v-btn>
+            </div>
+            <div class="overflowButton">
+                <v-menu v-model="menu"
+                        :close-on-content-click="false"
+                        offset-x>
+                    <template v-slot:activator="{ on, attrs }">
+                       <v-btn fab
+                              v-ripple="false"
+                              plain
+                              v-bind="attrs"
+                              v-on="on"
+                              @click="showRoom">
+                          <v-icon size="35" color="black">mdi-dots-vertical</v-icon>
+                       </v-btn>
+                    </template>
+                    <div class="options"
+                         v-if="room.show"
+                         v-click-outside="showFalse">
+                        <v-card-actions class="options">
+                            <v-btn class="button"
+                                   plain
+                                   rounded
+                                   fab
+                                   @click="edit=true"
+                                   v-ripple="false"
+                            >
+                                Editar nombre
+                                <v-icon class="ml-1">mdi-pencil-outline</v-icon>
+                                <EditView v-if="edit"/>
+                            </v-btn>
+                        </v-card-actions>
+                        <v-card-actions class="options">
+                            <v-btn class="button"
+                                   plain
+                                   rounded
+                                   fab
+                                   @click="editColor()"
+                                   v-ripple="false"
+                            >
+                                Editar color
+                                <v-icon class="ml-2">mdi-palette-outline</v-icon>
+                            </v-btn>
+                        </v-card-actions>
+                        <v-card-actions class="options">
+                            <v-btn class="button"
+                                   plain
+                                   rounded
+                                   fab
+                                   @click="deleteRoom()"
+                                   v-ripple="false"
+                            >
+                                Borrar habitación
+                                <v-icon class="ml-2">mdi-trash-can-outline</v-icon>
+                            </v-btn>
+                        </v-card-actions>
+                    </div>
+                </v-menu>
+            </div>
         </div>
     </v-row>
 </template>
@@ -111,7 +137,7 @@ import {mapActions} from "vuex";
 export default {
     name: "RoomCard",
     components:{
-        EditView
+        EditView,
     },
     props: ["room"],
     data(){
@@ -201,6 +227,17 @@ export default {
       font-weight: bold;
     }
 
+    .cardDevice{
+      justify-content: center;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 0;
+    }
+
+    .imageDeviceInRoom{
+      justify-content: center;
+    }
+
     .button{
       text-transform: none;
       font-size: 17px;
@@ -215,8 +252,15 @@ export default {
 
     .roomConfiguration{
       display: flex;
-      justify-content: right;
-      align-items: center;
+      align-items: start;
+    }
+
+    .addDeviceButton{
+      padding-top: 20px;
+    }
+
+    .overflowButton{
+      padding-top: 10px;
     }
 
     .options{

@@ -1,7 +1,6 @@
 <template>
     <div>
-        <v-card class="device"
-                color="primary"
+        <v-card color="primary"
                 max-width="200"
                 max-height="200"
                 :to="{name:'EditDeviceView' , params:{idType: this.idType,
@@ -9,7 +8,7 @@
                                                   roomId: this.roomId,
                                                   device: this.device,
                                                   image: this.image,
-                                                  edit: false, }}">
+                                                  edit: false,}}">
             <v-card-actions class="image">
                 <v-img :src="image"
                        :alt="name"

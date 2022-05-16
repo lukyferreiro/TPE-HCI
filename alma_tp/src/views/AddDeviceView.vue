@@ -61,7 +61,6 @@ export default {
 
   span{
     text-decoration-line: underline;
-
   }
 
   .device{
