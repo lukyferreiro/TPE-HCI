@@ -18,7 +18,7 @@
                        x-large
                        rounded elevation="5"
                        retain-focus-on-click>
-                    Habitaciones
+                    Haz click aqui
                 </v-btn>
             </div>
         </div>

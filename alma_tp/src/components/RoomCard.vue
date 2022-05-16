@@ -26,8 +26,7 @@
                                                   roomId: room.id,
                                                   device: device,
                                                   image: device.meta.image,
-                                                  edit: true}}"
-                                >
+                                                  edit: true}}">
                                     <v-icon class="ml-1">mdi-pencil-outline</v-icon>
                                 </v-btn>
                             </div>
@@ -37,27 +36,25 @@
             </v-expansion-panels>
         </v-col>
 
-        <v-col col="12" md="3">
+        <div class="roomConfiguration">
+            <v-btn :to="{name:'AddDeviceView', params:{room: room} }"
+                   class="addButton"
+                   color="secondary"
+                   outlined
+                   v-ripple="false" >
+                Agregar dispositivo
+                <v-icon class="ml-2" size="26">mdi-plus-circle-outline</v-icon>
+            </v-btn>
             <v-menu v-model="menu"
                     :close-on-content-click="false"
-                    offset-x
-            >
+                    offset-x>
                 <template v-slot:activator="{ on, attrs }">
-                    <v-btn :to="{name:'AddDeviceView', params:{room: room} }"
-                           class="addButton"
-                           color="secondary"
-                           outlined
-                           v-ripple="false" >
-                        Agregar dispositivo
-                        <v-icon class="ml-2" size="26">mdi-plus-circle-outline</v-icon>
-                    </v-btn>
                    <v-btn fab
                           v-ripple="false"
                           plain
                           v-bind="attrs"
                           v-on="on"
-                          @click="showRoom"
-                   >
+                          @click="showRoom">
                       <v-icon size="35" color="black">mdi-dots-vertical</v-icon>
                    </v-btn>
                 </template>
@@ -103,7 +100,7 @@
                     </v-card-actions>
                 </div>
             </v-menu>
-        </v-col>
+        </div>
     </v-row>
 </template>
 
@@ -114,7 +111,7 @@ import {mapActions} from "vuex";
 export default {
     name: "RoomCard",
     components:{
-      EditView
+        EditView
     },
     props: ["room"],
     data(){
@@ -124,14 +121,17 @@ export default {
             devices: null
         }
     },
+
     async created() {
       this.devices = await this.$getDevices(this.room.id)
     },
+
     computed:{
         roomDevices(){
           return this.devices ? this.devices.length : 0
         }
     },
+
     methods: {
       ...mapActions("room",{
         $addRoom: "add",
@@ -149,38 +149,43 @@ export default {
       }),
 
       editRoom(room2){
-            this.edit=false;
-            console.log('edit room to ' + room2.name);
+          this.edit = false;
+          console.log('edit room to ' + room2.name);
       },
+
       editColor(){
-            console.log('edit color in ' + this.room.name)
+          console.log('edit color in ' + this.room.name);
       },
+
       setResult(room){
-        console.log(room)
+          console.log(room);
       },
+
       async deleteRoom(room){
-        try {
-          let devices = await this.$getDevices(this.room.id)
-          console.log(devices)
-          await Array.from(devices).forEach(device => {
-            this.$deleteDevice(device.id)
-          })
-          await this.$deleteRoom(this.room.id);
-          this.setResult(room)
-        }catch (e){
-          this.setResult(e)
-        }
+          try {
+            let devices = await this.$getDevices(this.room.id);
+            console.log(devices);
+            await Array.from(devices).forEach(device => {
+              this.$deleteDevice(device.id);
+            });
+            await this.$deleteRoom(this.room.id);
+            this.setResult(room);
+          } catch (e){
+            this.setResult(e);
+          }
       },
+
       showRoom(){
           let room = this.room;
           room.show = !room.show;
           this.$showRoom(room.id);
         },
-        showFalse(){
+
+      showFalse(){
           let room = this.room;
           room.show = false;
           this.$showRoom(room.id);
-        }
+      }
     }
 }
 </script>
@@ -191,19 +196,8 @@ export default {
       border-radius: 0;
     }
 
-    .options{
-      justify-content: center;
-      width: 230px;
-      background-color: white;
-    }
-
     .roomText{
       font-size: 20px;
-      font-weight: bold;
-    }
-
-    .addButton{
-      font-size: 15px;
       font-weight: bold;
     }
 
@@ -216,6 +210,23 @@ export default {
 
     p{
       font-size: 17px;
+      font-weight: bold;
+    }
+
+    .roomConfiguration{
+      display: flex;
+      justify-content: right;
+      align-items: center;
+    }
+
+    .options{
+      justify-content: center;
+      width: 230px;
+      background-color: white;
+    }
+
+    .addButton{
+      font-size: 15px;
       font-weight: bold;
     }
 
