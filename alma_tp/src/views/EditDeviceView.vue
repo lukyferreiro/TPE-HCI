@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapState} from "vuex";
 import EditGrifo from "@/components/EditFaucet";
 import EditHorno from "@/components/EditOven";
 import EditRefrigerator from "@/components/EditRefrigerator";
@@ -110,7 +110,7 @@ export default {
         v => !!v || 'Campo obligatorio',
         v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
         v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
-        v => this.allDevices.find( o => o.name === v) == null || 'El nombre ingresado ya existe'
+        v => this.$devices.find( o => o.name === v && o.id != this.device.id ) == null || 'El nombre ingresado ya existe'
       ],
       allDevices: null,
       devName:this.edit ? this.device.name : '',
@@ -139,10 +139,11 @@ export default {
       ]
     })
   },
-  async created() {
-      this.allDevices = await this.$getAll()
-      // console.log(this.allDevices)
-    },
+computed:{
+    ...mapState("devices",{
+      $devices:"devices"
+    }),
+},
 
   methods:{
 
