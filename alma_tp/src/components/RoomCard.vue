@@ -14,7 +14,7 @@
                                                    v-for="device in this.devices" :key="device.id"
                                                    class="pt-2 pl-4" :color="myroomcolor">
                             <div class="deviceCardInRoom">
-                                <v-card color="primary"
+                                <v-card :color="device.meta.color"
                                         max-width="190"
                                         max-height="200"
                                         :to="{name: 'EditDeviceView', params:{idType: device.type.id,
