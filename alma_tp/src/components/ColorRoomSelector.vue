@@ -17,7 +17,7 @@
                          :key="index">
                 <v-btn color="transparent"
                        depressed
-                       @click="myColor=color.hex">
+                       @click="color.hex">
                     <v-list-item-icon>
                         <v-icon :color="color.hex"> mdi-square</v-icon>
                     </v-list-item-icon>
@@ -34,10 +34,9 @@ export default {
     props: ["room"],
     data(){
       return{
-        myColor:'primary',
         colors: [
           {
-            "hex": "#BBDEFB",
+            "hex": "#E3F2FD",
             "name": "Light Blue"
           },
           {

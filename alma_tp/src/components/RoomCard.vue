@@ -82,7 +82,7 @@
                                     </v-btn>
                                 </v-list-item>
                                 <v-list-item>
-                                    <ColorSelector :room="room"/>
+                                    <ColorRoomSelector :room="room"/>
                                 </v-list-item>
                                 <v-list-item>
                                     <v-btn class="button buttonDelete"
@@ -108,12 +108,12 @@
 <script>
 import EditView from "@/components/EditView";
 import {mapActions} from "vuex";
-import ColorSelector from "@/components/ColorSelector";
+import ColorRoomSelector from "@/components/ColorRoomSelector";
 
 export default {
     name: "RoomCard",
     components:{
-        ColorSelector,
+        ColorRoomSelector,
         EditView,
     },
     props: ["room"],
