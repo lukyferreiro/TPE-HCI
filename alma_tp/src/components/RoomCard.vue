@@ -14,8 +14,8 @@
                                                class="pt-2 pl-4 blue lighten-5">
                         <div class="deviceCardInRoom">
                             <v-card color="primary"
-                                    max-width="220"
-                                    max-height="220"
+                                    max-width="190"
+                                    max-height="200"
                                     :to="{name: 'EditDeviceView', params:{idType: device.type.id,
                                                               deviceName: device.name,
                                                               roomId: room.id,
@@ -25,8 +25,8 @@
                                 <v-card-actions class="imageDeviceInRoom">
                                     <v-img :src="device.meta.image"
                                            :alt="device.name"
-                                           max-height="40%"
-                                           max-width="40%"/>
+                                           max-height="30%"
+                                           max-width="30%"/>
                                 </v-card-actions>
                                 <v-card-title class="deviceText">
                                     {{device.name}}
@@ -215,7 +215,7 @@ export default {
 
     .deviceText{
       justify-content: center;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: bold;
       padding: 0 5px 5px;
     }
