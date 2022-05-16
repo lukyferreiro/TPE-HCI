@@ -9,3 +9,12 @@
 {"_id":"c55c0abffc879d8e","name":"btoilet","meta":{"show":false,"color":""}}
 {"$$deleted":true,"_id":"c55c0abffc879d8e"}
 {"_id":"7d36440da0daced4","name":"pepe","meta":{"show":false,"color":""}}
+{"_id":"cbb86d9a06cb40db","name":"colores","meta":{"show":false,"color":"#000000"}}
+{"_id":"5493e7118613c23f","name":"juan","meta":{"show":false,"colorRoom":"#000000"}}
+{"_id":"c9742f0ee22f667e","name":"aaaa","meta":{"show":false,"colorRoom":"#E3F2FD"}}
+{"$$deleted":true,"_id":"7d36440da0daced4"}
+{"$$deleted":true,"_id":"72d1166e8daebf76"}
+{"$$deleted":true,"_id":"5493e7118613c23f"}
+{"$$deleted":true,"_id":"cbb86d9a06cb40db"}
+{"_id":"af73c4840f2fee95","name":"ssssss","meta":{"show":false,"colorRoom":"#E3F2FD"}}
+{"_id":"cd43f52278cea836","name":"lucas","meta":{"show":false,"colorRoom":"#E3F2FD"}}

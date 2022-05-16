@@ -101,7 +101,8 @@ export default {
              name: this.name,
              meta: {
                     show: false,
-                    color: ""
+                    //Color por default: blue lighten-5 #E3F2FD
+                    colorRoom: "#E3F2FD"
              }
            }
            room = await this.$addRoom(room)

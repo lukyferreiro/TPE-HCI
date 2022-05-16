@@ -26,8 +26,7 @@
                     <v-list>
                         <v-list-item v-for="(color, index) in colors"
                                      :key="index">
-                            <v-btn class="color-button"
-                                   color="transparent"
+                            <v-btn color="transparent"
                                    depressed
                                    @click="myColor=color.hex">
                               <v-list-item-icon>

@@ -1,124 +1,119 @@
 <template>
-    <v-row>
-        <v-col>
-            <v-expansion-panels class="expansion" hover flat>
-                <v-expansion-panel>
-                    <v-expansion-panel-header class="roomText blue lighten-5">
-                        {{room.name}}
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content v-if="roomDevices===0" class="pt-2 pl-4 blue lighten-5" >
-                        <p>No tienes ningún dispositivo vinculado.</p>
-                    </v-expansion-panel-content>
-                    <v-expansion-panel-content v-else
-                                               v-for="device in this.devices" :key="device.id"
-                                               class="pt-2 pl-4 blue lighten-5">
-                        <div class="deviceCardInRoom">
-                            <v-card color="primary"
-                                    max-width="190"
-                                    max-height="200"
-                                    :to="{name: 'EditDeviceView', params:{idType: device.type.id,
-                                                              deviceName: device.name,
-                                                              roomId: room.id,
-                                                              device: device,
-                                                              image: device.meta.image,
-                                                              edit: true}}">
-                                <v-card-actions class="imageDeviceInRoom">
-                                    <v-img :src="device.meta.image"
-                                           :alt="device.name"
-                                           max-height="30%"
-                                           max-width="30%"/>
-                                </v-card-actions>
-                                <v-card-title class="deviceText">
-                                    {{device.name}}
-                                </v-card-title>
-                            </v-card>
-                        </div>
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
-            </v-expansion-panels>
-        </v-col>
+    <v-card class="roomCard" :color="myroomcolor">
+        <v-row>
+            <v-col>
+                <v-expansion-panels class="expansion" hover flat>
+                    <v-expansion-panel>
+                        <v-expansion-panel-header class="roomText" :color="myroomcolor" >
+                            {{room.name}}
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content v-if="roomDevices===0" class="pt-2 pl-4" :color="myroomcolor" >
+                            <p>No cuentas con ningún dispositivo vinculado.</p>
+                        </v-expansion-panel-content>
+                        <v-expansion-panel-content v-else
+                                                   v-for="device in this.devices" :key="device.id"
+                                                   class="pt-2 pl-4" :color="myroomcolor">
+                            <div class="deviceCardInRoom">
+                                <v-card color="primary"
+                                        max-width="190"
+                                        max-height="200"
+                                        :to="{name: 'EditDeviceView', params:{idType: device.type.id,
+                                                                  deviceName: device.name,
+                                                                  roomId: room.id,
+                                                                  device: device,
+                                                                  image: device.meta.image,
+                                                                  edit: true}}">
+                                    <v-card-actions class="imageDeviceInRoom">
+                                        <v-img :src="device.meta.image"
+                                               :alt="device.name"
+                                               max-height="30%"
+                                               max-width="30%"/>
+                                    </v-card-actions>
+                                    <v-card-title class="deviceText">
+                                        {{device.name}}
+                                    </v-card-title>
+                                </v-card>
+                            </div>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+            </v-col>
 
-        <div class="roomConfiguration">
-            <div class="addDeviceButton">
-                <v-btn :to="{name:'AddDeviceView', params:{room: room} }"
-                       class="addDeviceButtonText pl-2"
-                       color="secondary"
-                       outlined
-                       v-ripple="false" >
-                    <v-icon class="mr-2" size="26">mdi-plus-circle-outline</v-icon>
-                    Agregar dispositivo
-                </v-btn>
+            <div class="roomConfiguration">
+                <div class="addDeviceButton">
+                    <v-btn :to="{name:'AddDeviceView', params:{room: room} }"
+                           class="addDeviceButtonText pl-2"
+                           color="secondary"
+                           outlined
+                           v-ripple="false" >
+                        <v-icon class="mr-2" size="26">mdi-plus-circle-outline</v-icon>
+                        Agregar dispositivo
+                    </v-btn>
+                </div>
+                <div class="overflowButton">
+                    <v-menu v-model="menu"
+                            :close-on-content-click="false"
+                            offset-x>
+                        <template v-slot:activator="{ on, attrs }">
+                           <v-btn fab
+                                  v-ripple="false"
+                                  plain
+                                  v-bind="attrs"
+                                  v-on="on"
+                                  @click="showRoom">
+                              <v-icon size="35" color="black">mdi-dots-vertical</v-icon>
+                           </v-btn>
+                        </template>
+                        <div class="options"
+                             v-if="room.show"
+                             v-click-outside="showFalse">
+                            <v-list>
+                                <v-list-item>
+                                    <v-btn class="button buttonEditName"
+                                           plain
+                                           rounded
+                                           fab
+                                           @click="edit=true"
+                                           v-ripple="false"
+                                    >
+                                        <v-icon class="mr-2">mdi-pencil-outline</v-icon>
+                                        Editar nombre
+                                        <EditView v-if="edit"/>
+                                    </v-btn>
+                                </v-list-item>
+                                <v-list-item>
+                                    <ColorSelector :room="room"/>
+                                </v-list-item>
+                                <v-list-item>
+                                    <v-btn class="button buttonDelete"
+                                           plain
+                                           rounded
+                                           fab
+                                           @click="deleteRoom()"
+                                           v-ripple="false"
+                                    >
+                                        <v-icon class="mr-2">mdi-trash-can-outline</v-icon>
+                                        Borrar habitación
+                                    </v-btn>
+                                </v-list-item>
+                            </v-list>
+                        </div>
+                    </v-menu>
+                </div>
             </div>
-            <div class="overflowButton">
-                <v-menu v-model="menu"
-                        :close-on-content-click="false"
-                        offset-x>
-                    <template v-slot:activator="{ on, attrs }">
-                       <v-btn fab
-                              v-ripple="false"
-                              plain
-                              v-bind="attrs"
-                              v-on="on"
-                              @click="showRoom">
-                          <v-icon size="35" color="black">mdi-dots-vertical</v-icon>
-                       </v-btn>
-                    </template>
-                    <div class="options"
-                         v-if="room.show"
-                         v-click-outside="showFalse">
-                        <v-list>
-                            <v-list-item>
-                                <v-btn class="button buttonEditName"
-                                       plain
-                                       rounded
-                                       fab
-                                       @click="edit=true"
-                                       v-ripple="false"
-                                >
-                                    <v-icon class="mr-2">mdi-pencil-outline</v-icon>
-                                    Editar nombre
-                                    <EditView v-if="edit"/>
-                                </v-btn>
-                            </v-list-item>
-                            <v-list-item>
-                                <v-btn class="button buttonEditColor"
-                                       plain
-                                       rounded
-                                       fab
-                                       @click="editColor()"
-                                       v-ripple="false"
-                                >
-                                    <v-icon class="mr-2">mdi-palette-outline</v-icon>
-                                    Editar color
-                                </v-btn>
-                            </v-list-item>
-                            <v-list-item>
-                                <v-btn class="button buttonDelete"
-                                       plain
-                                       rounded
-                                       fab
-                                       @click="deleteRoom()"
-                                       v-ripple="false"
-                                >
-                                    <v-icon class="mr-2">mdi-trash-can-outline</v-icon>
-                                    Borrar habitación
-                                </v-btn>
-                            </v-list-item>
-                        </v-list>
-                    </div>
-                </v-menu>
-            </div>
-        </div>
-    </v-row>
+        </v-row>
+    </v-card>
 </template>
 
 <script>
 import EditView from "@/components/EditView";
 import {mapActions} from "vuex";
+import ColorSelector from "@/components/ColorSelector";
 
 export default {
     name: "RoomCard",
     components:{
+        ColorSelector,
         EditView,
     },
     props: ["room"],
@@ -126,7 +121,8 @@ export default {
         return{
             edit: false,
             menu: false,
-            devices: null
+            devices: null,
+            myroomcolor: this.room.meta.colorRoom
         }
     },
 
@@ -199,6 +195,14 @@ export default {
 </script>
 
 <style scoped>
+
+    .roomCard{
+      margin-left: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 10px;
+    }
 
     .expansion{
       border-radius: 0;
