@@ -32,6 +32,11 @@ export default {
             dispatch("getAll");
             return result;
         },
+        async execute({dispatch}, idS){
+            const result = await DeviceApi.executeAction(idS);
+            dispatch("getAll");
+            return result;
+        }
 
     },
     mutations: {

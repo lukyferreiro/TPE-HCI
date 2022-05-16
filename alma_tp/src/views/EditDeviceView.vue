@@ -1,10 +1,10 @@
 <template>
-    <v-card :color="colorset" class="edit">
+    <v-card :color="myColor" class="edit">
         <div>
             <v-card-title class="titleCard">
-<!--                 <v-icon color="black" size="50px" class="mL-3"> mdi-clipboard-list-outline </v-icon>-->
                 <p v-if="edit"> Editar dispositivo: {{ this.deviceName }} </p>
                 <p v-else> Agregar dispositivo: {{ this.deviceName }} </p>
+              <v-spacer/>
                   <v-menu offset-y>
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn color="transparent"
@@ -23,7 +23,7 @@
                         <v-btn class="color-button"
                                color="transparent"
                                depressed
-                               @click="colorset=color.hex">
+                               @click="myColor=color.hex">
                           <v-list-item-icon>
                             <v-icon :color="color.hex"> mdi-square</v-icon>
                           </v-list-item-icon>
@@ -63,15 +63,16 @@
             </v-form>
         </div>
 
-        <EditDoor v-if="deviceName == 'Puerta'" :colorset="this.colorset"/>
-        <EditGrifo v-else-if="deviceName == 'Grifo'" :colorset="this.colorset"/>
-        <EditHorno v-else-if="deviceName == 'Horno'" :colorset="this.colorset"/>
-        <EditRefrigerator v-else-if="deviceName == 'Heladera'" :colorset="this.colorset"/>
-        <EditSpeaker v-else :colorset="this.colorset"/>
+        <EditDoor v-if="device.type.id == 'lsf78ly0eqrjbz91'" :colorset="this.myColor" :device="device"/>
+        <EditGrifo v-else-if="device.type.id == 'dbrlsh7o5sn8ur4i'" :colorset="this.myColor" :device="device"/>
+        <EditHorno v-else-if="device.type.id == 'im77xxyulpegfmv8'" :colorset="this.myColor" :device="device"/>
+        <EditRefrigerator v-else-if="device.type.id == 'rnizejqr2di0okho'" :colorset="this.myColor" :device="device"/>
+        <EditSpeaker v-else :colorset="this.myColor" :device="device"/>
 
         <v-card-actions v-if="edit">
             <v-btn class="acceptButton mx-auto"
                    color="error white--text"
+                   @click="deleteDevice"
             >
                 Borrar dispositivo
                 <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
@@ -97,8 +98,8 @@
 
 <script>
 import {mapActions} from "vuex";
-import EditGrifo from "@/components/EditGrifo";
-import EditHorno from "@/components/EditHorno";
+import EditGrifo from "@/components/EditFaucet";
+import EditHorno from "@/components/EditOven";
 import EditRefrigerator from "@/components/EditRefrigerator";
 import EditSpeaker from "@/components/EditSpeaker";
 import EditDoor from "@/components/EditDoor";
@@ -116,8 +117,8 @@ export default {
         v => this.allDevices.find( o => o.name === v) == null || 'El nombre ingresado ya existe'
       ],
       allDevices: null,
-      devName:"",
-      colorset: "primary",
+      devName:this.edit ? this.device.name : '',
+      myColor: this.edit ? this.device.meta.color : 'primary' ,
       colors: [
         {
           "hex": "#BBDEFB",
@@ -153,7 +154,8 @@ export default {
     ...mapActions("devices",{
       $add: "add",
       $editDevice: "edit",
-      $getAll: "getAll"
+      $getAll: "getAll",
+      $deleteDevice: "delete"
     }),
     ...mapActions("room",{
       $addDevice: "addDevice",
@@ -161,6 +163,11 @@ export default {
 
     async setResult(device){
       console.log(device)
+    },
+    
+    async deleteDevice(){
+      await this.$deleteDevice(this.device.id)
+      this.goBack();
     },
 
     async addDevice(){
@@ -175,7 +182,8 @@ export default {
               meta: {
                 roomId: this.roomId,
                 actions: this.device.actions,
-                image: this.image
+                image: this.image,
+                color: this.myColor
               }
             }
             device = await this.$add(device)
@@ -187,7 +195,9 @@ export default {
               name: this.devName,
               meta: {
                 roomId: this.roomId,
-                actions: this.device.actions
+                actions: this.device.actions,
+                image: this.image,
+                color: this.myColor
               }
             }
             let idS = [this.device.id , device]

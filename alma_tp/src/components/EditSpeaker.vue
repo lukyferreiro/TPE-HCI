@@ -138,7 +138,6 @@ export default {
     }
 
     .pauseAndReanude{
-        text-transform: none;
         color: black;
         font-weight: bold;
         font-size: 15px;

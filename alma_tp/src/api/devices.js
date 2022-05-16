@@ -1,8 +1,8 @@
 import {Api} from "@/api/api";
 
 class DeviceApi {
-    static getUrl(slug){
-        return `${Api.baseUrl}/devices${slug ? `/${slug}` : ''}`
+    static getUrl(slug, slugAction){
+        return `${Api.baseUrl}/devices${slug ? `/${slug}` : ''}${slugAction ? `/${slugAction}` : ''}`
     }
     
     static async addDevice(device){
@@ -43,9 +43,10 @@ class DeviceApi {
     // }
 
     //PUT /devices/{deviceId}/{actionName}
-    // static async executeAction(device){
-    //     return await Api.put(DeviceApi.getUrl(device.id) + `...`, device);
-    // }
+    static async executeAction(idS){
+        //idS = [device, actionName]
+        return await Api.put(DeviceApi.getUrl(idS[0].id, idS[1]) , idS[0]);
+    }
 
 }
 

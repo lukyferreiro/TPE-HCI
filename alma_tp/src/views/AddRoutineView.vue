@@ -28,58 +28,86 @@
 
         <v-divider class="mt-6 mx-4"></v-divider>
 
-        <v-col>
+      <div v-for="(room, index) in rooms"
+           :key="index">
+        <v-card class="blue lighten-5">
+        <v-row>
+              <v-col>
+                <v-expansion-panels class="expansion" hover flat>
+                  <v-expansion-panel>
+                    <v-expansion-panel-header class="roomText blue lighten-5">
+                      {{room.room.name}}
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content v-if="rooms[index].selectedDevices.length===0"
+                                               class="pt-2 pl-4 blue lighten-5" >
+                      <p>No tienes ningún dispositivo vinculado.</p>
+                    </v-expansion-panel-content>
+                    <v-expansion-panel-content v-else
+                                               v-for="device in rooms[index].selectedDevices" :key="device.id"
+                                               class="pt-2 pl-4 blue lighten-5 flex">
+                      <v-row>
+                        <v-btn plain>
+                          {{device.name}}
+                        </v-btn>
+                        <div>
+                          <v-btn class="button"
+                                 plain
+                                 rounded
+                                 fab
+                                 :to="{name: 'EditDeviceView' , params:{idType: device.type.id,
+                                                    deviceName: device.name,
+                                                    roomId: room.id,
+                                                    device: device,
+                                                    image: device.meta.image,
+                                                    edit: false}}"
+                          >
+                            <v-icon class="ml-1">mdi-pencil-outline</v-icon>
+                          </v-btn>
+                        </div>
+                      </v-row>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+                </v-expansion-panels>
+              </v-col>
 
-<!--   copy paste viejo        -->
-        <div class="d-flex flex-row align-center text-align-center">
-          <v-col>
-            <v-row>
-              <div v-for="(room, index) in rooms"
-                  :key="index">
-              <v-chip color="secondary white--text">
-                {{room.room.name}}
-              </v-chip>
-
-                <v-chip v-for="dev in rooms[index].selectedDevices"
+              <v-col>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        rounded
+                        class="button"
+                        color="secondary"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                      Agregar Dispositivo
+                      <v-icon class="ml-2" size="26">mdi-plus-circle-outline</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item
+                        v-for="dev in rooms[index].devices"
                         :key="dev.id"
-                    color="secondary white--text">
-                  {{dev.name}}
-                </v-chip>
+                    >
+                      <v-list-item-action>
+                        <v-btn class="button"
+                               plain
+                               @click="addDeviceToRoom(dev, index)">
+                          {{ dev.name }}
+                        </v-btn>
 
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                      rounded
-                      class="button"
-                      color="secondary"
-                      dark
-                      v-bind="attrs"
-                      v-on="on"
-                  >
-                    Agregar Dispositivo
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item
-                      v-for="dev in rooms[index].devices"
-                      :key="dev.id"
-                  >
-                    <v-list-item-action>
-                      <v-btn class="button"
-                             plain
-                             @click="addDeviceToRoom(dev, index)">
-                        {{ dev.name }}
-                      </v-btn>
-
-                    </v-list-item-action>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-              </div>
+                      </v-list-item-action>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </v-col>
             </v-row>
+        </v-card>
+      </div>
 
 
 <!--            menu habitacion-->
+      <v-col>
                 <v-menu offset-y>
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
@@ -110,56 +138,10 @@
                   </v-list>
                 </v-menu>
           </v-col>
-          <!--                  <v-dialog scrollable-->
-          <!--                            overflow="auto"-->
-          <!--                            v-model="deviceSelect"-->
-          <!--                            width="1000"-->
-          <!--                  >-->
-          <!--                    <template v-slot:activator="{ on, attrs }">-->
-          <!--                      <v-btn class = "button2"-->
-          <!--                             color = "secondary white&#45;&#45;text"-->
-          <!--                             rounded-->
-          <!--                             v-bind="attrs"-->
-          <!--                             v-on="on"-->
-          <!--                             @click="deviceSelect=true"-->
-          <!--                             :disabled="!roomSelected"-->
-          <!--                      >-->
-          <!--                        {{deviceLabel.name}}-->
-          <!--                        <v-icon color="white">mdi-plus-circle-outline</v-icon>-->
-          <!--                      </v-btn>-->
-
-          <!--                    </template>-->
-
-          <!--                    <v-card class="popup"-->
-          <!--                            color=" secondary white&#45;&#45;text"-->
-          <!--                    >-->
-          <!--                      <v-card-title>-->
-          <!--                        Agregar Dispositivo en: {{roomLabel.name}}-->
-          <!--                        <v-spacer/>-->
-          <!--                        <v-btn color="transparent"-->
-          <!--                               @click="deviceSelect=false"-->
-          <!--                               depressed-->
-          <!--                        >-->
-          <!--                          <v-icon color="white" size="30px">mdi-window-close</v-icon>-->
-          <!--                        </v-btn>-->
-          <!--                      </v-card-title>-->
-          <!--                      <v-card-actions v-for="device in roomLabel.devices" :key="device">-->
-          <!--                        <v-btn class="acceptButtom"-->
-          <!--                               color="primary black&#45;&#45;text"-->
-          <!--                               @click="addDeviceToRoom(device)"-->
-          <!--                        >-->
-          <!--                              <img :src="require(`@/assets/${device.image}`)"-->
-          <!--                                   :alt="device.name"-->
-          <!--                              />-->
-          <!--                            {{ device.name }}-->
-          <!--                        </v-btn>-->
-          <!--                      </v-card-actions>-->
-          <!--                    </v-card>-->
-          <!--                  </v-dialog>-->
-        </div>
 
 
           <v-divider></v-divider>
+
         <div class="acceptAndCancel">
             <div>
                 <GoBack name="Cancelar"
@@ -172,7 +154,6 @@
                 </v-btn>
             </div>
         </div>
-        </v-col>
     </div>
 </template>
 
@@ -199,19 +180,7 @@ export default {
       routinetitle: "",
       routinetime: date.getHours() + ":" + date.getMinutes(),
       routinedays: [],
-      actions: [
-        // {
-        //   "device": {
-        //     "id": "c39181d52abe5555"
-        //   },
-        //   "actionName": "turnOff",
-        //   "params": [],
-        //   "meta": {}
-        // },
-      ],
-      roomtitle:"",
-      click: false,
-      roomSelected:false,
+      actions: [],
       rooms: []
     }
   },
@@ -251,6 +220,7 @@ export default {
             routinedays: this.routinedays
           }
         }
+        console.log(routine)
         routine = await this.$addRoutine(routine)
         this.setResult(routine.id)
         this.$router.go(-1);
@@ -267,24 +237,24 @@ export default {
       this.routinedays=newVal
     },
     async selectRoom(room){
-      let device = await this.$getDevices(room.id)
+      let device =await this.$getDevices(room.id)
       this.rooms.push({room:room, devices: device, selectedDevices: [],actions:[]});
-      this.roomSelected=true;
     },
 
     addDeviceToRoom(device, indexRoom){
-      let action = {
-        device: {
-          id: device.id
-        },
-        actionName: device.name,
-        params: [],
-        meta: device.actions
-      }
       let room = this.rooms[indexRoom]
+      // console.log(room.devices)
+      // let action = {
+      //   device: {
+      //     id: device.id
+      //   },
+      //   actionName: device.meta.actions.name,
+      //   params: device.meta.actions.params,
+      //   meta: device.meta.actions.meta
+      // }
       room.selectedDevices.push(device)
-      room.actions.push(action);
-      this.actions.push(action)
+      // room.actions.push(action);
+      // this.actions.push(action)
     }
   }
 }

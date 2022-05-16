@@ -1,10 +1,2 @@
-{"_id":"9601160ec5b5c7b1","name":"jelop","meta":{"devices":[],"show":false}}
-{"_id":"9753a9bec2ea481d","name":"jejw","meta":{"devices":[],"show":false}}
-{"_id":"9a6f482f176df290","name":"lalal","meta":{"devices":[],"show":false}}
-{"_id":"a1854c29a0731bd2","name":"lalla","meta":{"devices":[],"show":false}}
-{"_id":"a4a9753036d3b243","name":"agus","meta":{"devices":[],"show":false}}
-{"_id":"af80a99ec383c22d","name":"NMBVH","meta":{"show":false,"color":""}}
-{"_id":"bd02a4b206b7e795","name":"que onda","meta":{"devices":[],"show":false}}
-{"_id":"c2d892431464ebb5","name":"que se yo","meta":{"devices":[],"show":false}}
+{"_id":"4a9dd7eceffe9682","name":"miroom","meta":{"show":false,"color":""}}
 {"$$indexCreated":{"fieldName":"name","unique":true,"sparse":false}}
-{"_id":"991ae56706879b44","name":"khli","meta":{"show":false,"color":""}}

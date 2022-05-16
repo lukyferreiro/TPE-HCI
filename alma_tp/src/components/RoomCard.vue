@@ -1,6 +1,5 @@
 <template>
-    <v-row
- class="bar">
+    <v-row>
         <v-col>
             <v-expansion-panels class="expansion" hover flat>
                 <v-expansion-panel>
