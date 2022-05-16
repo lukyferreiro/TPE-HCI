@@ -63,10 +63,10 @@
             </v-form>
         </div>
 
-        <EditDoor v-if="device.type.id == 'lsf78ly0eqrjbz91'" :colorset="this.myColor" :device="device"/>
-        <EditGrifo v-else-if="device.type.id == 'dbrlsh7o5sn8ur4i'" :colorset="this.myColor" :device="device"/>
-        <EditHorno v-else-if="device.type.id == 'im77xxyulpegfmv8'" :colorset="this.myColor" :device="device"/>
-        <EditRefrigerator v-else-if="device.type.id == 'rnizejqr2di0okho'" :colorset="this.myColor" :device="device"/>
+        <EditDoor v-if="idType == 'lsf78ly0eqrjbz91'" :colorset="this.myColor" :device="device"/>
+        <EditGrifo v-else-if="idType == 'dbrlsh7o5sn8ur4i'" :colorset="this.myColor" :device="device"/>
+        <EditHorno v-else-if="idType == 'im77xxyulpegfmv8'" :colorset="this.myColor" :device="device"/>
+        <EditRefrigerator v-else-if="idType == 'rnizejqr2di0okho'" :colorset="this.myColor" :device="device"/>
         <EditSpeaker v-else :colorset="this.myColor" :device="device"/>
 
         <v-card-actions v-if="edit">
