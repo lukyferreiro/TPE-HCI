@@ -67,7 +67,7 @@ export default {
     }
 
     .slider{
-          width: 300px;
+      width: 300px;
     }
 
     .selectMode{

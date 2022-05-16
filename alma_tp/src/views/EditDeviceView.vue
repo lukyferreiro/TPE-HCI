@@ -1,49 +1,46 @@
 <template>
     <v-card :color="myColor" class="edit">
-        <div>
-            <v-card-title class="titleCard">
-                <p v-if="edit"> Editar dispositivo: {{ this.deviceName }} </p>
-                <p v-else> Agregar dispositivo: {{ this.deviceName }} </p>
-              <v-spacer/>
-                  <v-menu offset-y>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn color="transparent"
-                             v-bind="attrs"
-                             v-on="on"
-                             depressed
-                             fab
-                      >
-                        <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item v-for="(color, index) in colors"
-                                   :key="index"
-                      >
-                        <v-btn class="color-button"
-                               color="transparent"
-                               depressed
-                               @click="myColor=color.hex">
-                          <v-list-item-icon>
-                            <v-icon :color="color.hex"> mdi-square</v-icon>
-                          </v-list-item-icon>
-                          <v-list-item-title>{{ color.name }}</v-list-item-title>
-                        </v-btn>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-            </v-card-title>
-          <v-card-actions class="image">
-            <div >
-              <v-avatar rounded
-                        size="30%">
+        <div class="image">
+            <v-avatar rounded
+                      size="20%">
                 <v-img :src="image"
                        :alt="deviceName" />
-              </v-avatar>
-            </div>
-          </v-card-actions>
+            </v-avatar>
+        </div>
+        <div>
+            <v-card-title class="titleCard mb-7">
+                <p v-if="edit"> Editar dispositivo: {{ this.deviceName }} </p>
+                <p v-else> Agregar dispositivo: {{ this.deviceName }} </p>
+                <v-spacer/>
+
+                <v-menu offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn color="transparent"
+                               v-bind="attrs"
+                               v-on="on"
+                               depressed
+                               fab >
+                            <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item v-for="(color, index) in colors"
+                                     :key="index">
+                            <v-btn class="color-button"
+                                   color="transparent"
+                                   depressed
+                                   @click="myColor=color.hex">
+                              <v-list-item-icon>
+                                  <v-icon :color="color.hex"> mdi-square</v-icon>
+                              </v-list-item-icon>
+                              <v-list-item-title>{{ color.name }}</v-list-item-title>
+                            </v-btn>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+            </v-card-title>
           
-          <v-spacer/>
+            <v-spacer/>
 
             <v-form ref="form" lazy-validation @submit="submit">
                 <v-container class="pb-0">
@@ -63,17 +60,16 @@
             </v-form>
         </div>
 
-        <EditDoor v-if="idType == 'lsf78ly0eqrjbz91'" :colorset="this.myColor" :device="device"/>
-        <EditGrifo v-else-if="idType == 'dbrlsh7o5sn8ur4i'" :colorset="this.myColor" :device="device"/>
-        <EditHorno v-else-if="idType == 'im77xxyulpegfmv8'" :colorset="this.myColor" :device="device"/>
-        <EditRefrigerator v-else-if="idType == 'rnizejqr2di0okho'" :colorset="this.myColor" :device="device"/>
+        <EditDoor v-if="idType === 'lsf78ly0eqrjbz91'" :colorset="this.myColor" :device="device"/>
+        <EditGrifo v-else-if="idType === 'dbrlsh7o5sn8ur4i'" :colorset="this.myColor" :device="device"/>
+        <EditHorno v-else-if="idType === 'im77xxyulpegfmv8'" :colorset="this.myColor" :device="device"/>
+        <EditRefrigerator v-else-if="idType === 'rnizejqr2di0okho'" :colorset="this.myColor" :device="device"/>
         <EditSpeaker v-else :colorset="this.myColor" :device="device"/>
 
         <v-card-actions v-if="edit">
             <v-btn class="acceptButton mx-auto"
                    color="error white--text"
-                   @click="deleteDevice"
-            >
+                   @click="deleteDevice">
                 Borrar dispositivo
                 <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
             </v-btn>
@@ -86,14 +82,14 @@
                     Cancelar
                 </v-btn>
             </div>
-        <div>
-            <v-btn color="secondary white--text"
-                   @click="addDevice">
-              Aceptar
-            </v-btn>
+            <div>
+                <v-btn color="secondary white--text"
+                       @click="addDevice">
+                  Aceptar
+                </v-btn>
+            </div>
         </div>
-    </div>
-  </v-card>
+    </v-card>
 </template>
 
 <script>
@@ -111,7 +107,7 @@ export default {
   data(){
     return({
       nameRules:[
-        v => !!v || 'Campo Obligatorio',
+        v => !!v || 'Campo obligatorio',
         v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
         v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
         v => this.allDevices.find( o => o.name === v) == null || 'El nombre ingresado ya existe'
@@ -141,7 +137,6 @@ export default {
           "name": "Light Pink"
         }
       ]
-
     })
   },
   async created() {
@@ -190,7 +185,7 @@ export default {
             let idS = [this.roomId, device.id]
             device = await this.$addDevice(idS)
             await this.setResult(idS[1])
-          }else{
+          } else{
             let device = {
               name: this.devName,
               meta: {
@@ -209,18 +204,20 @@ export default {
         this.goBack()
       }
     },
+
     goBack(){
       this.reset();
       let num = -2;
-      if(this.edit)
-        num= -1
-
+      if(this.edit) {
+        num = -1;
+      }
       this.$router.go(num);
-
     },
+
     reset(){
       this.$refs.title.reset();
     },
+
     submit(e){
       e.preventDefault();
       this.addDevice()
@@ -237,19 +234,17 @@ export default {
   }
 
   .image{
-    position: center;
-    margin-left: 20%;
-  }
-
-  .ingresarNombre{
-    margin-bottom: 0;
+    position: absolute;
+    margin-left: 45.5%;
+    margin-top: 15px;
   }
 
   .edit{
-    margin-top: 140px;
-    margin-bottom: 120px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin: 140px 100px 120px;
+    /*margin-top: 140px;*/
+    /*margin-bottom: 120px;*/
+    /*margin-left: 100px;*/
+    /*margin-right: 100px;*/
   }
 
   .acceptAndCancel{

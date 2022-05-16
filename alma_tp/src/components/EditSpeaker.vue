@@ -1,27 +1,31 @@
 <template>
     <v-card color="transparent" flat>
         <div>
-            <v-card-actions class="cardText pt-0">
-                <v-slider v-model="volume"
-                          color="black"
-                          track-color="black"
-                          track-fill-color="black"
-                          always-dirty
-                          :min="minVolume"
-                          :max="maxVolume"
-                          hide-details
-                      >
-                    <template v-slot:prepend>
-                        <v-icon color="black" size="25px"
-                                @click="decrementVolume">
-                            mdi-minus </v-icon>
-                    </template>
-                    <template v-slot:append>
-                        <v-icon color="black" size="25px"
-                                @click="incrementVolume">
-                            mdi-plus</v-icon>
-                    </template>
-                </v-slider>
+            <v-card-actions class="cardText pt-4">
+                <div class="slider">
+                    <v-slider v-model="volume"
+                              color="black"
+                              track-color="black"
+                              track-fill-color="black"
+                              always-dirty
+                              :min="minVolume"
+                              :max="maxVolume"
+                              thumb-label="always"
+                              thumb-size="25px"
+                              hide-details
+                          >
+                        <template v-slot:prepend>
+                            <v-icon color="black" size="25px"
+                                    @click="decrementVolume">
+                                mdi-minus </v-icon>
+                        </template>
+                        <template v-slot:append>
+                            <v-icon color="black" size="25px"
+                                    @click="incrementVolume">
+                                mdi-plus</v-icon>
+                        </template>
+                    </v-slider>
+                </div>
             </v-card-actions>
 
             <v-card-actions class="cardText">
@@ -135,6 +139,10 @@ export default {
         align-self: center;
         justify-content: center;
         justify-self: center;
+    }
+
+    .slider{
+      width: 300px;
     }
 
     .pauseAndReanude{
