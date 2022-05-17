@@ -1,6 +1,7 @@
 <template>
     <v-card color="transparent" flat >
-        <div> {{this.device.state.temperature}}
+      {{this.edit}}
+        <div>
             <v-card-actions class="cardText pt-0">
                 <v-switch v-model="closeOnClick"
                           inset
@@ -73,21 +74,23 @@ import {mapActions} from "vuex";
 
 export default {
     name: "EditHorno",
-    props: ["device"],
-    data: () => ({
-        selectedFuente:'Convencional',
-        selectedGrill: 'Apagado',
-        selectedConveccion: 'Apagado',
+    props: ["device","edit"],
+    data(){
+      return({
+        selectedFuente: this.edit ? (this.device.state.heat=='conventional' ? 'Convencional' : (this.device.state.heat=='bottom' ? 'Abajo' : 'Arriba')) : 'Convencional',
+        selectedGrill: this.edit ? (this.device.state.grill=='off' ? 'Apagado' : (this.device.state.grill=='large' ? 'Completo' : 'Economico')) : 'Apagado',
+        selectedConveccion:  this.edit ? (this.device.state.convection=='off' ? 'Apagado' : (this.device.state.convection=='eco' ? 'Economico' : 'Convencional')) : 'Convencional',
         dialog: false,
-        closeOnClick: 'Apagado',
-        temperatura: 90,
+        closeOnClick: this.edit ? (this.device.state.status==='off' ? 'Apagado' : 'Encendido') : 'Apagado',
+        temperatura: this.edit ? this.device.state.temperature : 90,
         firstTemp: 90,
         minTemperatura: 90,
         maxTemperatura: 290,
         fuenteCalor: ["Abajo", "Arriba", "Convencional"],
         modoGrill: ["Apagado", "Económico", "Completo"],
         modoConveccion: ["Apagado", "Económico", "Convencional"]
-    }),
+      })
+    },
     methods:{
         ...mapActions("devices",{
           $executeAction: "execute"
