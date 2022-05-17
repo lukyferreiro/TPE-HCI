@@ -1,18 +1,18 @@
 <template>
     <v-card color="transparent" flat>
         <div>
-            <v-card-actions class="cardText">
-                <v-btn class="openAndCloseFaucet"
-                       @click="openFaucet()"
-                       plain
-                       fab
-                       v-ripple="false" >
-                       <v-icon v-if="open" color="black" size="40px" class="mr-3">mdi-water-pump</v-icon>
-                       <v-icon v-else color="black" size="40px" class="mr-3"> mdi-water-pump-off </v-icon>
-                  <v-text v-if="open">Abierto</v-text>
-                  <v-text v-else>Cerrado</v-text>
-                </v-btn>
-            </v-card-actions>
+          <v-card-actions class="cardText pt-0">
+            <v-switch v-model="closeOnClick"
+                      color="secondary"
+                      class="text"
+                      true-value="Abierto"
+                      false-value="Cerrado"
+                      :label="`${closeOnClick}`"
+                      hide-details
+                      inset
+                      @change="setOpenClose()"
+            />
+          </v-card-actions>
             <v-card-actions class="cardText">
                 <div class="slider">
                     <v-slider v-model="cantDispensar"
@@ -24,16 +24,21 @@
                               label="Cantidad a dispensar"
                               thumb-label="always"
                               thumb-size="25px"
-                              hide-details/>
+                              hide-details
+                              @change="setDispensar()"
+                    />
                 </div>
                 <div class="sliderSelector">
-                    <v-select :items="unidades"
+                    <v-select v-model="unidadesOnClick"
+                              :items="unidades"
                               item-text="unidades"
                               color="black"
                               dense
                               return-object
                               persistent-placeholder
-                              placeholder="Unidades"/>
+                              placeholder="Unidades"
+                              @change="setUnidades"
+                    />
                 </div>
             </v-card-actions>
         </div>
@@ -42,25 +47,55 @@
 
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
-    name: "EditGrifo",
-    data: () => ({
-      dialog: false,
-      closeOnClick: true,
-      open: false,
-      cantDispensar: 0,
-      minDispensar: 0,
-      maxDispensar: 100,
-      unidades: ["Litros", "Mililitros"],
-      data: () => ({
-            panel: [0, 1],
-            unidades: false,
-          }),
-    }),
+    name: "EditFaucet",
+    props:["device", "edit"],
+    data(){
+      return({
+        dialog: false,
+        closeOnClick: this.edit ?  (this.device.state.status==='closed' ? 'Cerrado' : 'Abierto') : 'Cerrado' ,
+        open: false,
+        cantDispensar: this.edit ? this.device.type.powerUsage : 15,
+        minDispensar: 0,
+        maxDispensar: 100,
+        unidades:  [
+          "ml",
+          "cl",
+          "dl",
+          "l",
+          "dal",
+          "hl",
+          "kl"
+        ],
+        unidadesOnClick: 'l'
+        // unidades: false,
+      })
+    },
     methods: {
-        openFaucet(){
-            this.open = !this.open;
-        },
+      ...mapActions("devices", {
+        $executeAction: "execute"
+      }),
+      async execute(actionName) {
+        let idS = [this.device, actionName]
+        await this.$executeAction(idS)
+      },
+      setOpenClose() {
+        if (this.closeOnClick === 'Cerrado') {
+          this.execute('close', this.closeOnClick)
+        } else {
+          this.execute('open', this.closeOnClick)
+        }
+      },
+      async setDispensar(){
+        let idS = [this.device, 'dispense', [this.cantDispensar]]
+        await this.$executeAction(idS)
+      },
+      async setUnidades(){
+        let idS = [this.device, 'unit', [this.unidadesOnClick]]
+        await this.$executeAction(idS)
+      }
     }
 }
 </script>

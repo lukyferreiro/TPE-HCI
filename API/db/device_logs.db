@@ -158,3 +158,5 @@
 {"_id":"af47208a39182495","timestamp":"2022-05-17T17:06:10.972Z","deviceId":"d93f4d135863ccd7","action":"lock","params":[],"result":true}
 {"_id":"f9f20f8c69fd3e6e","timestamp":"2022-05-17T17:06:11.944Z","deviceId":"d93f4d135863ccd7","action":"unlock","params":[],"result":true}
 {"_id":"8b16bcc624278ebe","timestamp":"2022-05-17T17:06:11.957Z","deviceId":"d93f4d135863ccd7","action":"open","params":[],"result":true}
+{"_id":"a87a906cbacfa585","timestamp":"2022-05-17T17:18:22.591Z","deviceId":"554cf5c0324da625","action":"open","params":[],"result":true}
+{"_id":"93d4ff8649fcd2c8","timestamp":"2022-05-17T17:18:23.063Z","deviceId":"554cf5c0324da625","action":"close","params":[],"result":true}

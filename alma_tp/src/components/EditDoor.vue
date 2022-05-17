@@ -36,13 +36,11 @@ import {mapActions} from "vuex";
 
 export default {
     name: "EditDoor",
-    props: ["device"],
+    props: ["device", "edit"],
     data(){
       return({
-        dialog: false,
-        closeOnClick: this.device.state.status==='closed' ? 'Cerrado' : 'Abierto' ,
-        blockOnSwitch: this.device.state.lock==='unlocked' ? 'Desbloqueado' : 'Bloqueado' ,
-        open: false,
+        closeOnClick: this.edit ? (this.device.state.status==='closed' ? 'Cerrado' : 'Abierto') : 'Cerrado' ,
+        blockOnSwitch:  this.edit ? (this.device.state.lock==='unlocked' ? 'Desbloqueado' : 'Bloqueado')  : 'Desbloqueado' ,
       })
     },
     methods: {
