@@ -36,6 +36,7 @@ export default {
             return result;
         },
         async edit({dispatch}, room){
+
             const result = await RoomApi.editRoom(room);
             dispatch("getAll");
             return result;

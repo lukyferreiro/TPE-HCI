@@ -87,19 +87,24 @@ export default {
           $executeAction: "execute"
         }),
 
-        async execute(actionName, description){
+
+
+
+        async execute(actionName,description){
           Array.from(this.device.meta.actions).find(a => a.name == actionName).description = description
-          let idS = [this.device, actionName]
+          let idS = [this.device, actionName,[]]
           await this.$executeAction(idS)
         },
 
-        async executeWithParams(actionName, description, prevDesc){
+
+/*
+          async executeWithParams(actionName, description, prevDesc){
           let action = Array.from(this.device.meta.actions).find(a => a.name == actionName)
           action.params[0].description = description
           action.description = prevDesc
           let idS = [this.device, actionName]
           await this.$executeAction(idS)
-        },
+        },*/
 
         setOnOff(){
           if(!this.closeOnClick){
@@ -109,10 +114,12 @@ export default {
           }
         },
 
-        setTemperature(){
-          console.log( Array.from(this.device.meta.actions).find(a => a.name == 'setTemperature'))
-          this.executeWithParams('setTemperature', this.temperatura, this.firstTemp)
-          this.firstTemp = this.temperatura
+        async setTemperature(){
+         // console.log( Array.from(this.device.meta.actions).find(a => a.name == 'setTemperature'))
+          //this.executeWithParams('setTemperature', this.temperatura, this.firstTemp)
+          let idS = [this.device, 'setTemperature', [this.temperatura]]
+          await this.$executeAction(idS)
+         // this.firstTemp = this.temperatura
         }
     }
 }

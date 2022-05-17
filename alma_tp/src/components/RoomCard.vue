@@ -11,9 +11,12 @@
                             <p>No cuentas con ningún dispositivo vinculado.</p>
                         </v-expansion-panel-content>
                         <v-expansion-panel-content v-else
-                                                   v-for="device in this.devices" :key="device.id"
-                                                   class="pt-2 pl-4" :color="myroomcolor">
-                            <div class="deviceCardInRoom">
+                                                   class="pt-2 pl-4"
+                                                   :color="myroomcolor"
+                                                   >
+
+                          <v-row >
+                              <v-col class="deviceCardInRoom" v-for="device in this.devices" :key="device.id">
                                 <v-card :color="device.meta.color"
                                         max-width="190"
                                         max-height="200"
@@ -33,7 +36,8 @@
                                         {{device.name}}
                                     </v-card-title>
                                 </v-card>
-                            </div>
+                              </v-col>
+                          </v-row>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
@@ -214,7 +218,7 @@ export default {
     }
 
     .deviceCardInRoom{
-      display: inline-block;
+    /*  display: inline-block; me parece q esto no hace falta */
     }
 
     .deviceText{

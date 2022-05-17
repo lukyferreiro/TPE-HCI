@@ -17,7 +17,7 @@
                          :key="index">
                 <v-btn color="transparent"
                        depressed
-                       @click="color.hex">
+                       @click="updateColor(color.hex)">
                     <v-list-item-icon>
                         <v-icon :color="color.hex"> mdi-square</v-icon>
                     </v-list-item-icon>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
     name: "ColorSelector",
     props: ["room"],
@@ -59,8 +61,22 @@ export default {
       }
     },
     methods: {
-      async updateColor(){
+      ...mapActions("room",{
+        $editRoom: "edit",
+        $getAll:"getAll"
+      }),
 
+      async updateColor(colorSelected){
+        let room={
+          name: this.room.name,
+          meta: {
+            colorRoom : colorSelected,
+          }
+        }
+        let idS=[this.room.id,room]
+        console.log(room.name)
+        await this.$editRoom(idS)
+        await this.$getAll()
       }
     }
 }

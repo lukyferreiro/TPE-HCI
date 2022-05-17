@@ -17,9 +17,11 @@ class RoomApi {
         return await Api.post(RoomApi.getUrlDevices(idS[0], idS[1]));
     }
 
-    static async editRoom(room){
+    static async editRoom(idS){
         //devuelve true o false si lo pudo modificar o no
-        return await Api.put(RoomApi.getUrl(room.id), room);
+        console.log(RoomApi.getUrl(idS[0]))
+        console.log(idS[1])
+        return await Api.put(RoomApi.getUrl(idS[0]), idS[1]);
     }
 
     static async editDevice(idS){
@@ -56,6 +58,7 @@ class RoomApi {
     // showFalse(state, room){
     //   state.rooms[state.rooms.indexOf(room)].show = false;
     // },
+
 }
 
 export {RoomApi}

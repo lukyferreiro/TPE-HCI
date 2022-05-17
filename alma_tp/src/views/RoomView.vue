@@ -15,7 +15,7 @@
         <div v-else v-for="room in $rooms"
              :key="room.id"
              class="withRooms">
-            <RoomCard :room="room"/>
+            <RoomCard :room="room" />
         </div>
     </div>
 </template>
@@ -37,6 +37,7 @@ export default {
             room2:"",
             active:[],
             menu: false,
+            color:'primary'
         }
     },
     computed:{
@@ -97,7 +98,7 @@ export default {
     }
 
     .withRooms{
-      max-width: 83%;
+      max-width: 80%;
     }
 
 </style>

@@ -45,7 +45,7 @@ class DeviceApi {
     //PUT /devices/{deviceId}/{actionName}
     static async executeAction(idS){
         //idS = [device, actionName]
-        return await Api.put(DeviceApi.getUrl(idS[0].id, idS[1]) , idS[0]);
+        return await Api.put(DeviceApi.getUrl(idS[0].id, idS[1]) , idS[2]);
     }
 
 }
