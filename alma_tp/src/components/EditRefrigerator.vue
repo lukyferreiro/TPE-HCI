@@ -56,7 +56,6 @@ export default {
     props:["device", "edit"],
     data(){
       return({
-        dialog: false,
         closeOnClick: true,
         temperatura: this.edit ? (this.device.state.temperature) : 2,
         temperaturaFreezer:this.edit ? (this.device.state.freezerTemperature) : -8,
@@ -64,7 +63,7 @@ export default {
         maxTemperatura: 8,
         minTemperaturaFreezer: -20,
         maxTemperaturaFreezer: -8,
-        selectModo:this.edit ? (this.device.state.mode === 'vacation' ? 'Vacaciones': (this.device.state.mode === 'party' ? 'Fiesta' : 'Normal')) : 'Normal',
+        selectModo: this.edit ? (this.device.state.mode === 'vacation' ? 'Vacaciones': (this.device.state.mode === 'party' ? 'Fiesta' : 'Normal')) : 'Normal',
         modo: ["Normal", "Fiesta", "Vacaciones"],
       });
     },
@@ -77,19 +76,21 @@ export default {
       let idS = [this.device, 'setTemperature', [this.temperatura]]
       await this.$executeAction(idS)
     },
+
     async setFreezerTemperature() {
       let idS = [this.device, 'setFreezerTemperature', [this.temperaturaFreezer]]
       await this.$executeAction(idS)
     },
+
     async setModo(){
       let idS = [this.device, 'setMode']
       if(this.selectModo === 'Normal'){
         idS[2] = ['default']
-      }else if(this.selectModo === 'Fiesta'){
+      } else if(this.selectModo === 'Fiesta'){
         idS[2] = ['party']
         this.temperaturaFreezer = this.minTemperaturaFreezer
         await this.setFreezerTemperature()
-      }else{
+      } else{
         idS[2] = ['vacation']
         this.temperatura = this.maxTemperatura
         await this.setTemperature()
