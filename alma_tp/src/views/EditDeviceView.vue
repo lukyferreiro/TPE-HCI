@@ -153,24 +153,24 @@ export default {
       myColor: this.edit ? this.device.meta.color : 'primary' ,
       colors: [
         {
-          "hex": "#BBDEFB",
-          "name": "Light Blue"
+          "hex": "#90CAF9",
+          "name": "Azul"
         },
         {
-          "hex": "#D1C4E9",
-          "name": "Light Purple"
+          "hex": "#B39DDB",
+          "name": "Violeta"
         },
         {
-          "hex": "#DCEDC8",
-          "name": "Light Green"
+          "hex": "#C5E1A5",
+          "name": "Verde"
         },
         {
-          "hex": "#FFF9C4",
-          "name": "Light Yellow"
+          "hex": "#FFF59D",
+          "name": "Amarillo"
         },
         {
-          "hex": "#FCE4EC",
-          "name": "Light Pink"
+          "hex": "#F8BBD0",
+          "name": "Rosa"
         }
       ]
     })

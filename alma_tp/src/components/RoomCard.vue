@@ -233,23 +233,23 @@ export default {
       colors: [
         {
           "hex": "#E3F2FD",
-          "name": "Light Blue"
+          "name": "Azul"
         },
         {
           "hex": "#D1C4E9",
-          "name": "Light Purple"
+          "name": "Violeta"
         },
         {
           "hex": "#DCEDC8",
-          "name": "Light Green"
+          "name": "Verde"
         },
         {
           "hex": "#FFF9C4",
-          "name": "Light Yellow"
+          "name": "Amarillo"
         },
         {
           "hex": "#FCE4EC",
-          "name": "Light Pink"
+          "name": "Rosa"
         }
       ],
       newRoomName: this.room.name,

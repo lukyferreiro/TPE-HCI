@@ -42,19 +42,61 @@
     </v-card>
 </template>
 <script>
+import mapActions from "vuex";
+
 export default {
     name: "EditRefrigerator",
-    data: () => ({
-      dialog: false,
-      closeOnClick: true,
-      temperatura: 5,
-      temperaturaFreezer: -10,
-      minTemperatura: 2,
-      maxTemperatura: 8,
-      minTemperaturaFreezer: -20,
-      maxTemperaturaFreezer: -8,
-      modo: ["Normal", "Fiesta", "Vacaciones"],
+    data(){
+      return({
+        selectedMode: 'Normal',
+        dialog: false,
+        closeOnClick: true,
+        temperatura: 5,
+        temperaturaFreezer: -10,
+        minTemperatura: 2,
+        maxTemperatura: 8,
+        minTemperaturaFreezer: -20,
+        maxTemperaturaFreezer: -8,
+        modo: ["Normal", "Fiesta", "Vacaciones"],
+      })
+    },
+  methods:{
+    ...mapActions("devices",{
+      $executeAction: "execute"
     }),
+
+    async setTemperature(){
+      let idS = [this.device, 'setTemperature', [this.temperatura]]
+      await this.$executeAction(idS)
+    },
+
+    async setFreezerTemperature(){
+      let idS = [this.device, 'setFreezerTemperature', [this.temperaturaFreezer]]
+      await this.$executeAction(idS)
+    },
+
+    async setModo(){
+      let idS = [this.device, 'setMode', []]
+      if(this.selectedMode === "Fiesta"){
+        this.temperaturaFreezer = this.minTemperaturaFreezer
+        idS[2] = ['party']
+        await this.setFreezerTemperature()
+      }
+      else if(this.selectedMode === "Vacaciones"){
+        this.temperatura = this.maxTemperatura
+        idS[2] = ['vacation']
+        await this.setTemperature()
+      }
+      else{
+        this.temperatura = 5
+        this.temperaturaFreezer = -10
+        idS[2] = ['default']
+        await this.setTemperature()
+        await this.setFreezerTemperature()
+      }
+      await this.$executeAction(idS)
+    }
+  }
 }
 </script>
 
