@@ -33,7 +33,7 @@ export default {
             return result;
         },
         async execute({dispatch}, idS){
-            console.log('entro');
+            // console.log(idS[2]);
             const result = await DeviceApi.executeAction(idS);
             dispatch("getAll");
             return result;

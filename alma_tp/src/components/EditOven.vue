@@ -1,6 +1,6 @@
 <template>
     <v-card color="transparent" flat >
-        <div>
+        <div> {{this.device.state.temperature}}
             <v-card-actions class="cardText pt-0">
                 <v-switch v-model="closeOnClick"
                           inset
@@ -31,35 +31,38 @@
             </v-card-actions>
             <v-card-actions class="cardText">
                 <div class="selectorFuenteCalor">
-                    <v-select :items="fuenteCalor"
+                    <v-select v-model="selectedFuente"
+                              :items="fuenteCalor"
                               item-text="fuenteCalor"
                               color="black"
                               dense
-                              return-object
-                              persistent-placeholder
-                              placeholder="Fuente Calor"/>
+                              label="Fuente Calor"
+                              @change="setFuente()"
+                    />
                 </div>
             </v-card-actions>
             <v-card-actions class="cardText">
                 <div class="selectorModo">
-                    <v-select :items="modoGrill"
+                    <v-select v-model="selectedGrill"
+                              :items="modoGrill"
                               item-text="modoGrill"
                               color="black"
                               dense
-                              return-object
-                              persistent-placeholder
-                              placeholder="Modo Grill"/>
+                              label="Modo Grill"
+                              @change="setGrill"
+                    />
                 </div>
             </v-card-actions>
             <v-card-actions class="cardText">
                 <div class="selectorModo">
-                    <v-select :items="modoConveccion"
+                    <v-select v-model="selectedConveccion"
+                              :items="modoConveccion"
                               item-text="modoConveccion"
                               color="black"
                               dense
-                              return-object
-                              persistent-placeholder
-                              placeholder="Modo Conveccion"/>
+                              label="Modo Convección"
+                              @change="setConveccion"
+                    />
                 </div>
             </v-card-actions>
         </div>
@@ -72,6 +75,9 @@ export default {
     name: "EditHorno",
     props: ["device"],
     data: () => ({
+        selectedFuente:'Convencional',
+        selectedGrill: 'Apagado',
+        selectedConveccion: 'Apagado',
         dialog: false,
         closeOnClick: 'Apagado',
         temperatura: 90,
@@ -79,8 +85,8 @@ export default {
         minTemperatura: 90,
         maxTemperatura: 290,
         fuenteCalor: ["Abajo", "Arriba", "Convencional"],
-        modoGrill: ["Apagado", "Economico", "Completo"],
-        modoConveccion: ["Apagado", "Economico", "Convencional"]
+        modoGrill: ["Apagado", "Económico", "Completo"],
+        modoConveccion: ["Apagado", "Económico", "Convencional"]
     }),
     methods:{
         ...mapActions("devices",{
@@ -90,9 +96,9 @@ export default {
 
 
 
-        async execute(actionName,description){
-          Array.from(this.device.meta.actions).find(a => a.name == actionName).description = description
-          let idS = [this.device, actionName,[]]
+        async execute(actionName){
+          // Array.from(this.device.meta.actions).find(a => a.name == actionName).description = description
+          let idS = [this.device, actionName]
           await this.$executeAction(idS)
         },
 
@@ -107,7 +113,7 @@ export default {
         },*/
 
         setOnOff(){
-          if(!this.closeOnClick){
+          if(this.closeOnClick == 'Apagado'){
             this.execute('turnOff', this.closeOnClick)
           }else{
             this.execute('turnOn', this.closeOnClick)
@@ -115,12 +121,45 @@ export default {
         },
 
         async setTemperature(){
-         // console.log( Array.from(this.device.meta.actions).find(a => a.name == 'setTemperature'))
-          //this.executeWithParams('setTemperature', this.temperatura, this.firstTemp)
           let idS = [this.device, 'setTemperature', [this.temperatura]]
           await this.$executeAction(idS)
-         // this.firstTemp = this.temperatura
+        },
+
+        async setFuente(){
+          let idS = [this.device, 'setHeat', []]
+
+          if(this.selectedFuente == 'Convencional'){
+            idS[2] = ['conventional']
+          }else if(this.selectedFuente == 'Abajo'){
+            idS[2] = ['bottom']
+          }else{
+            idS[2] = ['top']
+          }
+          await this.$executeAction(idS)
+        },
+
+      async setGrill(){
+        let idS = [this.device, 'setGrill', []]
+        if(this.selectedGrill == 'Apagado'){
+          idS[2] = ['off']
+        }else if(this.selectedGrill == 'Económico'){
+          idS[2] = ['eco']
+        }else{
+          idS[2] = ['large']
         }
+        await this.$executeAction(idS)
+      },
+      async setConveccion(){
+         let idS = [this.device, 'setConvection', []]
+         if(this.setConveccion() == 'Apagado'){
+           idS[2] = ['off']
+         }else if(this.setConveccion() == 'Económico'){
+           idS[2] = ['eco']
+         }else{
+           idS[2] = ['normal']
+         }
+         await this.$executeAction(idS)
+      }
     }
 }
 </script>

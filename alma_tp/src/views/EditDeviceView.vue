@@ -12,7 +12,7 @@
                 <p v-if="edit"> Editar dispositivo: {{ this.deviceName }} </p>
                 <p v-else> Agregar dispositivo: {{ this.deviceName }} </p>
                 <v-spacer/>
-
+<!--                <ColorRoomSelector :element="device" device="true" :color="myColor"/>-->
                 <v-menu offset-y>
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn color="transparent"
@@ -98,6 +98,7 @@ import EditHorno from "@/components/EditOven";
 import EditRefrigerator from "@/components/EditRefrigerator";
 import EditSpeaker from "@/components/EditSpeaker";
 import EditDoor from "@/components/EditDoor";
+// import ColorRoomSelector from "@/components/ColorRoomSelector";
 
 export default {
   name: "EditDeviceView",

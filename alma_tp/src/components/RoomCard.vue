@@ -64,13 +64,13 @@
                                   plain
                                   v-bind="attrs"
                                   v-on="on"
-                                  @click="showRoom">
+                                  @click="showRoom"
+                                  v-click-outside="showFalse"
+                           >
                               <v-icon size="35" color="black">mdi-dots-vertical</v-icon>
                            </v-btn>
                         </template>
-                        <div class="options"
-                             v-if="room.show"
-                             v-click-outside="showFalse">
+                        <div class="options">
                             <v-list>
                                 <v-list-item>
                                     <v-btn class="button buttonEditName"
@@ -86,7 +86,35 @@
                                     </v-btn>
                                 </v-list-item>
                                 <v-list-item>
-                                    <ColorRoomSelector :room="room"/>
+                                  <v-menu offset-y>
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-btn class="button buttonEditColor"
+                                             color="black"
+                                             v-bind="attrs"
+                                             v-on="on"
+                                             plain
+                                             fab
+                                             v-ripple="false">
+                                        <v-icon class="mr-2" color="black">mdi-palette-outline</v-icon>
+                                        Editar color
+                                      </v-btn>
+                                    </template>
+                                    <v-list>
+                                      <v-list-item v-for="(color, index) in colors"
+                                                   :key="index">
+                                        <v-btn color="transparent"
+                                               depressed
+                                               @click="updateColor(color.hex)">
+                                          <v-list-item-icon>
+                                            <v-icon :color="color.hex"> mdi-square</v-icon>
+                                          </v-list-item-icon>
+                                          <v-list-item-title>{{ color.name }}</v-list-item-title>
+                                        </v-btn>
+                                      </v-list-item>
+                                    </v-list>
+                                  </v-menu>
+
+                                  <!--                                  <ColorRoomSelector :element="room" edit="true"/>-->
                                 </v-list-item>
                                 <v-list-item>
                                     <v-btn class="button buttonDelete"
@@ -112,12 +140,10 @@
 <script>
 import EditView from "@/components/EditView";
 import {mapActions} from "vuex";
-import ColorRoomSelector from "@/components/ColorRoomSelector";
 
 export default {
     name: "RoomCard",
     components:{
-        ColorRoomSelector,
         EditView,
     },
     props: ["room"],
@@ -126,8 +152,31 @@ export default {
             edit: false,
             menu: false,
             devices: null,
-            myroomcolor: this.room.meta.colorRoom
+            myroomcolor: this.room.meta.colorRoom,
+          colors: [
+            {
+              "hex": "#E3F2FD",
+              "name": "Light Blue"
+            },
+            {
+              "hex": "#D1C4E9",
+              "name": "Light Purple"
+            },
+            {
+              "hex": "#DCEDC8",
+              "name": "Light Green"
+            },
+            {
+              "hex": "#FFF9C4",
+              "name": "Light Yellow"
+            },
+            {
+              "hex": "#FCE4EC",
+              "name": "Light Pink"
+            }
+          ]
         }
+
     },
 
     async created() {
@@ -147,7 +196,6 @@ export default {
         $deleteRoom: "delete",
         $getAllRooms: "getAll",
         $getRoom : "get",
-        $showRoom: "show",
         $getDevices: "getAllDevices",
       }),
 
@@ -161,9 +209,9 @@ export default {
           console.log('edit room to ' + room2.name);
       },
 
-      editColor(){
-          console.log('edit color in ' + this.room.name);
-      },
+      // editColor(){
+      //     console.log('edit color in ' + this.room.name);
+      // },
 
       setResult(room){
           console.log(room);
@@ -185,14 +233,24 @@ export default {
 
       showRoom(){
           let room = this.room;
-          room.show = !room.show;
-          this.$showRoom(room.id);
+          room.meta.show = !room.meta.show;
+          let idS = [this.room.id, room]
+          this.$editRoom(idS);
         },
 
       showFalse(){
           let room = this.room;
-          room.show = false;
-          this.$showRoom(room.id);
+          room.meta.show = false;
+          let idS = [this.room.id, room]
+          this.editRoom(idS);
+      },
+
+       async updateColor(colorSelected){
+        this.myroomcolor=colorSelected
+        let room = this.room
+        room.meta.colorRoom = colorSelected
+        let idS=[this.room.id,room]
+        await this.$editRoom(idS)
       }
     }
 }
