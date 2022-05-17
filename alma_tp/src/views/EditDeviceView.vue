@@ -99,7 +99,7 @@
                       <v-btn
                           color="secondary white--text"
                           text
-                          @click="dialog = false, deleteDevice"
+                          @click="deleteDevice"
                       >
                         Si
                       </v-btn>
@@ -197,6 +197,7 @@ export default {
     },
     
     async deleteDevice(){
+      this.delete = false
       await this.$deleteDevice(this.device.id)
       this.goBack();
     },
