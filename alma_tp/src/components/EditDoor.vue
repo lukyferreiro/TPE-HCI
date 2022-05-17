@@ -1,4 +1,5 @@
 <template>
+  <div>
     <v-card color="transparent" flat>
         <div>
             <v-card-actions class="cardText pt-0">
@@ -28,6 +29,8 @@
             </v-card-actions>
         </div>
     </v-card>
+
+  </div>
 </template>
 
 
@@ -45,6 +48,7 @@ export default {
     },
     methods: {
       ...mapActions("devices", {
+        $editDevice: "edit",
         $executeAction: "execute"
       }),
       async execute(actionName) {
@@ -79,9 +83,5 @@ export default {
       justify-self: center;
     }
 
-    .switchLabel {
-        color: black;
-        font-weight: bold;
-    }
 
 </style>

@@ -25,7 +25,7 @@
                               thumb-label="always"
                               thumb-size="25px"
                               hide-details
-                              @change="setDispensar()"
+                              @change="setDispensar"
                     />
                 </div>
                 <div class="sliderSelector">
@@ -37,7 +37,7 @@
                               return-object
                               persistent-placeholder
                               placeholder="Unidades"
-                              @change="setUnidades"
+                              @change="setDispensar"
                     />
                 </div>
             </v-card-actions>
@@ -57,7 +57,7 @@ export default {
         dialog: false,
         closeOnClick: this.edit ?  (this.device.state.status==='closed' ? 'Cerrado' : 'Abierto') : 'Cerrado' ,
         open: false,
-        cantDispensar: this.edit ? this.device.type.powerUsage : 15,
+        cantDispensar: this.edit ? this.device.state.quantity : 15,
         minDispensar: 0,
         maxDispensar: 100,
         unidades:  [
@@ -69,8 +69,7 @@ export default {
           "hl",
           "kl"
         ],
-        unidadesOnClick: 'l'
-        // unidades: false,
+        unidadesOnClick: this.edit ? this.device.state.unit : 'l',
       })
     },
     methods: {
@@ -89,13 +88,10 @@ export default {
         }
       },
       async setDispensar(){
-        let idS = [this.device, 'dispense', [this.cantDispensar]]
+        let idS = [this.device, 'dispense',[this.cantDispensar, this.unidadesOnClick]]
         await this.$executeAction(idS)
       },
-      async setUnidades(){
-        let idS = [this.device, 'unit', [this.unidadesOnClick]]
-        await this.$executeAction(idS)
-      }
+
     }
 }
 </script>

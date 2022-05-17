@@ -12,31 +12,75 @@
                 <p v-if="edit"> Editar dispositivo: {{ this.deviceName }} </p>
                 <p v-else> Agregar dispositivo: {{ this.deviceName }} </p>
                 <v-spacer/>
-<!--                <ColorRoomSelector :element="device" device="true" :color="myColor"/>-->
-                <v-menu offset-y>
+
+              <v-menu offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn color="transparent"
+                         v-bind="attrs"
+                         v-on="on"
+                         depressed
+                         fab >
+                    <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item v-for="(color, index) in colors"
+                               :key="index">
+                    <v-btn color="transparent"
+                           depressed
+                           @click="myColor=color.hex">
+                      <v-list-item-icon>
+                        <v-icon :color="color.hex"> mdi-square</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>{{ color.name }}</v-list-item-title>
+                    </v-btn>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+
+              <div class="ma-8" v-if="edit">
+                <v-row justify="center">
+                  <v-dialog
+                      v-model="dialog"
+                      persistent
+                      max-width="500"
+                  >
                     <template v-slot:activator="{ on, attrs }">
-                        <v-btn color="transparent"
-                               v-bind="attrs"
-                               v-on="on"
-                               depressed
-                               fab >
-                            <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
-                        </v-btn>
+                      <v-btn color="transparent"
+                             depressed
+                             fab
+                             v-bind="attrs"
+                             v-on="on"
+                      >
+                        <v-icon  color="black" size="40px">mdi-trash-can-outline</v-icon>
+                      </v-btn>
                     </template>
-                    <v-list>
-                        <v-list-item v-for="(color, index) in colors"
-                                     :key="index">
-                            <v-btn color="transparent"
-                                   depressed
-                                   @click="myColor=color.hex">
-                              <v-list-item-icon>
-                                  <v-icon :color="color.hex"> mdi-square</v-icon>
-                              </v-list-item-icon>
-                              <v-list-item-title>{{ color.name }}</v-list-item-title>
-                            </v-btn>
-                        </v-list-item>
-                    </v-list>
-                </v-menu>
+                    <v-card>
+                      <v-card-title class="text">
+                        ¿Está seguro que desea borrar este dispositivo?
+                      </v-card-title>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="secondary white--text"
+                            text
+                            @click="deleteDevice"
+                        >
+                          Si
+                        </v-btn>
+                        <v-btn
+                            color="secondary white--text"
+                            text
+                            @click="dialog = false"
+                        >
+                          No
+                        </v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </v-row>
+              </div>
+
             </v-card-title>
           
             <v-spacer/>
@@ -66,56 +110,15 @@
         <EditSpeaker v-else :colorset="this.myColor" :edit="edit" :device="device"/>
 
         <div class="acceptAndCancel">
-            <div>
+            <div v-if="!edit">
                 <v-btn color="secondary white--text"
                        @click="goBack"
                        x-large>
                     Cancelar
                 </v-btn>
             </div>
-            <div v-if="edit">
-              <v-row justify="center">
-                <v-dialog
-                    v-model="dialog"
-                    persistent
-                    max-width="500"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="error white--text"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                    >
-                      Borrar dispositivo
-                      <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
-                    </v-btn>
-                  </template>
-                  <v-card>
-                    <v-card-title class="text">
-                      ¿Está seguro que desea borrar este dispositivo?
-                    </v-card-title>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                          color="secondary white--text"
-                          text
-                          @click="deleteDevice"
-                      >
-                        Si
-                      </v-btn>
-                      <v-btn
-                          color="secondary white--text"
-                          text
-                          @click="dialog = false"
-                      >
-                        No
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </v-row>
-            </div>
-            <div>
+            <v-spacer v-else/>
+            <div class="justify-end">
                 <v-btn color="secondary white--text"
                        @click="addDevice"
                        x-large>
