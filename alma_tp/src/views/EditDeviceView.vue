@@ -59,10 +59,10 @@
             </v-form>
         </div>
 
-        <EditDoor v-if="idType === 'lsf78ly0eqrjbz91'" :colorset="this.myColor" :device="device"/>
-        <EditGrifo v-else-if="idType === 'dbrlsh7o5sn8ur4i'" :colorset="this.myColor" :device="device"/>
-        <EditHorno v-else-if="idType === 'im77xxyulpegfmv8'" :colorset="this.myColor" :device="device"/>
-        <EditRefrigerator v-else-if="idType === 'rnizejqr2di0okho'" :colorset="this.myColor" :device="device"/>
+        <EditDoor v-if="idType === 'lsf78ly0eqrjbz91'"  :device="device"/>
+        <EditGrifo v-else-if="idType === 'dbrlsh7o5sn8ur4i'" :device="device"/>
+        <EditHorno v-else-if="idType === 'im77xxyulpegfmv8'"  :device="device"/>
+        <EditRefrigerator v-else-if="idType === 'rnizejqr2di0okho'" :device="device"/>
         <EditSpeaker v-else :colorset="this.myColor" :device="device"/>
 
         <div class="acceptAndCancel">
@@ -175,12 +175,11 @@ export default {
       ]
     })
   },
-computed:{
-    ...mapState("devices",{
-      $devices:"devices"
-    }),
-},
-
+  computed:{
+      ...mapState("devices",{
+        $devices:"devices"
+      }),
+  },
   methods:{
 
     ...mapActions("devices",{
