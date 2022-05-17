@@ -1,0 +1,16 @@
+{"level":"info","message":"--------------------------------------","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.278Z"}
+{"level":"info","message":"ACTIONHERO COMMAND >> start","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.280Z"}
+{"level":"info","message":"--------------------------------------","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.280Z"}
+{"level":"notice","message":"*** Starting ActionHero ***","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.286Z"}
+{"level":"notice","message":"pid: 4636","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.290Z"}
+{"level":"notice","message":"server ID: 172.20.10.4","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.291Z"}
+{"level":"info","message":"actionhero member 172.20.10.4 has joined the cluster","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.300Z"}
+{"level":"notice","message":"Starting server: `web` @ 0.0.0.0:8080","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.311Z"}
+{"level":"notice","message":"environment: development","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.329Z"}
+{"level":"info","message":"device log database loaded","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.337Z"}
+{"level":"info","message":"device type database loaded","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.343Z"}
+{"level":"info","message":"device database loaded","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.348Z"}
+{"level":"info","message":"home database loaded","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.358Z"}
+{"level":"info","message":"room database loaded","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.363Z"}
+{"level":"info","message":"routine database loaded","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.365Z"}
+{"level":"alert","message":"*** ActionHero Started ***","timestamp":"172.20.10.4 @ 2022-05-17T13:18:30.369Z"}

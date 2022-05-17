@@ -91,14 +91,13 @@
                                           v-model="edit"
                                           width="1000"
                                 >
-                                  <v-card color="secondary white--text"
-                                          v-click-outside="closePopup">
+                                  <v-card color="secondary white--text">
                                     <v-card-title>
                                       <v-icon class="mr-2" color="white" size="45px"> mdi-home-outline </v-icon>
                                       Editar habitación
                                       <v-spacer/>
                                       <v-btn color="transparent"
-                                             @click="closePopup, edit=false"
+                                             @click="edit=false"
                                              depressed>
                                         <v-icon color="white" size="30px">mdi-window-close</v-icon>
                                       </v-btn>
@@ -117,7 +116,7 @@
                                                       maxlength="60"
                                                       required
                                                       :rules="nameRules"/>
-                                        {{newRoomName}}
+
                                       </v-form>
                                     </v-card-text>
                                     <v-card-actions>
@@ -163,19 +162,48 @@
                                     </v-list>
                                   </v-menu>
 
-                                  <!--                                  <ColorRoomSelector :element="room" edit="true"/>-->
                                 </v-list-item>
                                 <v-list-item>
                                     <v-btn class="button buttonDelete"
                                            plain
                                            rounded
                                            fab
-                                           @click="deleteRoom()"
+                                           @click="dialog = true"
                                            v-ripple="false"
                                     >
                                         <v-icon class="mr-2">mdi-trash-can-outline</v-icon>
                                         Borrar habitación
                                     </v-btn>
+                                  <v-row justify="center">
+                                    <v-dialog
+                                        v-model="dialog"
+                                        persistent
+                                        max-width="500"
+                                    >
+                                      <v-card>
+                                        <v-card-title class="text">
+                                          ¿Está seguro que desea borrar esta habitación?
+                                        </v-card-title>
+                                        <v-card-actions>
+                                          <v-spacer></v-spacer>
+                                          <v-btn
+                                              color="secondary white--text"
+                                              text
+                                              @click="deleteRoom()"
+                                          >
+                                            Si
+                                          </v-btn>
+                                          <v-btn
+                                              color="secondary white--text"
+                                              text
+                                              @click="dialog = false"
+                                          >
+                                            No
+                                          </v-btn>
+                                        </v-card-actions>
+                                      </v-card>
+                                    </v-dialog>
+                                  </v-row>
                                 </v-list-item>
                             </v-list>
                         </div>
@@ -197,6 +225,7 @@ export default {
 
   data() {
     return {
+      dialog: false,
       edit: false,
       menu: false,
       devices: null,
@@ -277,7 +306,8 @@ export default {
       },
 
       async deleteRoom(room){
-          try {
+        this.dialog = false
+        try {
             let devices = await this.$getDevices(this.room.id);
             console.log(devices);
             await Array.from(devices).forEach(device => {
@@ -322,12 +352,6 @@ export default {
           console.log(this.newRoomName)
         }
 
-      },
-      reset(){
-        this.$refs.title.reset();
-      },
-      closePopup(){
-        this.reset();
       },
       submit(e){
         e.preventDefault();

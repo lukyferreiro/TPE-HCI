@@ -1,6 +1,5 @@
 <template>
     <div class="room">
-        <AddRoomButton/>
         <div v-if="$roomsAmount==0">
             <h3 class="text"> No tienes habitaciones creadas aún. </h3>
             <div class="imagen">
@@ -17,6 +16,7 @@
              class="withRooms">
             <RoomCard :room="room" />
         </div>
+      <AddRoomButton/>
     </div>
 </template>
 

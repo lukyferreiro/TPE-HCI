@@ -74,11 +74,46 @@
                 </v-btn>
             </div>
             <div v-if="edit">
-                <v-btn color="error white--text"
-                       @click="deleteDevice">
-                    Borrar dispositivo
-                    <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
-                </v-btn>
+              <v-row justify="center">
+                <v-dialog
+                    v-model="dialog"
+                    persistent
+                    max-width="500"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn color="error white--text"
+                        dark
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                      Borrar dispositivo
+                      <v-icon class="ml-2" color="white" size="25px">mdi-trash-can-outline</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title class="text">
+                      ¿Está seguro que desea borrar este dispositivo?
+                    </v-card-title>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                          color="secondary white--text"
+                          text
+                          @click="dialog = false, deleteDevice"
+                      >
+                        Si
+                      </v-btn>
+                      <v-btn
+                          color="secondary white--text"
+                          text
+                          @click="dialog = false"
+                      >
+                        No
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-row>
             </div>
             <div>
                 <v-btn color="secondary white--text"
@@ -112,6 +147,7 @@ export default {
         v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
         v => this.$devices.find( o => o.name === v && o.id != this.device.id ) == null || 'El nombre ingresado ya existe'
       ],
+      dialog: false,
       allDevices: null,
       devName:this.edit ? this.device.name : '',
       myColor: this.edit ? this.device.meta.color : 'primary' ,
