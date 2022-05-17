@@ -16,7 +16,7 @@
                                                    >
 
                           <v-row >
-                              <v-col class="deviceCardInRoom" v-for="device in this.devices" :key="device.id">
+                              <v-col class="deviceCardInRoom" v-for="device in this.devices" :key="device.id" md="4">
                                 <v-card :color="device.meta.color"
                                         max-width="190"
                                         max-height="200"
@@ -117,6 +117,7 @@
                                                       maxlength="60"
                                                       required
                                                       :rules="nameRules"/>
+                                        {{newRoomName}}
                                       </v-form>
                                     </v-card-text>
                                     <v-card-actions>
@@ -193,6 +194,7 @@ export default {
   name: "RoomCard",
 
   props: ["room"],
+
   data() {
     return {
       edit: false,
@@ -226,7 +228,8 @@ export default {
         v => !!v || 'Campo Obligatorio',
         v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
         v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
-        v => this.$rooms.find( o => o.name === v && o.id != this.room.id ) == null || 'El nombre ingresado ya existe'
+        v => this.$rooms.find( o => o.name === v && o.id != this.room.id ) == null || 'El nombre ingresado ya existe',
+        v => this.$rooms.find( o => o.name === v && o.id == this.room.id ) == null || 'Ingrese un nuevo nombre'
 
       ],
   }
@@ -316,7 +319,9 @@ export default {
           room.name = this.newRoomName
           let idS = [this.room.id, room]
           await this.$editRoom(idS)
+          console.log(this.newRoomName)
         }
+
       },
       reset(){
         this.$refs.title.reset();

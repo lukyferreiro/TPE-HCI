@@ -14,7 +14,7 @@
                 <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
             </v-btn>
         </template>
-      
+
         <v-card color="secondary white--text"
                 v-click-outside="closePopup">
             <v-card-title>

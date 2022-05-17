@@ -31,7 +31,10 @@ export default {
       AddRoomButton,
       RoomCard,
     },
-    data(){
+  mounted() {
+      this.$getAllRooms()
+  },
+  data(){
         return{
             edit:false,
             room2:"",
