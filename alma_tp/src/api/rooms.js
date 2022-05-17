@@ -20,7 +20,6 @@ class RoomApi {
     static async editRoom(idS){
         //devuelve true o false si lo pudo modificar o no
         // console.log(RoomApi.getUrl(idS[0]))
-        console.log(idS[1])
         return await Api.put(RoomApi.getUrl(idS[0]), idS[1]);
 
     }

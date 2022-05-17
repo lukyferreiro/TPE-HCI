@@ -82,9 +82,57 @@
                                     >
                                         <v-icon class="mr-2">mdi-pencil-outline</v-icon>
                                         Editar nombre
-                                        <EditView v-if="edit"/>
                                     </v-btn>
                                 </v-list-item>
+
+                              <template>
+                                <v-dialog scrollable
+                                          overflow="auto"
+                                          v-model="edit"
+                                          width="1000"
+                                >
+                                  <v-card color="secondary white--text"
+                                          v-click-outside="closePopup">
+                                    <v-card-title>
+                                      <v-icon class="mr-2" color="white" size="45px"> mdi-home-outline </v-icon>
+                                      Editar habitación
+                                      <v-spacer/>
+                                      <v-btn color="transparent"
+                                             @click="closePopup, edit=false"
+                                             depressed>
+                                        <v-icon color="white" size="30px">mdi-window-close</v-icon>
+                                      </v-btn>
+                                    </v-card-title>
+                                    <v-card-text>
+                                      <v-form ref="form" lazy-validation @submit="submit">
+                                        <v-text-field outlined
+                                                      ref="title"
+                                                      v-model="newRoomName"
+                                                      placeholder="Escriba el nombre del dispositivo"
+                                                      background-color="white"
+                                                      color="black"
+                                                      counter
+                                                      autofocus
+                                                      clearable
+                                                      maxlength="60"
+                                                      required
+                                                      :rules="nameRules"/>
+                                      </v-form>
+                                    </v-card-text>
+                                    <v-card-actions>
+                                      <v-spacer></v-spacer>
+                                      <v-btn class="mb-2"
+                                             color="primary black--text"
+                                             @click="editRoomName()"
+                                      >
+                                        Aceptar
+                                      </v-btn>
+                                    </v-card-actions>
+                                  </v-card>
+                                </v-dialog>
+                              </template>
+
+
                                 <v-list-item>
                                   <v-menu offset-y>
                                     <template v-slot:activator="{ on, attrs }">
@@ -138,45 +186,50 @@
 </template>
 
 <script>
-import EditView from "@/components/EditView";
-import {mapActions} from "vuex";
+
+import {mapActions, mapState} from "vuex";
 
 export default {
-    name: "RoomCard",
-    components:{
-        EditView,
-    },
-    props: ["room"],
-    data(){
-        return{
-            edit: false,
-            menu: false,
-            devices: null,
-            myroomcolor: this.room.meta.colorRoom,
-          colors: [
-            {
-              "hex": "#E3F2FD",
-              "name": "Light Blue"
-            },
-            {
-              "hex": "#D1C4E9",
-              "name": "Light Purple"
-            },
-            {
-              "hex": "#DCEDC8",
-              "name": "Light Green"
-            },
-            {
-              "hex": "#FFF9C4",
-              "name": "Light Yellow"
-            },
-            {
-              "hex": "#FCE4EC",
-              "name": "Light Pink"
-            }
-          ]
-        }
+  name: "RoomCard",
 
+  props: ["room"],
+  data() {
+    return {
+      edit: false,
+      menu: false,
+      devices: null,
+      myroomcolor: this.room.meta.colorRoom,
+      colors: [
+        {
+          "hex": "#E3F2FD",
+          "name": "Light Blue"
+        },
+        {
+          "hex": "#D1C4E9",
+          "name": "Light Purple"
+        },
+        {
+          "hex": "#DCEDC8",
+          "name": "Light Green"
+        },
+        {
+          "hex": "#FFF9C4",
+          "name": "Light Yellow"
+        },
+        {
+          "hex": "#FCE4EC",
+          "name": "Light Pink"
+        }
+      ],
+      newRoomName: this.room.name,
+      nameRules: [
+        v => !!v || 'Campo Obligatorio',
+        v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
+        v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
+        v => this.$rooms.find( o => o.name === v && o.id != this.room.id ) == null || 'El nombre ingresado ya existe'
+
+      ],
+  }
     },
 
     async created() {
@@ -186,7 +239,10 @@ export default {
     computed:{
         roomDevices(){
           return this.devices ? this.devices.length : 0
-        }
+        },
+        ...mapState("room",{
+          $rooms:"rooms"
+        })
     },
 
     methods: {
@@ -204,10 +260,10 @@ export default {
         $deleteDevice : "delete"
       }),
 
-      editRoom(room2){
+      /*editRoom(room2){
           this.edit = false;
           console.log('edit room to ' + room2.name);
-      },
+      },*/
 
       // editColor(){
       //     console.log('edit color in ' + this.room.name);
@@ -242,7 +298,7 @@ export default {
           let room = this.room;
           room.meta.show = false;
           let idS = [this.room.id, room]
-          this.editRoom(idS);
+          this.$editRoom(idS);
       },
 
        async updateColor(colorSelected){
@@ -251,7 +307,28 @@ export default {
         room.meta.colorRoom = colorSelected
         let idS=[this.room.id,room]
         await this.$editRoom(idS)
-      }
+      },
+
+      async editRoomName(){
+        if(this.$refs.form.validate()) {
+          this.edit = false
+          let room = this.room
+          room.name = this.newRoomName
+          let idS = [this.room.id, room]
+          await this.$editRoom(idS)
+        }
+      },
+      reset(){
+        this.$refs.title.reset();
+      },
+      closePopup(){
+        this.reset();
+      },
+      submit(e){
+        e.preventDefault();
+        this.editRoomName()
+      },
+
     }
 }
 </script>
