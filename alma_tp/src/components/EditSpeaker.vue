@@ -100,17 +100,20 @@
 export default {
   name: "EditSpeaker",
   props:["colorset"],
-  data: () => ({
-    closeOnClick: 'Detener',
-    play: true,
-    volume: 0,
-    minVolume: 0,
-    maxVolume: 10,
-    genres: [
-      {genre: "Pop", id: 1},
-      {genre: "Trap", id: 2},
-    ],
-  }),
+  data(){
+    return({
+      closeOnClick: 'Detener',
+      play: true,
+      volume: 0,
+      minVolume: 0,
+      maxVolume: 10,
+      genres: [
+        {genre: "Pop", id: 1},
+        {genre: "Trap", id: 2},
+      ],
+
+    });
+  },
   methods: {
     decrementVolume () {
       if(this.volume===this.minVolume){

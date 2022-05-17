@@ -48,7 +48,6 @@ export default {
     },
     methods: {
       ...mapActions("devices", {
-        $editDevice: "edit",
         $executeAction: "execute"
       }),
       async execute(actionName) {
