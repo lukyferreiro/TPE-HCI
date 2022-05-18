@@ -86,7 +86,7 @@ export default {
     },
     setModo(bool){
       let action = {
-        name: 'setModo',
+        name: 'setMode',
         params: ['default'],
         meta: {
           spanishName: 'Modo',

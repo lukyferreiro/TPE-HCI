@@ -127,7 +127,6 @@
 
                             <v-divider/>
 
-
                             <DoorAction v-if="device.type.id === 'lsf78ly0eqrjbz91'"
                                         :myColor="device.meta.color"
                                         v-bind:myactions="actions"
@@ -197,8 +196,8 @@
                       v-bind="attrs"
                       v-on="on"
                   >
-                    Agregar Dispositivo
                     <v-icon class="ml-2" size="26">mdi-plus-circle-outline</v-icon>
+                    Agregar Dispositivo
                   </v-btn>
                 </template>
                 <v-list>
@@ -238,11 +237,9 @@
               Seleccionar Habitación
             </v-btn>
           </template>
-          <v-list>
-            <v-list-item
-                v-for="room in $rooms"
-                :key="room.id"
-            >
+          <v-list v-for="room in $rooms"
+                  :key="room.id">
+            <v-list-item>
               <v-list-item-action>
                 <v-btn class="button"
                        plain
@@ -271,6 +268,12 @@
           </v-btn>
         </div>
       </div>
+
+      <v-alert type="error"
+               outlined
+               v-if="alertMessage">
+        Debe tener al menos una accion para poder agregar una rutina
+      </v-alert>
     </v-card>
   </div>
 </template>
@@ -306,6 +309,8 @@ export default {
       actions: this.routine.actions,
       rooms: this.routine.meta.rooms,
       dialog: false,
+      alertMessage:false,
+      devices: [],
       colorSelected:this.routine.meta.color,
       colors: [
         {
@@ -331,6 +336,9 @@ export default {
       ],
     }
   },
+  mounted() {
+    this.updateRooms();
+  },
   computed: {
     ...mapState("room",{
       $rooms: "rooms"
@@ -338,9 +346,12 @@ export default {
     ...mapState("routine",{
       $routines: "routines"
     }),
-
+    ...mapState("devices",{
+      $devices : "devices"
+    })
   },
   methods:{
+
     ...mapActions("devices",{
       $addDevice: "add",
       $editDevice: "edit",
@@ -359,19 +370,45 @@ export default {
     ...mapActions("room",{
       $getDevices: "getAllDevices"
     }),
+    async updateRooms() {
+      let updatedRoom = this.rooms
+      this.rooms = []
+      let i = 0;
+      this.$rooms.forEach(room =>{
+        updatedRoom.forEach(myRoom => {
+          if(myRoom.room.id === room.id){
+            this.selectRoom(room)
+            this.addingDevices(myRoom, i, room.id)
+            i++
+          }
+        })
+      })
 
+    },
+    async addingDevices(myRoom, i, roomId){
+      let devices = await this.$getDevices(roomId)
+      devices.forEach(dev => {
+        this.rooms[i].devices.push(dev)
+        myRoom.selectedDevices.forEach(device =>{
+          if(device.id === dev.id){
+            this.addDeviceToRoom(dev , i)
+          }
+        })
+      })
+    },
     reset() {
       this.$refs.title.reset();
     },
 
     submit(e){
       e.preventDefault();
-      this.addRoutine()
+      this.editRoutine()
     },
 
     async editRoutine() {
       if (this.$refs.form.validate()) {
         let routine = {
+          id: this.routine.id,
           name: this.routinetitle,
           actions: this.actions,
           meta: {
@@ -380,10 +417,18 @@ export default {
             rooms: this.rooms,
           }
         }
-        routine = await this.$addRoutine(routine)
-        this.setResult(routine.id)
-        this.$router.go(-1);
-        this.reset();
+        routine.actions.forEach(action => {
+          action.device = {id:action.device.id}
+        })
+        if(this.actions.length != 0 ) {
+          let idS = [routine.id, routine]
+          routine = await this.$editRoutine(idS)
+          this.setResult(routine.id)
+          this.$router.go(-1);
+          this.reset();
+        }else{
+          this.alertMessage = true
+        }
       }
     },
     setResult(routine){
@@ -402,7 +447,6 @@ export default {
 
     async selectRoom(room){
       let device =await this.$getDevices(room.id)
-      console.log(device)
       this.rooms.push({room:room, devices: device, selectedDevices: [],actions:[]});
     },
 

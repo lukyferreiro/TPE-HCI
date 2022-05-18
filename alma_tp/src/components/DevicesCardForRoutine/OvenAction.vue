@@ -99,7 +99,33 @@ export default {
       actions: []
     })
   },
+  mounted(){
+    this.getSt()
+  },
   methods:{
+    getSt(){
+      console.log(this.myactions)
+      this.myactions.forEach(action => {
+        if(action.params[0] === 'off' && action.actionName==='setConvection'){
+          this.selectedConveccion = 'Apagado'
+        }else if(action.params[0] === 'eco' && action.actionName==='setConvection'){
+          this.selectedConveccion = 'Económico'
+        } else if(action.params[0] === 'eco' && action.actionName==='setGrill'){
+          this.selectedGrill = 'Económico'
+        } else if(action.params[0] === 'off' && action.actionName==='setGrill'){
+          this.selectedGrill = 'Apagado'
+        } else if(action.actionName === 'setTemperature'){
+          this.temperatura = action.params[0]
+        }else if(action.params[0]==='bottom'){
+          this.selectedFuente = 'Abajo'
+        }else if(action.params[0]==='top'){
+          this.selectedFuente = 'Arriba'
+        }else if(action.actionName === 'turnOn'){
+          this.closeOnClick = 'Encendido'
+        }
+      })
+    },
+
     setTurnOnOff(bool){
       let action = {
         name: 'turnOn',

@@ -33,8 +33,8 @@
                        outlined
                        v-ripple="false"
                 >
-                  Editar Rutina
                   <v-icon>mdi-clipboard-edit-outline</v-icon>
+                  Editar Rutina
                 </v-btn>
 
                 <v-btn @click="deleteRoutine(routine.id)"
@@ -43,8 +43,9 @@
                        outlined
                        v-ripple="false"
                 >
-                 Eliminar Routina
                   <v-icon>mdi-trash-can-outline</v-icon>
+                  Eliminar Rutina
+
                 </v-btn>
 
               </v-card-actions>
@@ -77,9 +78,9 @@ export default {
         }
     },
   mounted() {
-    this.$getAllRoutines()
+     this.$getAllRooms()
+     this.$getAllRoutines()
   },
-
   computed:{
       ...mapState("routine",{
         $routines: "routines",
@@ -97,7 +98,9 @@ export default {
         $getRoutine: "get",
         $getAllRoutines: "getAll"
       }),
-
+      ...mapActions("room",{
+        $getAllRooms: "getAll"
+      }),
       async executeRoutine(routine){
         routine.actions.forEach(action => {
           action.device = {id:action.device.id}

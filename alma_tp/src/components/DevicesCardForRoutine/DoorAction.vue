@@ -46,12 +46,25 @@ name: "DoorAction",
   props:["myColor", "myactions"],
   data(){
     return({
-      closeOnClick: 'Cerrado' ,
+      closeOnClick: 'Cerrado',
       blockOnSwitch: 'Desbloqueado' ,
       actions: []
     })
   },
+  mounted(){
+    this.getSt()
+  },
   methods:{
+    getSt(){
+      this.myactions.forEach(action => {
+        if(action.actionName === 'open'){
+          this.closeOnClick = 'Abierto'
+        }
+        if(action.actionName === 'block'){
+          this.blockOnSwitch = 'Bloqueado'
+        }
+      })
+    },
     setOpenClose(bool) {
       let action = {
         name: 'close',

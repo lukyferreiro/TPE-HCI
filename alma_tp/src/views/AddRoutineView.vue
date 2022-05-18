@@ -1,5 +1,5 @@
 <template>
-    <div class="routine ml-15 mr-15" >
+    <div class="routine ml-15 mr-15 mb-15" >
       <v-card :color="colorSelected">
         <v-card-title>
           <h2>
@@ -196,8 +196,8 @@
                         v-bind="attrs"
                         v-on="on"
                     >
-                      Agregar Dispositivo
                       <v-icon class="ml-2" size="26">mdi-plus-circle-outline</v-icon>
+                      Agregar Dispositivo
                     </v-btn>
                   </template>
                   <v-list>
@@ -217,6 +217,7 @@
                   </v-list>
                 </v-menu>
               </v-col>
+
             </v-row>
         </v-card>
       </div>
@@ -237,12 +238,10 @@
                       Seleccionar Habitación
                     </v-btn>
                   </template>
-                  <v-list>
-                    <v-list-item
-                        v-for="room in $rooms"
-                        :key="room.id"
-                    >
-                      <v-list-item-action>
+                  <v-list >
+                    <v-list-item v-for="room in $rooms"
+                                 :key="room.id">
+                      <v-list-item-action >
                         <v-btn class="button"
                                plain
                                @click="selectRoom(room)">
@@ -270,6 +269,13 @@
                 </v-btn>
             </div>
         </div>
+
+        <v-alert type="error"
+                 outlined
+                 v-if="alertMessage">
+          Debe tener al menos una accion para poder agregar una rutina
+        </v-alert>
+
       </v-card>
     </div>
 </template>
@@ -300,6 +306,7 @@ export default {
         v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
         v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
       ],
+      alertMessage:false,
       routinetitle: "",
       actions: [],
       rooms: [],
@@ -336,7 +343,6 @@ export default {
     ...mapState("routine",{
       $routines: "routines"
     }),
-
   },
   methods:{
     ...mapActions("devices",{
@@ -366,22 +372,26 @@ export default {
       e.preventDefault();
       this.addRoutine()
     },
-
     async addRoutine() {
-      if (this.$refs.form.validate()) {
-        let routine = {
-          name: this.routinetitle,
-          actions: this.actions,
-          meta: {
-            play: false,
-            color: this.colorSelected,
-            rooms: this.rooms,
+
+        if (this.$refs.form.validate()) {
+          let routine = {
+            name: this.routinetitle,
+            actions: this.actions,
+            meta: {
+              play: false,
+              color: this.colorSelected,
+              rooms: this.rooms,
+            }
           }
-        }
-        routine = await this.$addRoutine(routine)
-        this.setResult(routine.id)
-        this.$router.go(-1);
-        this.reset();
+          if(this.actions.length !== 0) {
+            routine = await this.$addRoutine(routine)
+            this.setResult(routine.id)
+            this.$router.go(-1);
+            this.reset();
+          }else {
+            this.alertMessage = true;
+          }
       }
     },
     setResult(routine){
@@ -400,9 +410,9 @@ export default {
 
     async selectRoom(room){
       let device =await this.$getDevices(room.id)
-      console.log(device)
       this.rooms.push({room:room, devices: device, selectedDevices: [],actions:[]});
     },
+
 
     addDeviceToRoom(device, indexRoom){
       let room = this.rooms[indexRoom]
