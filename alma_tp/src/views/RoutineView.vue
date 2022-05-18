@@ -14,21 +14,29 @@
         <div v-else v-for="routine in $routines"
              :key="routine.id"
              class="withRoutines">
-            <v-card  class="routineCard" :color="routine.meta.color">
+            <v-card class="routineCard" :color="routine.meta.color">
                 <v-row>
-                    <v-card-actions>
-                        <v-btn @click="executeRoutine(routine)"
-                               class="addDeviceButtonText"
-                               color="secondary"
-                               outlined
-                               v-ripple="false">
-                          Ejecutar Rutina
-                        </v-btn>
-                        <v-card-title>
-                            {{routine.name}}
-                        </v-card-title>
+                    <v-col class="pt-1 pb-2">
+                        <div class="executeRoutineButton">
+                            <v-card-actions>
+                                <v-btn @click="executeRoutine(routine)"
+                                       class="executeRoutineText"
+                                       color="secondary"
+                                       outlined
+                                       v-ripple="false">
+                                    Ejecutar Rutina
+                                </v-btn>
+                            </v-card-actions>
+                        </div>
+                        <div class="containerRoutineName">
+                          <v-card-actions>
+                            <span class="routineName">{{routine.name}} </span>
+                            </v-card-actions>
+                        </div>
+                    </v-col>
+                    <div class="routineOptions">
                         <v-btn :to="{name: 'EditRoutineView', params:{routine: routine}}"
-                               class="addDeviceButtonText"
+                               class="optionsButton"
                                color="secondary"
                                outlined
                                v-ripple="false">
@@ -36,19 +44,19 @@
                             Editar Rutina
                         </v-btn>
                         <v-btn @click="deleteRoutine(routine.id)"
-                               class="addDeviceButtonText"
+                               class="optionsButton"
                                color="secondary"
                                outlined
                                v-ripple="false">
                             <v-icon class="mr-2" size="30">mdi-trash-can-outline</v-icon>
                             Eliminar Rutina
                         </v-btn>
-                    </v-card-actions>
+                    </div>
                 </v-row>
             </v-card>
         </div>
         <v-btn :to="{name:'AddRoutineView'}"
-               class="button"
+               class="addRoutinebutton"
                rounded elevation="5"
                color="secondary"
                absolute
@@ -104,28 +112,21 @@ export default {
         await this.$editRoutine(idS)
         await this.$executeRoutine(routine.id)
       },
-        editRoutine(routine) {
-            // routine.title=routine2.title;
-            // console.log('edit routine in ' + routine.title);
-            console.log(routine.title);
-        },
-        editColor(routine) {
-          console.log(routine)
-        },
-        deleteRoutine(idRoutine) {
-          this.$deleteRoutine(idRoutine)
-        },
-        selectRoom(){
-            this.roomSelected=true;
-            this.routinerooms.push({roomtitle: this.roomtitle, devices: []})
-        },
-        addDevice(){
-            this.routinerooms.indexOf(this.roomtitle)
-        }
+      editRoutine(routine) {
+          console.log(routine.title);
+      },
+
+      deleteRoutine(idRoutine) {
+        this.$deleteRoutine(idRoutine)
+      },
+
+      selectRoom(){
+          this.roomSelected=true;
+          this.routinerooms.push({roomtitle: this.roomtitle, devices: []})
+      },
     }
 }
 </script>
-
 
 <style scoped>
 
@@ -145,17 +146,9 @@ export default {
       padding-top: 5vh;
     }
 
-    .button{
-      position: fixed;
-      bottom: 80px;
-      right: 15px;
+    .withRoutines{
+      max-width: 80%;
     }
-
-    .addDeviceButtonText{
-      font-size: 15px;
-      font-weight: bold;
-    }
-
 
     .routineCard{
       margin-left: 20px;
@@ -165,9 +158,37 @@ export default {
       border-radius: 10px;
     }
 
-    .withRoutines{
-      max-width: 80%;
+    .addRoutinebutton{
+      position: fixed;
+      bottom: 80px;
+      right: 15px;
     }
 
+    .executeRoutineButton{
+      display: inline-block;
+    }
+
+    .containerRoutineName{
+      display: inline-block;
+      margin-left: 5%;
+    }
+
+    .routineName{
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .optionsButton, .executeRoutineText{
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .optionsButton{
+      margin-right: 15px;
+    }
+
+    .routineOptions{
+      align-self: center;
+    }
 
 </style>
