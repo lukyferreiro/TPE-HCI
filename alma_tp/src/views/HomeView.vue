@@ -18,7 +18,7 @@
                        x-large
                        rounded elevation="5"
                        retain-focus-on-click>
-                    Haz click aqui
+                    Haz click aquí
                 </v-btn>
             </div>
         </div>
