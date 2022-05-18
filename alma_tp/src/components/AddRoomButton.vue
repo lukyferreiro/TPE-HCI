@@ -44,7 +44,7 @@
                 </v-card-text>
             </v-form>
             <v-card-actions>
-                <v-spacer></v-spacer>
+                <v-spacer/>
                 <v-btn class="mb-2"
                        color="primary black--text"
                        @click="addRoom">

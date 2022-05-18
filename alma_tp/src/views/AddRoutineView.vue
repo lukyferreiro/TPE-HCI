@@ -5,7 +5,7 @@
             Agregar rutina
         </h2>
 
-        <v-form ref="form" lazy-validation>
+      <v-form ref="form" lazy-validation @submit="submit">
             <v-container>
                 <v-text-field outlined
                               ref="title"
@@ -311,6 +311,10 @@ export default {
     reset() {
       this.$refs.title.reset();
     },
+    submit(e){
+      e.preventDefault();
+      this.addRoutine()
+    },
     async addRoutine() {
       if (this.$refs.form.validate()) {
         let routine = {
@@ -319,7 +323,7 @@ export default {
           meta: {}
         }
         console.log(routine)
-        routine = await this.$addRoutine(routine.id)
+        routine = await this.$addRoutine(routine)
         this.setResult(routine.id)
         this.$router.go(-1);
         this.reset();
@@ -337,12 +341,8 @@ export default {
           params: newVal.params,
           meta: newVal.meta
         }
-
           this.actions.push(action)
-
       device.meta.selected = false
-
-      console.log(this.actions)
     },
     async selectRoom(room){
       let device =await this.$getDevices(room.id)

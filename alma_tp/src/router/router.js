@@ -36,7 +36,7 @@ const routes = [
     component:() => import(/*webPackChunkName: "details" */ '../views/AddDeviceView.vue'),
   },
   {
-    path: '/room/edit_devices/:id',
+    path: '/room/edit_devices',
     name: 'EditDeviceView',
     props: true,
     component:() => import(/*webPackChunkName: "details" */ '../views/EditDeviceView.vue'),

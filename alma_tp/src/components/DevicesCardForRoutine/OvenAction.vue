@@ -65,15 +65,14 @@
         </div>
       </v-card-actions>
 
-      <div class="acceptAndCancel">
-        <div class="justify-end">
-          <v-btn color="secondary white--text"
-                 @click="setAction"
-                 x-large>
-            Aceptar
-          </v-btn>
-        </div>
-      </div>
+      <v-card-actions>
+        <v-spacer/>
+        <v-btn color="secondary white--text"
+               @click="setAction"
+               x-large>
+          Aceptar
+        </v-btn>
+      </v-card-actions>
 
       </div>
   </v-card>
@@ -211,17 +210,6 @@ export default {
   align-self: center;
   justify-content: center;
   justify-self: center;
-}
-
-.acceptAndCancel{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 10% 20px;
-  /*margin-top: 10px;*/
-  /*margin-bottom: 20px;*/
-  /*margin-right: 10%;*/
-  /*margin-left: 10%;*/
 }
 
 .slider{
