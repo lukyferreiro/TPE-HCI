@@ -14,31 +14,25 @@
         </v-switch>
       </v-card-actions>
       <v-card-actions class="cardText pt-6">
-
-        <v-menu offset-y :close-on-content-click="false">
-          <template v-slot:activator="{ on }">
             <v-btn
-                :color="color"
-                v-on="on"
-                :disabled="closeOnClick === 'Apagado'"
-                @click="setColor()"
+                :disabled="closeOnClick=='Apagado'"
+                :color=btnColor
+                @click="toggle = !toggle"
             >
+              Color
             </v-btn>
-            Event Color
-          </template>
-          <v-color-picker
-              :value="color"
-              v-model="color"
-              hide-canvas
-              hide-inputs
-              show-swatches
-              class="mx-auto"
-              mode="hexa"
-              @change="setColor()"
-          ></v-color-picker>
-        </v-menu>
+        <v-color-picker
+            :show-swatches="toggle"
+            hide-canvas
+            hide-sliders
+            hide-inputs
+            v-model="btnColor"
+            @update:color="setColor(); toggle = !toggle"
+            :swatches="swatches"
+        >
+        </v-color-picker>
       </v-card-actions>
-      <v-card-actions class="cardText pt-4 ma-2">
+      <v-card-actions class="cardText pt-6">
         <v-slider color="black"
                   track-fill-color="black"
                   track-color="black"
@@ -49,8 +43,8 @@
                   append-icon="mdi-white-balance-sunny"
                   prepend-icon="mdi-white-balance-sunny"
                   :disabled="closeOnClick === 'Apagado'"
-                  @click:append="setMoreBrightness()"
-                  @click:prepend="setLessBrightness()"
+                  @click:append="setLessBrightness()"
+                  @click:prepend="setMoreBrightness()"
                   @change="setBrightness()"
         >
         </v-slider>
@@ -70,7 +64,25 @@ export default {
       brightness: this.device.state.brightness ,
       color: this.device.state.color,
       show: false,
+      showColors:false,
+      btnColor:this.device.state.color,
+      swatches: [
+        ['#FFFFFF', '#ff0000', '#ff4000'],
+        ['#ff400e', '#ff4b00', '#ff6000'],
+        ['#ff8000', '#FFBF00', '#FFFF00'],
+        ['#BFFF04', '#80FF00', '#40FF00'],
+        ['#BFFF00', '#80FF00', '#40FF00'],
+        ['#00FF00', '#00FF40', '#00FF80'],
+        ['#00FFBF', '#00FFFF', '#00bfff'],
+        ['#0080ff', '#0040ff', '#0000ff'],
+        ['#4000ff', '#8000ff', '#bf00ff'],
+        ['#ff00ff', '#ff00bf', '#ff0080'],
 
+
+
+          ],
+      colorChangePush: false,
+      toggle:false,
     })
   },
 
@@ -85,9 +97,12 @@ export default {
     },
 
     async setColor(){
-      let idS = [this.device, 'setColor', [this.color]]
+      this.colorChangePush=true
+      let idS = [this.device, 'setColor', [this.btnColor]]
       await this.$executeAction(idS)
+      this.colorChangePush=false
     },
+
 
      setOnOff(){
       if(this.closeOnClick == 'Apagado'){
@@ -120,5 +135,6 @@ export default {
   justify-content: center;
   justify-self: center;
 }
+
 
 </style>
