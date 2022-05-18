@@ -45,7 +45,7 @@
                         </v-btn>
                         <v-btn @click="deleteRoutine(routine.id)"
                                class="optionsButton"
-                               color="secondary"
+                               color="red"
                                outlined
                                v-ripple="false">
                             <v-icon class="mr-2" size="30">mdi-trash-can-outline</v-icon>
