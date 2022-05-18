@@ -1,6 +1,5 @@
 <template>
     <v-card color="transparent" flat >
-      {{this.edit}}
         <div>
             <v-card-actions class="cardText pt-0">
                 <v-switch v-model="closeOnClick"
@@ -100,20 +99,10 @@ export default {
 
 
         async execute(actionName){
-          // Array.from(this.device.meta.actions).find(a => a.name == actionName).description = description
           let idS = [this.device, actionName]
           await this.$executeAction(idS)
         },
 
-
-/*
-          async executeWithParams(actionName, description, prevDesc){
-          let action = Array.from(this.device.meta.actions).find(a => a.name == actionName)
-          action.params[0].description = description
-          action.description = prevDesc
-          let idS = [this.device, actionName]
-          await this.$executeAction(idS)
-        },*/
 
         setOnOff(){
           if(this.closeOnClick == 'Apagado'){

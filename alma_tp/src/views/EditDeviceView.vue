@@ -103,11 +103,11 @@
             </v-form>
         </div>
 
-        <EditDoor v-if="idType === 'lsf78ly0eqrjbz91'" :edit="edit" :device="device"/>
-        <EditFaucet v-else-if="idType === 'dbrlsh7o5sn8ur4i'" :edit="edit" :device="device"/>
-        <EditHorno v-else-if="idType === 'im77xxyulpegfmv8'"  :edit="edit" :device="device"/>
-        <EditRefrigerator v-else-if="idType === 'rnizejqr2di0okho'" :edit="edit" :device="device"/>
-        <EditSpeaker v-else :colorset="this.myColor" :edit="edit" :device="device"/>
+      <EditDoor v-if="idType === 'lsf78ly0eqrjbz91'" :edit="edit" :device="device"/>
+      <EditFaucet v-else-if="idType === 'dbrlsh7o5sn8ur4i'" :edit="edit" :device="device"/>
+      <EditOven v-else-if="idType === 'im77xxyulpegfmv8'"  :edit="edit" :device="device"/>
+      <EditRefrigerator v-else-if="idType === 'rnizejqr2di0okho'" :edit="edit" :device="device"/>
+      <EditSpeaker v-else :colorset="this.myColor" :edit="edit" :device="device"/>
 
         <div class="acceptAndCancel">
             <div v-if="!edit">
@@ -131,16 +131,18 @@
 
 <script>
 import {mapActions, mapState} from "vuex";
-import EditHorno from "@/components/EditOven";
-import EditRefrigerator from "@/components/EditRefrigerator";
-import EditSpeaker from "@/components/EditSpeaker";
+
+import EditOven from "@/components/EditOven";
 import EditDoor from "@/components/EditDoor";
 import EditFaucet from "@/components/EditFaucet";
+import EditRefrigerator from "@/components/EditRefrigerator";
+import EditSpeaker from "@/components/EditSpeaker";
+
 // import ColorRoomSelector from "@/components/ColorRoomSelector";
 
 export default {
   name: "EditDeviceView",
-  components: {EditFaucet, EditSpeaker, EditRefrigerator, EditHorno, EditDoor},
+  components: {EditOven, EditDoor, EditFaucet, EditRefrigerator, EditSpeaker},
   props:["idType", "deviceName", "roomId", "device", "image", "edit"],
   data(){
     return({

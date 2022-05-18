@@ -46,25 +46,87 @@
                                                v-for="device in rooms[index].selectedDevices" :key="device.id"
                                                class="pt-2 pl-4 blue lighten-5 flex">
                       <v-row>
-                        <v-btn plain>
-                          {{device.name}}
-                        </v-btn>
-                        <div>
-                          <v-btn class="button"
-                                 plain
-                                 rounded
-                                 fab
-                                 :to="{name: 'EditDeviceView' , params:{idType: device.type.id,
-                                                    deviceName: device.name,
-                                                    roomId: room.id,
-                                                    device: device,
-                                                    image: device.meta.image,
-                                                    edit: false}}"
-                          >
-                            <v-icon class="ml-1">mdi-pencil-outline</v-icon>
-                          </v-btn>
-                        </div>
+                        <v-col class="deviceCardInRoom" :key="device.id" md="4">
+                          <v-dialog
+                                    overflow="auto"
+                                    v-model="dialog"
+                                    >
+                            <template v-slot:activator="{ on, attrs }">
+                              <v-card :color="device.meta.color"
+                                      max-width="190"
+                                      max-height="200"
+                                      v-bind="attrs"
+                                      v-on="on"
+                              >
+                                <!--Mi idea es editar el newDevice-->
+                                <v-card-actions class="imageDeviceInRoom">
+                                  <v-img :src="device.meta.image"
+                                         :alt="device.name"
+                                         max-height="30%"
+                                         max-width="30%"/>
+                                </v-card-actions>
+                                <v-card-title class="deviceText">
+                                  {{device.name}}
+                                </v-card-title>
+
+                              </v-card>
+                            </template>
+
+                            <v-card :color="device.meta.color">
+                              <div class="image">
+                                <v-avatar rounded
+                                          size="20%">
+                                  <v-img :src="device.meta.image"
+                                         :alt="device.name" />
+                                </v-avatar>
+                              </div>
+                              <div>
+                                <v-card-title class="titleCard mb-7">
+                                  <p> Setear dispositivo: {{ device.name }} </p>
+                                </v-card-title>
+                              </div>
+
+                              <v-divider/>
+                                <DoorAction v-if="device.type.id === 'lsf78ly0eqrjbz91'"
+                                            :myColor="device.meta.color"
+                                            v-bind:myactions="actions"
+                                            v-on:setAction="updateActions($event, device)"
+                                />
+                                <FaucetAction v-else-if="device.type.id === 'dbrlsh7o5sn8ur4i'"
+                                              :myColor="device.meta.color"
+                                              v-bind:myactions="actions"
+                                              v-on:setAction="updateActions($event, device)"
+                                />
+                                <OvenAction v-else-if="device.type.id === 'im77xxyulpegfmv8'"
+                                            :myColor="device.meta.color"
+                                            v-bind:myactions="actions"
+                                            v-on:setAction="updateActions($event, device)"
+                                />
+                                <RefrigeratorAction v-else-if="device.type.id === 'rnizejqr2di0okho'"
+                                                    :myColor="device.meta.color"
+                                                    v-bind:myactions="actions"
+                                                    v-on:setAction="updateActions($event, device)"
+                                />
+                                <SpeakerAction v-else
+                                               :myColor="device.meta.color"
+                                               v-bind:myactions="actions"
+                                               v-on:setAction="updateActions($event, device)"
+                                />
+
+                            </v-card>
+                          </v-dialog>
+
+                        </v-col>
+
+                        <v-col >
+                          <v-card :color="device.meta.color">
+                            <v-card-title class="deviceText">Acciones:</v-card-title>
+
+                          </v-card>
+                        </v-col>
+
                       </v-row>
+
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>
@@ -161,12 +223,22 @@
 import GoBack from "@/components/GoBack";
 import TimeSelector from "@/components/TimeSelector";
 import {mapActions, mapState} from "vuex";
+import DoorAction from "@/components/DevicesCardForRoutine/DoorAction";
+import FaucetAction from "@/components/DevicesCardForRoutine/FaucetAction";
+import OvenAction from "@/components/DevicesCardForRoutine/OvenAction";
+import RefrigeratorAction from "@/components/DevicesCardForRoutine/RefrigeratorAction";
+import SpeakerAction from "@/components/DevicesCardForRoutine/SpeakerAction";
 
 export default {
   name: "AddRoutineView",
   components: {
     TimeSelector,
-    GoBack
+    GoBack,
+    DoorAction,
+    FaucetAction,
+    OvenAction,
+    RefrigeratorAction,
+    SpeakerAction
   },
   data(){
     const date = new Date();
@@ -181,7 +253,9 @@ export default {
       routinetime: date.getHours() + ":" + date.getMinutes(),
       routinedays: [],
       actions: [],
-      rooms: []
+      rooms: [],
+      newDevices: [],
+      dialog: false
     }
   },
   computed: {
@@ -194,6 +268,12 @@ export default {
 
   },
   methods:{
+    ...mapActions("devices",{
+      $addDevice: "add",
+      $editDevice: "edit",
+      $getAllDevices: "getAll",
+      $deleteDevice: "delete"
+    }),
     ...mapActions("routine",{
       $addRoutine: "add",
       $editRoutine: "edit",
@@ -221,7 +301,7 @@ export default {
           }
         }
         console.log(routine)
-        routine = await this.$addRoutine(routine)
+        routine = await this.$addRoutine(routine.id)
         this.setResult(routine.id)
         this.$router.go(-1);
         this.reset();
@@ -236,6 +316,26 @@ export default {
     updateDays(newVal){
       this.routinedays=newVal
     },
+    updateActions(newVal, device){
+
+      console.log('update')
+
+      Array.from(newVal).forEach(value => {
+          let action = {
+            device: {
+              id: device.id
+            },
+            actionName: value.name,
+            params: value.params,
+            meta: value.meta
+          }
+          this.actions.push(action)
+
+      })
+
+      this.dialog=false
+      console.log(this.actions)
+    },
     async selectRoom(room){
       let device =await this.$getDevices(room.id)
       this.rooms.push({room:room, devices: device, selectedDevices: [],actions:[]});
@@ -243,19 +343,19 @@ export default {
 
     addDeviceToRoom(device, indexRoom){
       let room = this.rooms[indexRoom]
-      // console.log(room.devices)
-      // let action = {
-      //   device: {
-      //     id: device.id
-      //   },
-      //   actionName: device.meta.actions.name,
-      //   params: device.meta.actions.params,
-      //   meta: device.meta.actions.meta
-      // }
+      let action = {
+        device: {
+          id: device.id
+        },
+        actionName: device.meta.actions.name,
+        params: device.meta.actions.params,
+        meta: device.meta.actions.meta
+      }
       room.selectedDevices.push(device)
-      // room.actions.push(action);
-      // this.actions.push(action)
-    }
+      room.actions.push(action);
+      this.actions.push(action)
+    },
+
   }
 }
 </script>
@@ -274,6 +374,23 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .deviceText{
+      justify-content: center;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 0 5px 5px;
+    }
+
+    .imageDeviceInRoom{
+      justify-content: center;
+    }
+
+    .image{
+      position: absolute;
+      margin-left: 45.5%;
+      margin-top: 15px;
     }
 
 </style>
