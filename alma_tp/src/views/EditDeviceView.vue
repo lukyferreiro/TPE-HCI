@@ -206,7 +206,7 @@ export default {
               actions: this.device.actions,
               image: this.image,
               color: this.myColor,
-              selected: false
+              selected: this.device.meta.selected,
             }
           }
           let idS = [this.device.id , device]

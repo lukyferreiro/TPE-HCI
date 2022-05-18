@@ -56,7 +56,10 @@ name: "DoorAction",
       let action = {
         name: 'close',
         params: [],
-        meta: {}
+        meta: {
+          spanishName: this.closeOnClick,
+          spanishPropName: ''
+        }
       }
       if(this.closeOnClick === 'Abierto'){
         action.name= 'open'
@@ -72,7 +75,10 @@ name: "DoorAction",
       let action = {
         name: 'block',
         params: [],
-        meta: {}
+        meta: {
+          spanishName: this.blockOnSwitch,
+          spanishPropName: ''
+        }
       }
       if(this.blockOnSwitch === 'Desbloqueado'){
         action.name = 'unblock'

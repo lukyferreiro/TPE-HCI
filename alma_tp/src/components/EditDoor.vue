@@ -19,8 +19,8 @@
                               color="secondary"
                               class="text"
                               inset
-                              false-value="Bloqueado"
-                              true-value="Desbloqueado"
+                              false-value="Desbloqueado"
+                              true-value="Bloqueado"
                               :label="`${blockOnSwitch}`"
                               :disabled="closeOnClick === 'Abierto'"
                               hide-details

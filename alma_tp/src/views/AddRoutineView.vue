@@ -21,15 +21,11 @@
             </v-container>
         </v-form>
 
-        <TimeSelector v-bind:mydays="routinedays"
-                      v-on:changeDays="updateDays($event)"
-                      v-bind:mytime="routinetime"
-                      v-on:changeTime="updateTime($event)"/>
 
         <v-divider class="mt-6 mx-4"></v-divider>
 
-      <div v-for="(room, index) in rooms"
-           :key="index">
+      <div v-for="(room, indexRoom) in rooms"
+           :key="indexRoom">
         <v-card class="blue lighten-5">
         <v-row>
               <v-col>
@@ -38,13 +34,13 @@
                     <v-expansion-panel-header class="roomText blue lighten-5">
                       {{room.room.name}}
                     </v-expansion-panel-header>
-                    <v-expansion-panel-content v-if="rooms[index].selectedDevices.length===0"
+                    <v-expansion-panel-content v-if="rooms[indexRoom].selectedDevices.length===0"
                                                class="pt-2 pl-4 blue lighten-5" >
                       <p>No tienes ningún dispositivo vinculado.</p>
                     </v-expansion-panel-content>
 
                     <v-expansion-panel-content v-else
-                                               v-for="device in rooms[index].selectedDevices" :key="device.id"
+                                               v-for="device in rooms[indexRoom].selectedDevices" :key="device.id"
                                                class="pt-2 pl-4 blue lighten-5 flex">
 
                       <v-row>
@@ -135,12 +131,25 @@
 
                         </v-col>
 
-                        <v-col >
+                        <v-col>
                           <v-card :color="device.meta.color">
                             <v-card-title class="deviceText">Acciones:</v-card-title>
-
+                              <v-list-item v-for="(actions, index) in getDeviceActions(device.id)"
+                                           :key="index">
+                                <v-list-item-content>
+                                  <v-list-item-title>{{ actions.name }} {{actions.props}}</v-list-item-title>
+                                </v-list-item-content>
+                              </v-list-item>
                           </v-card>
+
                         </v-col>
+                        <v-btn color="transparent"
+                               depressed
+                               fab
+                               @click="deleteRoutineDevice(device,indexRoom)"
+                        >
+                          <v-icon  color="black" size="30px">mdi-trash-can-outline</v-icon>
+                        </v-btn>
 
                       </v-row>
 
@@ -166,13 +175,13 @@
                   </template>
                   <v-list>
                     <v-list-item
-                        v-for="dev in rooms[index].devices"
+                        v-for="dev in rooms[indexRoom].devices"
                         :key="dev.id"
                     >
                       <v-list-item-action>
                         <v-btn class="button"
                                plain
-                               @click="addDeviceToRoom(dev, index)">
+                               @click="addDeviceToRoom(dev, indexRoom)">
                           {{ dev.name }}
                         </v-btn>
 
@@ -239,7 +248,6 @@
 
 <script>
 import GoBack from "@/components/GoBack";
-import TimeSelector from "@/components/TimeSelector";
 import {mapActions, mapState} from "vuex";
 import DoorAction from "@/components/DevicesCardForRoutine/DoorAction";
 import OvenAction from "@/components/DevicesCardForRoutine/OvenAction";
@@ -251,7 +259,6 @@ export default {
   name: "AddRoutineView",
   components: {
     LampAction,
-    TimeSelector,
     GoBack,
     DoorAction,
     OvenAction,
@@ -259,7 +266,6 @@ export default {
     SpeakerAction
   },
   data(){
-    const date = new Date();
     return{
       edit: false,
       nameRules:[
@@ -268,8 +274,6 @@ export default {
         v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
       ],
       routinetitle: "",
-      routinetime: date.getHours() + ":" + date.getMinutes(),
-      routinedays: [],
       actions: [],
       rooms: [],
       dialog: false,
@@ -312,10 +316,7 @@ export default {
         let routine = {
           name: this.routinetitle,
           actions: this.actions,
-          meta: {
-            routinetime: this.routinetime,
-            routinedays: this.routinedays
-          }
+          meta: {}
         }
         console.log(routine)
         routine = await this.$addRoutine(routine.id)
@@ -326,12 +327,6 @@ export default {
     },
     setResult(routine){
       console.log(routine)
-    },
-    updateTime(newVal){
-      this.routinetime=newVal
-    },
-    updateDays(newVal){
-      this.routinedays=newVal
     },
     updateActions(newVal, device){
         let action = {
@@ -351,13 +346,35 @@ export default {
     },
     async selectRoom(room){
       let device =await this.$getDevices(room.id)
+      console.log(device)
       this.rooms.push({room:room, devices: device, selectedDevices: [],actions:[]});
     },
 
     addDeviceToRoom(device, indexRoom){
       let room = this.rooms[indexRoom]
+      room.devices.splice(device.id)
       room.selectedDevices.push(device)
     },
+    deleteRoutineDevice(device, indexRoom){
+      let room = this.rooms[indexRoom]
+      room.selectedDevices.splice(device.id)
+      room.devices.push(device)
+      this.actions.splice(device.id)
+    },
+
+    getDeviceActions(deviceId){
+      let myAction = []
+      this.actions.forEach(action => {
+        if(action.device.id === deviceId){
+          let newAction = {
+            name:action.meta.spanishName,
+            props: action.meta.spanishPropName
+          }
+          myAction.push(newAction)
+        }
+      })
+      return myAction
+    }
 
   }
 }

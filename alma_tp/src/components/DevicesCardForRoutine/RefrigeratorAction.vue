@@ -47,14 +47,6 @@
       </v-card-actions>
 
       <div class="acceptAndCancel">
-<!--        <div>-->
-<!--          <v-btn color="secondary white&#45;&#45;text"-->
-<!--                 @click="goBack"-->
-<!--                 x-large>-->
-<!--            Cancelar-->
-<!--          </v-btn>-->
-<!--        </div>-->
-<!--        <v-spacer/>-->
         <div class="justify-end">
           <v-btn color="secondary white--text"
                  @click="setAction"
@@ -97,7 +89,10 @@ export default {
       let action = {
         name: 'setModo',
         params: ['default'],
-        meta: {}
+        meta: {
+          spanishName: 'Modo',
+          spanishPropName: ': ' + this.selectModo
+        }
       }
 
       if(this.selectModo === 'Fiesta'){
@@ -117,7 +112,10 @@ export default {
       let action = {
         name: 'setTemperature',
         params: [this.temperatura],
-        meta: {}
+        meta: {
+          spanishName: 'Temperatura',
+          spanishPropName: ': ' + this.temperatura.toString() + '°C'
+        }
       }
 
       this.setFreezerTemperaturerature(bool)
@@ -129,7 +127,10 @@ export default {
       let action = {
         name: 'setFreezerTemperature',
         params: [this.temperaturaFreezer],
-        meta: {}
+        meta: {
+          spanishName: 'Temperatura del Freezer',
+          spanishPropName: ': ' + this.temperaturaFreezer.toString() + '°C'
+        }
       }
 
       if(bool){

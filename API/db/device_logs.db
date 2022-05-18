@@ -353,3 +353,17 @@
 {"_id":"fe03f56f4abb72de","timestamp":"2022-05-17T20:35:40.351Z","deviceId":"d3a020c75a0a2de0","action":"setMode","params":["party"],"result":"default"}
 {"_id":"fe6584cfd2c42d23","timestamp":"2022-05-18T05:32:31.687Z","deviceId":"b3209b1889652200","action":"setVolume","params":[10],"result":null}
 {"_id":"fe6ffb80d0b41ec0","timestamp":"2022-05-17T20:37:09.498Z","deviceId":"d3a020c75a0a2de0","action":"setMode","params":["vacation"],"result":"party"}
+{"_id":"82c00ba0d4aa8a11","timestamp":"2022-05-18T14:30:35.281Z","deviceId":"c274f0c84e044d5c","action":"unlock","params":[],"result":false}
+{"_id":"031504b8eb825cf7","timestamp":"2022-05-18T14:30:35.289Z","deviceId":"c274f0c84e044d5c","action":"open","params":[],"result":true}
+{"_id":"c40a489481fe17f6","timestamp":"2022-05-18T14:30:38.969Z","deviceId":"c274f0c84e044d5c","action":"close","params":[],"result":true}
+{"_id":"220e07adb0036ae3","timestamp":"2022-05-18T14:30:39.795Z","deviceId":"c274f0c84e044d5c","action":"lock","params":[],"result":true}
+{"_id":"e6c111a33291b5af","timestamp":"2022-05-18T14:30:40.680Z","deviceId":"c274f0c84e044d5c","action":"unlock","params":[],"result":true}
+{"_id":"ab70c1dc7af63bae","timestamp":"2022-05-18T14:30:40.686Z","deviceId":"c274f0c84e044d5c","action":"open","params":[],"result":true}
+{"_id":"e84153f2370c00fc","timestamp":"2022-05-18T14:54:39.967Z","deviceId":"392f0ced24377559","action":"turnOn","params":[],"result":true}
+{"_id":"a95e763f4d5cfc3e","timestamp":"2022-05-18T14:54:43.483Z","deviceId":"392f0ced24377559","action":"setGrill","params":["large"],"result":"off"}
+{"_id":"ebcbec242811975b","timestamp":"2022-05-18T15:39:16.905Z","deviceId":"304b1d927ccdebc2","action":"unlock","params":[],"result":false}
+{"_id":"aede4dd5b504103f","timestamp":"2022-05-18T15:39:16.912Z","deviceId":"304b1d927ccdebc2","action":"open","params":[],"result":true}
+{"_id":"779da525e67091a3","timestamp":"2022-05-18T15:39:19.380Z","deviceId":"304b1d927ccdebc2","action":"close","params":[],"result":true}
+{"_id":"36b36b5de5ce1c83","timestamp":"2022-05-18T15:39:20.140Z","deviceId":"304b1d927ccdebc2","action":"lock","params":[],"result":true}
+{"_id":"c8ffad5ee7c029db","timestamp":"2022-05-18T15:39:21.066Z","deviceId":"304b1d927ccdebc2","action":"unlock","params":[],"result":true}
+{"_id":"6374e04ecb393d21","timestamp":"2022-05-18T15:39:21.073Z","deviceId":"304b1d927ccdebc2","action":"open","params":[],"result":true}

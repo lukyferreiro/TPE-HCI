@@ -105,7 +105,10 @@ export default {
       let action = {
         name: 'turnOn',
         params: [],
-        meta: {}
+        meta: {
+          spanishName: this.closeOnClick,
+          spanishPropName: ''
+        }
       }
       if(this.closeOnClick === "Apagado"){
         action.name='turnOff'
@@ -119,7 +122,10 @@ export default {
       let action = {
         name: 'setTemperature',
         params: [this.temperatura],
-        meta: {}
+        meta: {
+          spanishName: 'Temperatura',
+          spanishPropName: ': ' + this.temperatura.toString() + '°C'
+        }
       }
 
       this.setConveccion(bool)
@@ -134,7 +140,10 @@ export default {
       let action = {
         name: 'setConvection',
         params: ['normal'],
-        meta: {}
+        meta: {
+          spanishName: 'Modo Conveccion',
+          spanishPropName:': ' + this.selectedConveccion
+        }
       }
       if(this.selectedConveccion == 'Apagado'){
         action.params = ['off']
@@ -153,7 +162,10 @@ export default {
       let action = {
         name: 'setGrill',
         params: ['large'],
-        meta: {}
+        meta: {
+          spanishName: 'Modo Grill',
+          spanishPropName:': ' + this.selectedGrill
+        }
       }
       if(this.selectedGrill == 'Apagado'){
         action.params = ['off']
@@ -172,7 +184,10 @@ export default {
       let action = {
         name: 'setHeat',
         params: ['conventional'],
-        meta: {}
+        meta: {
+          spanishName: 'Fuente de Calor',
+          spanishPropName: ': ' + this.selectedFuente
+        }
       }
       if(this.selectedFuente == 'Abajo'){
         action.params = ['bottom']

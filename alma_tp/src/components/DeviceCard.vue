@@ -76,7 +76,7 @@ export default {
                      actions: this.deviceType.actions,
                      image: this.image,
                      color: this.myColor,
-                     selected: false
+                     selected: false,
                    }
                }
                console.log('add')
