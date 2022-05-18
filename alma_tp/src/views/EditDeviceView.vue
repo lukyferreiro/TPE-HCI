@@ -9,8 +9,7 @@
         </div>
         <div>
             <v-card-title class="titleCard mb-7">
-                <p v-if="edit"> Editar dispositivo: {{ this.deviceName }} </p>
-                <p v-else> Agregar dispositivo: {{ this.deviceName }} </p>
+              <p> Editar dispositivo: {{ this.deviceName }} </p>
                 <v-spacer/>
 
               <v-menu offset-y>
@@ -38,7 +37,7 @@
                 </v-list>
               </v-menu>
 
-              <div class="ma-8" v-if="edit">
+              <div class="ma-8">
                 <v-row justify="center">
                   <v-dialog
                       v-model="dialog"
@@ -103,28 +102,20 @@
             </v-form>
         </div>
 
-      <EditDoor v-if="idType === 'lsf78ly0eqrjbz91'" :edit="edit" :device="device"/>
-      <EditFaucet v-else-if="idType === 'dbrlsh7o5sn8ur4i'" :edit="edit" :device="device"/>
-      <EditOven v-else-if="idType === 'im77xxyulpegfmv8'"  :edit="edit" :device="device"/>
-      <EditRefrigerator v-else-if="idType === 'rnizejqr2di0okho'" :edit="edit" :device="device"/>
-      <EditSpeaker v-else :colorset="this.myColor" :edit="edit" :device="device"/>
+      <EditDoor v-if="idType === 'lsf78ly0eqrjbz91'" :device="device"/>
+      <EditOven v-else-if="idType === 'im77xxyulpegfmv8'" :device="device"/>
+      <EditRefrigerator v-else-if="idType === 'rnizejqr2di0okho'" :device="device"/>
+      <EditLamp v-else-if="idType === 'go46xmbqeomjrsjr'" :device="device"/>
+      <EditSpeaker v-else-if="idType === 'c89b94e8581855bc'" :device="device"/>
 
         <div class="acceptAndCancel">
-            <div v-if="!edit">
-                <v-btn color="secondary white--text"
-                       @click="goBack"
-                       x-large>
-                    Cancelar
-                </v-btn>
-            </div>
-            <v-spacer v-else/>
-            <div class="justify-end">
-                <v-btn color="secondary white--text"
-                       @click="addDevice"
-                       x-large>
-                  Aceptar
-                </v-btn>
-            </div>
+          <div class="justify-end">
+            <v-btn color="secondary white--text"
+                   @click="editDevice"
+                   x-large>
+              Aceptar
+            </v-btn>
+          </div>
         </div>
     </v-card>
 </template>
@@ -134,16 +125,14 @@ import {mapActions, mapState} from "vuex";
 
 import EditOven from "@/components/EditOven";
 import EditDoor from "@/components/EditDoor";
-import EditFaucet from "@/components/EditFaucet";
 import EditRefrigerator from "@/components/EditRefrigerator";
 import EditSpeaker from "@/components/EditSpeaker";
-
-// import ColorRoomSelector from "@/components/ColorRoomSelector";
+import EditLamp from "@/components/EditLamp";
 
 export default {
   name: "EditDeviceView",
-  components: {EditOven, EditDoor, EditFaucet, EditRefrigerator, EditSpeaker},
-  props:["idType", "deviceName", "roomId", "device", "image", "edit"],
+  components: {EditLamp, EditOven, EditDoor, EditRefrigerator, EditSpeaker},
+  props:["idType", "deviceName", "roomId", "device", "image"],
   data(){
     return({
       nameRules:[
@@ -154,8 +143,8 @@ export default {
       ],
       dialog: false,
       allDevices: null,
-      devName:this.edit ? this.device.name : '',
-      myColor: this.edit ? this.device.meta.color : 'primary' ,
+      devName: this.device.name,
+      myColor: this.device.meta.color,
       colors: [
         {
           "hex": "#90CAF9",
@@ -200,69 +189,40 @@ export default {
     async setResult(device){
       console.log(device)
     },
-    
-    async deleteDevice(){
-      this.delete = false
-      await this.$deleteDevice(this.device.id)
-      this.goBack();
-    },
 
-    async addDevice(){
+    async deleteDevice(){
+      await this.$deleteDevice(this.device.id)
+      this.$refs.title.reset();
+      this.$router.go(-1);
+    },
+    async editDevice(){
       if(this.$refs.form.validate()) {
         try{
-          if(!this.edit) {
-            let device = {
-              type: {
-                id: this.device.id,
-              },
-              name: this.devName,
-              meta: {
-                roomId: this.roomId,
-                actions: this.device.actions,
-                image: this.image,
-                color: this.myColor
-              }
+          let device = {
+            name: this.devName,
+            meta: {
+              roomId: this.roomId,
+              actions: this.device.actions,
+              image: this.image,
+              color: this.myColor,
+              selected: false
             }
-            device = await this.$add(device)
-            let idS = [this.roomId, device.id]
-            device = await this.$addDevice(idS)
-            await this.setResult(idS[1])
-          } else{
-            let device = {
-              name: this.devName,
-              meta: {
-                roomId: this.roomId,
-                actions: this.device.actions,
-                image: this.image,
-                color: this.myColor
-              }
-            }
-            let idS = [this.device.id , device]
-            await this.$editDevice(idS)
           }
+          let idS = [this.device.id , device]
+          await this.$editDevice(idS)
+          // }
         } catch(e){
           await this.setResult(e.code)
         }
-        this.goBack()
+        // this.goBack()
+        this.$refs.title.reset();
+        this.$router.go(-1);
       }
-    },
-
-    goBack(){
-      this.reset();
-      let num = -2;
-      if(this.edit) {
-        num = -1;
-      }
-      this.$router.go(num);
-    },
-
-    reset(){
-      this.$refs.title.reset();
     },
 
     submit(e){
       e.preventDefault();
-      this.addDevice()
+      this.editDevice()
     },
   }
 }

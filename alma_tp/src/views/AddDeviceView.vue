@@ -5,11 +5,12 @@
         </div>
         <v-spacer/>
         <v-row class="devices">
-            <DeviceCard class="device" idType="dbrlsh7o5sn8ur4i" deviceName="Grifo" :roomId="room.id"/>
             <DeviceCard class="device" idType="rnizejqr2di0okho" deviceName="Heladera" :roomId="room.id"/>
             <DeviceCard class="device" idType="im77xxyulpegfmv8" deviceName="Horno" :roomId="room.id"/>
             <DeviceCard class="device" idType="c89b94e8581855bc" deviceName="Parlante" :roomId="room.id"/>
             <DeviceCard class="device" idType="lsf78ly0eqrjbz91" deviceName="Puerta" :roomId="room.id"/>
+            <DeviceCard class="device" idType="go46xmbqeomjrsjr" deviceName="Lámpara" :roomId="room.id"/>
+
         </v-row>
         <v-card-actions class="backButton mt-5">
             <GoBack name="Volver" color="secondary"/>

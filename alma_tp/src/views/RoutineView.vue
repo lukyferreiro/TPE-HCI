@@ -1,13 +1,5 @@
 <template>
     <div class="routine">
-<!--        <v-btn :to="{name:'AddRoutineView'}"-->
-<!--               class="button"-->
-<!--               rounded-->
-<!--               color="secondary"-->
-<!--               absolute>-->
-<!--            Agregar rutina-->
-<!--            <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>-->
-<!--        </v-btn>-->
 
         <div v-if="$routinesAmount==0">
             <h3 class="text"> No tienes rutinas creadas aún. </h3>

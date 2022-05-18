@@ -53,51 +53,56 @@ import {mapActions} from "vuex";
 
 export default {
     name: "EditRefrigerator",
-    props:["device", "edit"],
+    // props:["device", "edit"],
+    props:["device"],
     data(){
       return({
         closeOnClick: true,
-        temperatura: this.edit ? (this.device.state.temperature) : 2,
-        temperaturaFreezer:this.edit ? (this.device.state.freezerTemperature) : -8,
+        // temperatura: this.edit ? (this.device.state.temperature) : 2,
+        // temperaturaFreezer:this.edit ? (this.device.state.freezerTemperature) : -8,
+        temperatura: this.device.state.temperature,
+        temperaturaFreezer: this.device.state.freezerTemperature,
         minTemperatura: 2,
         maxTemperatura: 8,
         minTemperaturaFreezer: -20,
         maxTemperaturaFreezer: -8,
-        selectModo: this.edit ? (this.device.state.mode === 'vacation' ? 'Vacaciones': (this.device.state.mode === 'party' ? 'Fiesta' : 'Normal')) : 'Normal',
+        // selectModo: this.edit ? (this.device.state.mode === 'vacation' ? 'Vacaciones': (this.device.state.mode === 'party' ? 'Fiesta' : 'Normal')) : 'Normal',
+        selectModo: this.device.state.mode === 'vacation' ? 'Vacaciones': (this.device.state.mode === 'party' ? 'Fiesta' : 'Normal'),
         modo: ["Normal", "Fiesta", "Vacaciones"],
       });
     },
-  methods: {
-    ...mapActions("devices", {
-      $executeAction: "execute"
-    }),
 
-    async setTemperature() {
-      let idS = [this.device, 'setTemperature', [this.temperatura]]
-      await this.$executeAction(idS)
-    },
+    methods: {
+        ...mapActions("devices", {
+          $executeAction: "execute"
+        }),
 
-    async setFreezerTemperature() {
-      let idS = [this.device, 'setFreezerTemperature', [this.temperaturaFreezer]]
-      await this.$executeAction(idS)
-    },
+        async setTemperature() {
+          let idS = [this.device, 'setTemperature', [this.temperatura]]
+          await this.$executeAction(idS)
+        },
 
-    async setModo(){
-      let idS = [this.device, 'setMode']
-      if(this.selectModo === 'Normal'){
-        idS[2] = ['default']
-      } else if(this.selectModo === 'Fiesta'){
-        idS[2] = ['party']
-        this.temperaturaFreezer = this.minTemperaturaFreezer
-        await this.setFreezerTemperature()
-      } else{
-        idS[2] = ['vacation']
-        this.temperatura = this.maxTemperatura
-        await this.setTemperature()
-      }
-      await this.$executeAction(idS)
+        async setFreezerTemperature() {
+          let idS = [this.device, 'setFreezerTemperature', [this.temperaturaFreezer]]
+          await this.$executeAction(idS)
+        },
+
+        async setModo(){
+          let idS = [this.device, 'setMode']
+          if(this.selectModo === 'Normal'){
+            idS[2] = ['default']
+          } else if(this.selectModo === 'Fiesta'){
+            idS[2] = ['party']
+            this.temperaturaFreezer = this.minTemperaturaFreezer
+            await this.setFreezerTemperature()
+          } else{
+            idS[2] = ['vacation']
+            this.temperatura = this.maxTemperatura
+            await this.setTemperature()
+          }
+          await this.$executeAction(idS)
+        }
     }
-  }
 }
 </script>
 

@@ -3,12 +3,8 @@
         <v-card color="primary"
                 max-width="200"
                 max-height="200"
-                :to="{name:'EditDeviceView' , params:{idType: this.idType,
-                                                  deviceName: this.deviceName,
-                                                  roomId: this.roomId,
-                                                  device: this.device,
-                                                  image: this.image,
-                                                  edit: false,}}">
+                @click="addDevice()">
+
             <v-card-actions class="image">
                 <v-img :src="image"
                        :alt="name"
@@ -30,27 +26,69 @@ export default {
     props:["idType","deviceName", "roomId"],
     data(){
       return({
-        device: null,
+        deviceType: null,
+        myColor: 'primary',
+        // myDevice: "",
       })
     },
+
     async created() {
-      this.device = await this.$getDeviceType(this.idType)
+      this.deviceType = await this.$getDeviceType(this.idType)
     },
+
     computed: {
       name() {
-        return this.device ? this.device.name : ""
+        return this.deviceType ? this.deviceType.name : ""
       },
       image() {
-        return this.device ? require(`@/assets/${this.name}.png`)  : require(`@/assets/unknown.png`)
-      }
+        return this.deviceType ? require(`@/assets/${this.name}.png`)  : require(`@/assets/unknown.png`)
+      },
     },
-   methods:{
+
+    methods:{
         ...mapActions("devicesTypes",{
-          $getAllTypes: "getAllTypes",
           $getDeviceType: "getDeviceType",
-          $editDeviceType:"editDeviceType"
         }),
-    },
+       ...mapActions("devices",{
+         $add: "add",
+         $editDevice: "edit",
+         $getAll: "getAll",
+         $getDevice: "getDevice",
+         $deleteDevice: "delete"
+       }),
+       ...mapActions("room",{
+         $addDevice: "addDevice",
+       }),
+
+       async setResult(device){
+         console.log(device)
+       },
+
+       async addDevice(){
+           try{
+               let device = {
+                   type: {
+                     id: this.idType,
+                   },
+                   name: this.deviceName,
+                   meta: {
+                     roomId: this.roomId,
+                     actions: this.deviceType.actions,
+                     image: this.image,
+                     color: this.myColor,
+                     selected: false
+                   }
+               }
+               console.log('add')
+               device = await this.$add(device)
+               let idS = [this.roomId, device.id]
+               device = await this.$addDevice(idS)
+           } catch(e){
+             await this.setResult(e.code)
+           }
+         this.$router.go(-1);
+       },
+   },
 }
 </script>
 

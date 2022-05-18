@@ -9,6 +9,7 @@
                   true-value="Encendido"
                   false-value="Apagado"
                   :label="`${closeOnClick}`"
+                  @change="setTurnOnOff(false)"
                   hide-details>
         </v-switch>
       </v-card-actions>
@@ -24,6 +25,7 @@
                     thumb-label="always"
                     thumb-size="25px"
                     hide-details
+                    :disabled="closeOnClick === 'Apagado'"
           />
         </div>
       </v-card-actions>
@@ -46,6 +48,7 @@
                     color="black"
                     dense
                     label="Modo Grill"
+                    :disabled="closeOnClick === 'Apagado'"
           />
         </div>
       </v-card-actions>
@@ -57,19 +60,12 @@
                     color="black"
                     dense
                     label="Modo Convección"
+                    :disabled="closeOnClick === 'Apagado'"
           />
         </div>
       </v-card-actions>
 
       <div class="acceptAndCancel">
-        <div>
-          <v-btn color="secondary white--text"
-                 @click="goBack"
-                 x-large>
-            Cancelar
-          </v-btn>
-        </div>
-        <v-spacer/>
         <div class="justify-end">
           <v-btn color="secondary white--text"
                  @click="setAction"
@@ -105,63 +101,92 @@ export default {
     })
   },
   methods:{
-    goBack(){
-      this.$router.go(-1);
-    },
-
-    setAction:function (){
-      console.log('acepta')
-      if(this.closeOnClick === "Apagado"){
-        let action = {
-          name: 'turnOff',
-          params: [],
-          meta: {}
-        }
-        this.actions.push(action)
-      }else{
-        let action = {
-          name: 'turnOn',
-          params: [],
-          meta: {}
-        }
-        this.actions.push(action)
+    setTurnOnOff(bool){
+      let action = {
+        name: 'turnOn',
+        params: [],
+        meta: {}
       }
-
+      if(this.closeOnClick === "Apagado"){
+        action.name='turnOff'
+      }
+      this.setTemperature(bool)
+      if(bool){
+        this.$emit("setAction", action)
+      }
+    },
+    setTemperature(bool){
       let action = {
         name: 'setTemperature',
         params: [this.temperatura],
         meta: {}
       }
-      this.actions.push(action)
 
+      this.setConveccion(bool)
 
-      if(this.selectedFuente == 'Convencional'){
-        let action = {
-          name: 'setHeat',
-          params: ['conventional'],
-          meta: {}
-        }
-        this.actions.push(action)
-
-      }else if(this.selectedFuente == 'Abajo'){
-        let action = {
-          name: 'setHeat',
-          params: ['bottom'],
-          meta: {}
-        }
-        this.actions.push(action)
+      if(bool){
+        this.$emit("setAction", action)
       }else{
-        let action = {
-          name: 'setHeat',
-          params: ['top'],
-          meta: {}
+        this.temperatura = 0
+      }
+    },
+    setConveccion(bool){
+      let action = {
+        name: 'setConvection',
+        params: ['normal'],
+        meta: {}
+      }
+      if(this.selectedConveccion == 'Apagado'){
+        action.params = ['off']
+      }else if(this.selectedConveccion == 'Económico'){
+        action.params = ['eco']
+      }
+        this.setModoGrill(bool)
+
+        if(bool){
+          this.$emit("setAction", action)
+        }else{
+          action.params = ['off']
         }
-        this.actions.push(action)
+      },
+    setModoGrill(bool){
+      let action = {
+        name: 'setGrill',
+        params: ['large'],
+        meta: {}
+      }
+      if(this.selectedGrill == 'Apagado'){
+        action.params = ['off']
+      }else if(this.selectedGrill == 'Económico'){
+        action.params = ['eco']
       }
 
-      this.$emit("setAction", this.actions)
+      if(bool){
+        this.setHeat()
+        this.$emit("setAction", action)
+      }else{
+        action.params = ['off']
+      }
+    },
+    setHeat(){
+      let action = {
+        name: 'setHeat',
+        params: ['conventional'],
+        meta: {}
+      }
+      if(this.selectedFuente == 'Abajo'){
+        action.params = ['bottom']
+      }else if(this.selectedFuente == 'Arriba') {
+        action.params = ['top']
+      }
+
+      this.$emit("setAction", action)
+
+      },
+    setAction:function (){
+        this.setTurnOnOff(true)
     }
-  }
+   }
 }
 </script>
 

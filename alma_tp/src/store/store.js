@@ -6,8 +6,8 @@ export default {
             id: 1
         },
         {
-            name: "Grifo",
-            image: "faucet.png",
+            name: "Lámpara",
+            image: "lamp.png",
             id: 2
         },
         {

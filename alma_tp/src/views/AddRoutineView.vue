@@ -42,14 +42,15 @@
                                                class="pt-2 pl-4 blue lighten-5" >
                       <p>No tienes ningún dispositivo vinculado.</p>
                     </v-expansion-panel-content>
+
                     <v-expansion-panel-content v-else
                                                v-for="device in rooms[index].selectedDevices" :key="device.id"
                                                class="pt-2 pl-4 blue lighten-5 flex">
+
                       <v-row>
                         <v-col class="deviceCardInRoom" :key="device.id" md="4">
-                          <v-dialog
-                                    overflow="auto"
-                                    v-model="dialog"
+                          <v-dialog overflow="auto"
+                                    v-model="device.meta.selected"
                                     >
                             <template v-slot:activator="{ on, attrs }">
                               <v-card :color="device.meta.color"
@@ -68,34 +69,45 @@
                                 <v-card-title class="deviceText">
                                   {{device.name}}
                                 </v-card-title>
-
                               </v-card>
                             </template>
 
                             <v-card :color="device.meta.color">
-                              <div class="image">
-                                <v-avatar rounded
-                                          size="20%">
-                                  <v-img :src="device.meta.image"
-                                         :alt="device.name" />
-                                </v-avatar>
-                              </div>
-                              <div>
-                                <v-card-title class="titleCard mb-7">
-                                  <p> Setear dispositivo: {{ device.name }} </p>
-                                </v-card-title>
-                              </div>
+                              <v-card-actions>
+                                  <v-col>
+                                  <div>
+                                    <v-card-title class="titleCard">
+                                      Setear dispositivo: {{ device.name }}
+                                      <v-spacer/>
+                                      <v-btn color="transparent"
+                                             @click="device.meta.selected=false"
+                                             fab
+                                             depressed>
+                                        <v-icon size="30px">mdi-window-close</v-icon>
+                                      </v-btn>
+                                    </v-card-title>
+                                  </div>
+                                </v-col>
+                              </v-card-actions>
+                                <div class="image">
+                                  <v-avatar rounded
+                                            size="20%">
+                                    <v-img :src="device.meta.image"
+                                           :alt="device.name"
+                                           contain
+                                           height="150px"
+                                           width="150px"
+                                    />
+                                  </v-avatar>
+                                </div>
 
                               <v-divider/>
+
+
                                 <DoorAction v-if="device.type.id === 'lsf78ly0eqrjbz91'"
                                             :myColor="device.meta.color"
                                             v-bind:myactions="actions"
                                             v-on:setAction="updateActions($event, device)"
-                                />
-                                <FaucetAction v-else-if="device.type.id === 'dbrlsh7o5sn8ur4i'"
-                                              :myColor="device.meta.color"
-                                              v-bind:myactions="actions"
-                                              v-on:setAction="updateActions($event, device)"
                                 />
                                 <OvenAction v-else-if="device.type.id === 'im77xxyulpegfmv8'"
                                             :myColor="device.meta.color"
@@ -107,11 +119,16 @@
                                                     v-bind:myactions="actions"
                                                     v-on:setAction="updateActions($event, device)"
                                 />
-                                <SpeakerAction v-else
+                                <SpeakerAction v-else-if="device.type.id === 'c89b94e8581855bc'"
                                                :myColor="device.meta.color"
                                                v-bind:myactions="actions"
                                                v-on:setAction="updateActions($event, device)"
                                 />
+                              <LampAction v-else-if="device.type.id === 'go46xmbqeomjrsjr'"
+                                          :myColor="device.meta.color"
+                                          v-bind:myactions="actions"
+                                          v-on:setAction="updateActions($event, device)"
+                              />
 
                             </v-card>
                           </v-dialog>
@@ -128,6 +145,7 @@
                       </v-row>
 
                     </v-expansion-panel-content>
+
                   </v-expansion-panel>
                 </v-expansion-panels>
               </v-col>
@@ -224,18 +242,18 @@ import GoBack from "@/components/GoBack";
 import TimeSelector from "@/components/TimeSelector";
 import {mapActions, mapState} from "vuex";
 import DoorAction from "@/components/DevicesCardForRoutine/DoorAction";
-import FaucetAction from "@/components/DevicesCardForRoutine/FaucetAction";
 import OvenAction from "@/components/DevicesCardForRoutine/OvenAction";
 import RefrigeratorAction from "@/components/DevicesCardForRoutine/RefrigeratorAction";
 import SpeakerAction from "@/components/DevicesCardForRoutine/SpeakerAction";
+import LampAction from "@/components/DevicesCardForRoutine/LampAction";
 
 export default {
   name: "AddRoutineView",
   components: {
+    LampAction,
     TimeSelector,
     GoBack,
     DoorAction,
-    FaucetAction,
     OvenAction,
     RefrigeratorAction,
     SpeakerAction
@@ -254,8 +272,7 @@ export default {
       routinedays: [],
       actions: [],
       rooms: [],
-      newDevices: [],
-      dialog: false
+      dialog: false,
     }
   },
   computed: {
@@ -317,23 +334,19 @@ export default {
       this.routinedays=newVal
     },
     updateActions(newVal, device){
+        let action = {
+          device: {
+            id: device.id
+          },
+          actionName: newVal.name,
+          params: newVal.params,
+          meta: newVal.meta
+        }
 
-      console.log('update')
-
-      Array.from(newVal).forEach(value => {
-          let action = {
-            device: {
-              id: device.id
-            },
-            actionName: value.name,
-            params: value.params,
-            meta: value.meta
-          }
           this.actions.push(action)
 
-      })
+      device.meta.selected = false
 
-      this.dialog=false
       console.log(this.actions)
     },
     async selectRoom(room){
@@ -343,17 +356,7 @@ export default {
 
     addDeviceToRoom(device, indexRoom){
       let room = this.rooms[indexRoom]
-      let action = {
-        device: {
-          id: device.id
-        },
-        actionName: device.meta.actions.name,
-        params: device.meta.actions.params,
-        meta: device.meta.actions.meta
-      }
       room.selectedDevices.push(device)
-      room.actions.push(action);
-      this.actions.push(action)
     },
 
   }
@@ -388,9 +391,9 @@ export default {
     }
 
     .image{
-      position: absolute;
-      margin-left: 45.5%;
-      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
 </style>

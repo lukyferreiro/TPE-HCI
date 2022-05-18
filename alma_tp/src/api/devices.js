@@ -7,6 +7,7 @@ class DeviceApi {
     
     static async addDevice(device){
         //nos devuelve la habitacion con el id
+        console.log(device)
         return await Api.post(DeviceApi.getUrl(), device);
     }
 

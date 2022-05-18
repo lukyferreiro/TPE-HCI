@@ -8,9 +8,9 @@
                   true-value="Abierto"
                   false-value="Cerrado"
                   :label="`${closeOnClick}`"
+                  @change="setOpenClose(false)"
                   hide-details
                   inset
-                  @change="setOpenClose()"
         />
       </v-card-actions>
       <v-card-actions class="cardText">
@@ -28,14 +28,6 @@
     </div>
 
     <div class="acceptAndCancel">
-      <div>
-        <v-btn color="secondary white--text"
-               @click="goBack"
-               x-large>
-          Cancelar
-        </v-btn>
-      </div>
-      <v-spacer/>
       <div class="justify-end">
         <v-btn color="secondary white--text"
                @click="setAction"
@@ -60,9 +52,33 @@ name: "DoorAction",
     })
   },
   methods:{
-    setOpenClose() {
+    setOpenClose(bool) {
+      let action = {
+        name: 'close',
+        params: [],
+        meta: {}
+      }
       if(this.closeOnClick === 'Abierto'){
+        action.name= 'open'
         this.blockOnSwitch = 'Desbloqueado'
+      }
+      this.setBlockUnblock(bool)
+      if(bool) {
+        this.$emit("setAction", action)
+      }
+    },
+
+    setBlockUnblock(bool){
+      let action = {
+        name: 'block',
+        params: [],
+        meta: {}
+      }
+      if(this.blockOnSwitch === 'Desbloqueado'){
+        action.name = 'unblock'
+      }
+      if(bool) {
+        this.$emit("setAction", action)
       }
     },
     goBack(){
@@ -70,38 +86,7 @@ name: "DoorAction",
     },
 
     setAction:function (){
-      if(this.closeOnClick === "Abierto"){
-        let action = {
-          name: 'open',
-          params: [],
-          meta: {}
-        }
-        this.actions.push(action)
-      }else{
-        let action = {
-          name: 'close',
-          params: [],
-          meta: {}
-        }
-        this.actions.push(action)
-      }
-
-      if(this.blockOnSwitch === "Bloqueado"){
-        let action = {
-          name: 'block',
-          params: [],
-          meta: {}
-        }
-        this.actions.push(action)
-      }else{
-        let action = {
-          name: 'unblock',
-          params: [],
-          meta: {}
-        }
-        this.actions.push(action)      }
-
-      this.$emit("setAction", this.actions)
+      this.setOpenClose(true)
     }
   }
 

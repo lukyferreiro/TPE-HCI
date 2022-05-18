@@ -25,6 +25,7 @@
                               thumb-label="always"
                               thumb-size="25px"
                               hide-details
+                              :disabled="closeOnClick === 'Apagado'"
                               @change="setTemperature()"
                     />
                 </div>
@@ -49,6 +50,7 @@
                               color="black"
                               dense
                               label="Modo Grill"
+                              :disabled="closeOnClick === 'Apagado'"
                               @change="setGrill"
                     />
                 </div>
@@ -61,6 +63,7 @@
                               color="black"
                               dense
                               label="Modo Convección"
+                              :disabled="closeOnClick === 'Apagado'"
                               @change="setConveccion"
                     />
                 </div>
@@ -73,15 +76,15 @@ import {mapActions} from "vuex";
 
 export default {
     name: "EditHorno",
-    props: ["device","edit"],
+    props: ["device"],
     data(){
       return({
-        selectedFuente: this.edit ? (this.device.state.heat=='conventional' ? 'Convencional' : (this.device.state.heat=='bottom' ? 'Abajo' : 'Arriba')) : 'Convencional',
-        selectedGrill: this.edit ? (this.device.state.grill=='off' ? 'Apagado' : (this.device.state.grill=='large' ? 'Completo' : 'Economico')) : 'Apagado',
-        selectedConveccion:  this.edit ? (this.device.state.convection=='off' ? 'Apagado' : (this.device.state.convection=='eco' ? 'Economico' : 'Convencional')) : 'Convencional',
+        selectedFuente: (this.device.state.heat==='conventional' ? 'Convencional' : (this.device.state.heat==='bottom' ? 'Abajo' : 'Arriba')) ,
+        selectedGrill: (this.device.state.grill==='off' ? 'Apagado' : (this.device.state.grill==='large' ? 'Completo' : 'Económico')),
+        selectedConveccion:  (this.device.state.convection==='off' ? 'Apagado' : (this.device.state.convection==='eco' ? 'Económico' : 'Convencional')) ,
         dialog: false,
-        closeOnClick: this.edit ? (this.device.state.status==='off' ? 'Apagado' : 'Encendido') : 'Apagado',
-        temperatura: this.edit ? this.device.state.temperature : 90,
+        closeOnClick: (this.device.state.status==='off' ? 'Apagado' : 'Encendido'),
+        temperatura:  this.device.state.temperature ,
         firstTemp: 90,
         minTemperatura: 90,
         maxTemperatura: 290,
@@ -106,6 +109,12 @@ export default {
 
         setOnOff(){
           if(this.closeOnClick == 'Apagado'){
+            this.selectedGrill='Apagado'
+            this.setGrill()
+            this.selectedConveccion='Apagado'
+            this.setConveccion()
+            this.temperatura=0
+            this.setTemperature()
             this.execute('turnOff', this.closeOnClick)
           }else{
             this.execute('turnOn', this.closeOnClick)
@@ -143,9 +152,9 @@ export default {
       },
       async setConveccion(){
          let idS = [this.device, 'setConvection', []]
-         if(this.setConveccion() == 'Apagado'){
+         if(this.selectedConveccion == 'Apagado'){
            idS[2] = ['off']
-         }else if(this.setConveccion() == 'Económico'){
+         }else if(this.selectedConveccion == 'Económico'){
            idS[2] = ['eco']
          }else{
            idS[2] = ['normal']

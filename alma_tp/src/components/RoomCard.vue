@@ -12,32 +12,30 @@
                         </v-expansion-panel-content>
                         <v-expansion-panel-content v-else
                                                    class="pt-2 pl-4"
-                                                   :color="myroomcolor"
-                                                   >
-
-                          <v-row >
-                              <v-col class="deviceCardInRoom" v-for="device in this.devices" :key="device.id" md="4">
-                                <v-card :color="device.meta.color"
-                                        max-width="190"
-                                        max-height="200"
-                                        :to="{name: 'EditDeviceView', params:{idType: device.type.id,
-                                                                  deviceName: device.name,
-                                                                  roomId: room.id,
-                                                                  device: device,
-                                                                  image: device.meta.image,
-                                                                  edit: true}}">
-                                    <v-card-actions class="imageDeviceInRoom">
-                                        <v-img :src="device.meta.image"
-                                               :alt="device.name"
-                                               max-height="30%"
-                                               max-width="30%"/>
-                                    </v-card-actions>
-                                    <v-card-title class="deviceText">
-                                        {{device.name}}
-                                    </v-card-title>
-                                </v-card>
-                              </v-col>
-                          </v-row>
+                                                   :color="myroomcolor">
+                            <v-row >
+                                <v-col class="deviceCardInRoom" v-for="device in this.devices" :key="device.id" md="4">
+                                    <v-card :color="device.meta.color"
+                                            max-width="190"
+                                            max-height="200"
+                                            :to="{name: 'EditDeviceView', params:{idType: device.type.id,
+                                                                      deviceName: device.name,
+                                                                      roomId: room.id,
+                                                                      device: device,
+                                                                      image: device.meta.image}}">
+<!--                                                                      edit: true}}">-->
+                                        <v-card-actions class="imageDeviceInRoom">
+                                            <v-img :src="device.meta.image"
+                                                   :alt="device.name"
+                                                   max-height="30%"
+                                                   max-width="30%"/>
+                                        </v-card-actions>
+                                        <v-card-title class="deviceText">
+                                            {{device.name}}
+                                        </v-card-title>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
                 </v-expansion-panels>
@@ -257,9 +255,8 @@ export default {
         v => !!v || 'Campo Obligatorio',
         v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
         v => /^([A-Za-z0-9_ ]*$)/.test(v) || 'Caracter inválido',
-        v => this.$rooms.find( o => o.name === v && o.id != this.room.id ) == null || 'El nombre ingresado ya existe',
-        v => this.$rooms.find( o => o.name === v && o.id == this.room.id ) == null || 'Ingrese un nuevo nombre'
-
+        v => this.$rooms.find( o => o.name === v && o.id !== this.room.id ) == null || 'El nombre ingresado ya existe',
+        v => this.$rooms.find( o => o.name === v && o.id === this.room.id ) == null || 'Ingrese un nuevo nombre'
       ],
   }
     },
@@ -291,15 +288,6 @@ export default {
         $getAll: "getAll",
         $deleteDevice : "delete"
       }),
-
-      /*editRoom(room2){
-          this.edit = false;
-          console.log('edit room to ' + room2.name);
-      },*/
-
-      // editColor(){
-      //     console.log('edit color in ' + this.room.name);
-      // },
 
       setResult(room){
           console.log(room);
