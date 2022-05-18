@@ -484,6 +484,8 @@ export default {
 <style scoped>
 .routine{
   margin-top: 140px;
+  margin-bottom: 50px;
+
 }
 
 .button{
