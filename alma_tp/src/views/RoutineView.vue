@@ -12,57 +12,50 @@
         </div>  
 
         <div v-else v-for="routine in $routines"
-             :key="routine.id">
-          <v-card  class="roomCard" :color="routine.meta.color">
-            <v-row>
-              <v-card-actions>
-              <v-btn @click="executeRoutine(routine)"
-                     class="addDeviceButtonText"
-                     color="secondary"
-                     outlined
-                     v-ripple="false"
-              >
-                Ejecutar Rutina
-              </v-btn>
-              <v-card-title>
-                {{routine.name}}
-              </v-card-title>
-                <v-btn :to="{name: 'EditRoutineView', params:{routine: routine}}"
-                       class="addDeviceButtonText"
-                       color="secondary"
-                       outlined
-                       v-ripple="false"
-                >
-                  <v-icon>mdi-clipboard-edit-outline</v-icon>
-                  Editar Rutina
-                </v-btn>
-
-                <v-btn @click="deleteRoutine(routine.id)"
-                       class="addDeviceButtonText"
-                       color="secondary"
-                       outlined
-                       v-ripple="false"
-                >
-                  <v-icon>mdi-trash-can-outline</v-icon>
-                  Eliminar Rutina
-
-                </v-btn>
-
-              </v-card-actions>
-
-            </v-row>
-          </v-card>
+             :key="routine.id"
+             class="withRoutines">
+            <v-card  class="routineCard" :color="routine.meta.color">
+                <v-row>
+                    <v-card-actions>
+                        <v-btn @click="executeRoutine(routine)"
+                               class="addDeviceButtonText"
+                               color="secondary"
+                               outlined
+                               v-ripple="false">
+                          Ejecutar Rutina
+                        </v-btn>
+                        <v-card-title>
+                            {{routine.name}}
+                        </v-card-title>
+                        <v-btn :to="{name: 'EditRoutineView', params:{routine: routine}}"
+                               class="addDeviceButtonText"
+                               color="secondary"
+                               outlined
+                               v-ripple="false">
+                            <v-icon class="mr-2" size="30">mdi-clipboard-edit-outline</v-icon>
+                            Editar Rutina
+                        </v-btn>
+                        <v-btn @click="deleteRoutine(routine.id)"
+                               class="addDeviceButtonText"
+                               color="secondary"
+                               outlined
+                               v-ripple="false">
+                            <v-icon class="mr-2" size="30">mdi-trash-can-outline</v-icon>
+                            Eliminar Rutina
+                        </v-btn>
+                    </v-card-actions>
+                </v-row>
+            </v-card>
         </div>
-      <v-btn :to="{name:'AddRoutineView'}"
-             class="button"
-             rounded
-             color="secondary"
-             absolute
-             x-large>
-        Agregar rutina
-        <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
-      </v-btn>
-
+        <v-btn :to="{name:'AddRoutineView'}"
+               class="button"
+               rounded elevation="5"
+               color="secondary"
+               absolute
+               x-large>
+            Agregar rutina
+            <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
+        </v-btn>
     </div>
 </template>
 
@@ -157,25 +150,23 @@ export default {
       bottom: 80px;
       right: 15px;
     }
-    .addDeviceButton{
-      padding-top: 20px;
-    }
+
     .addDeviceButtonText{
       font-size: 15px;
       font-weight: bold;
     }
 
 
-    .roomCard{
+    .routineCard{
       margin-left: 20px;
       margin-top: 20px;
       margin-bottom: 20px;
       padding: 10px;
       border-radius: 10px;
     }
-    .roomConfiguration{
-      display: flex;
-      align-items: start;
+
+    .withRoutines{
+      max-width: 80%;
     }
 
 

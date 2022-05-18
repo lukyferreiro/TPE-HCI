@@ -5,7 +5,7 @@
               width="1000">
         <template v-slot:activator="{ on, attrs }">
             <v-btn class="button"
-                   rounded
+                   rounded elevation="5"
                    color="secondary"
                    v-bind="attrs"
                    v-on="on"
