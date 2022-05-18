@@ -49,10 +49,7 @@ export default {
             $roomsAmount: "roomsAmount"
           }
       ),
-      // roomsAmount(){
-      //   console.log(this.$getAllRooms())
-      //     return this.$getAllRooms().length
-      //   }
+
     },
 
   methods: {

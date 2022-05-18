@@ -13,12 +13,12 @@ class RoutineApi {
         return await Api.post(RoutineApi.getUrl(), routine);
     }
 
-    static async editRoutine(routine){
-        return await Api.put(RoutineApi.getUrl(routine.id), routine);
+    static async editRoutine(idS){
+        return await Api.put(RoutineApi.getUrl(idS[0]), idS[1]);
     }
 
-    static async executeRoutine(routine){
-        return await Api.put(RoutineApi.getUrlExecute(routine.id), routine);
+    static async executeRoutine(idRoutine){
+        return await Api.put(RoutineApi.getUrlExecute(idRoutine));
     }
 
     static async deleteRoutine(idRoutine){
@@ -30,7 +30,7 @@ class RoutineApi {
     }
 
     static async getRoutine(idRoutine){
-        return await Api.get(RoutineApi.getUrl(idRoutine));
+        return await Api.get(RoutineApi.getUrl(idRoutine), {});
     }
 }
 

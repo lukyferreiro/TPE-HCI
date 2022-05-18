@@ -1,16 +1,9 @@
 <template>
     <v-card :color="myColor" class="edit">
-        <div class="image">
-            <v-avatar rounded
-                      size="20%">
-                <v-img :src="image"
-                       :alt="deviceName" />
-            </v-avatar>
-        </div>
-        <div>
             <v-card-title class="titleCard mb-7">
               <p> Editar dispositivo: {{ this.deviceName }} </p>
-                <v-spacer/>
+
+              <v-spacer/>
 
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
@@ -79,10 +72,17 @@
                   </v-dialog>
                 </v-row>
               </div>
-
             </v-card-title>
-          
-            <v-spacer/>
+
+        <v-card-actions class="image">
+          <v-img :src="image"
+                 :alt="deviceName"
+                 max-height="10%"
+                 max-width="10%"/>
+        </v-card-actions>
+
+
+      <v-divider/>
 
             <v-form ref="form" lazy-validation @submit="submit">
                 <v-container class="pb-0">
@@ -100,7 +100,8 @@
                                   required/>
                 </v-container>
             </v-form>
-        </div>
+
+
 
       <EditDoor v-if="idType === 'lsf78ly0eqrjbz91'" :device="device"/>
       <EditOven v-else-if="idType === 'im77xxyulpegfmv8'" :device="device"/>
@@ -109,15 +110,14 @@
       <EditSpeaker v-else-if="idType === 'c89b94e8581855bc'" :device="device"/>
 
 
-        <div class="acceptAndCancel">
-          <div class="justify-end">
-            <v-btn color="secondary white--text"
-                   @click="editDevice"
-                   x-large>
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn color="secondary white--text"
+                 @click="editDevice"
+                 x-large>
               Aceptar
-            </v-btn>
-          </div>
-        </div>
+          </v-btn>
+        </v-card-actions>
     </v-card>
 </template>
 
@@ -233,32 +233,10 @@ export default {
 
   .titleCard{
       font-weight: bold;
-      font-size: 25px;
-  }
-
-  .image{
-    position: absolute;
-    margin-left: 45.5%;
-    margin-top: 15px;
   }
 
   .edit{
     margin: 140px 100px 120px;
-    /*margin-top: 140px;*/
-    /*margin-bottom: 120px;*/
-    /*margin-left: 100px;*/
-    /*margin-right: 100px;*/
-  }
-
-  .acceptAndCancel{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px 10% 20px;
-    /*margin-top: 10px;*/
-    /*margin-bottom: 20px;*/
-    /*margin-right: 10%;*/
-    /*margin-left: 10%;*/
   }
 
   .image{

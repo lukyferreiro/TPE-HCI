@@ -1,7 +1,6 @@
 <template>
     <div class="routine">
-
-        <div v-if="$routinesAmount==0">
+        <div v-if="$routinesAmount===0">
             <h3 class="text"> No tienes rutinas creadas aún. </h3>
             <div class="imagen">
                 <v-img alt="Imagen de fondo"
@@ -13,14 +12,45 @@
         </div>  
 
         <div v-else v-for="routine in $routines"
-             :key="routine">
-            <v-btn @click="playRoutine(routine)"
-                   plain
-                   fab>
-                <v-icon v-if="routine.play">mdi-pause-circle-outline</v-icon>
-                <v-icon v-else> mdi-arrow-right-drop-circle-outline </v-icon>
-            </v-btn>
-            {{routine.name}}
+             :key="routine.id">
+          <v-card  class="roomCard" :color="routine.meta.color">
+            <v-row>
+              <v-card-actions>
+              <v-btn @click="executeRoutine(routine)"
+                     class="addDeviceButtonText"
+                     color="secondary"
+                     outlined
+                     v-ripple="false"
+              >
+                Ejecutar Rutina
+              </v-btn>
+              <v-card-title>
+                {{routine.name}}
+              </v-card-title>
+                <v-btn :to="{name: 'EditRoutineView', params:{routine: routine}}"
+                       class="addDeviceButtonText"
+                       color="secondary"
+                       outlined
+                       v-ripple="false"
+                >
+                  Editar Rutina
+                  <v-icon>mdi-clipboard-edit-outline</v-icon>
+                </v-btn>
+
+                <v-btn @click="deleteRoutine(routine.id)"
+                       class="addDeviceButtonText"
+                       color="secondary"
+                       outlined
+                       v-ripple="false"
+                >
+                 Eliminar Routina
+                  <v-icon>mdi-trash-can-outline</v-icon>
+                </v-btn>
+
+              </v-card-actions>
+
+            </v-row>
+          </v-card>
         </div>
       <v-btn :to="{name:'AddRoutineView'}"
              class="button"
@@ -35,34 +65,28 @@
 </template>
 
 <script>
-// import EditView from "@/components/EditView";
-import store from '@/store/index';
 import {mapActions, mapState} from "vuex";
 
 export default {
     name: "RoutineView",
-    // components:{EditView},
     data(){
         return{
-            edit: false,
             roomtitle:"",
             routinerooms:[],
             click: false,
         }
     },
+  mounted() {
+    this.$getAllRoutines()
+  },
+
   computed:{
       ...mapState("routine",{
         $routines: "routines",
-        $routinesAmount: "routinesAmount"
+        $routinesAmount: "routinesAmount",
       }),
-    // routinesAmount(){
-    //   return store.getters.routinesAmount
-    // }
+
   },
-  // created() {
-  //   routines.getRoutines(routines => {
-  //     store.commit("setRoutines", routines) })
-  // },
 
   methods: {
       ...mapActions("routine",{
@@ -71,22 +95,28 @@ export default {
         $deleteRoutine: "delete",
         $executeRoutine: "execute",
         $getRoutine: "get",
-        $getAll: "getAll"
+        $getAllRoutines: "getAll"
       }),
-      playRoutine(routine){
-        store.commit("playRoutine", routine)
+
+      async executeRoutine(routine){
+        routine.actions.forEach(action => {
+          action.device = {id:action.device.id}
+        })
+        routine.meta.play = ! routine.meta.play
+        let idS = [routine.id, routine]
+        await this.$editRoutine(idS)
+        await this.$executeRoutine(routine.id)
       },
         editRoutine(routine) {
             // routine.title=routine2.title;
-            this.edit = false;
-            console.log('edit routine in ' + routine.title);
+            // console.log('edit routine in ' + routine.title);
             console.log(routine.title);
         },
         editColor(routine) {
-            console.log('edit color in ' + routine.title)
+          console.log(routine)
         },
-        deleteRoutine(routine) {
-            this.routines.splice(this.routines.indexOf(routine), 1)
+        deleteRoutine(idRoutine) {
+          this.$deleteRoutine(idRoutine)
         },
         selectRoom(){
             this.roomSelected=true;
@@ -123,5 +153,26 @@ export default {
       bottom: 80px;
       right: 15px;
     }
+    .addDeviceButton{
+      padding-top: 20px;
+    }
+    .addDeviceButtonText{
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+
+    .roomCard{
+      margin-left: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .roomConfiguration{
+      display: flex;
+      align-items: start;
+    }
+
 
 </style>

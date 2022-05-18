@@ -1,7 +1,15 @@
 <template>
     <div class="container">
         <div class="text">
-            <h2>Agregar dispositivo en: <span>{{room.name}}</span> </h2>
+            <h2>
+              <v-btn fab
+                     plain
+                     @click="goBack"
+              >
+                <v-icon size="50px" >mdi-arrow-left</v-icon>
+              </v-btn>
+              Agregar dispositivo en: <span>{{room.name}}</span>
+            </h2>
         </div>
         <v-spacer/>
         <v-row class="devices">
@@ -12,21 +20,17 @@
             <DeviceCard class="device" idType="go46xmbqeomjrsjr" deviceName="Lámpara" :roomId="room.id"/>
 
         </v-row>
-        <v-card-actions class="backButton mt-5">
-            <GoBack name="Volver" color="secondary"/>
-        </v-card-actions>
+
     </div>
 </template>
 
 <script>
 import DeviceCard from "@/components/DeviceCard";
-import GoBack from "@/components/GoBack";
 
 export default {
   name: "AddDeviceView",
   props: ["room"],
   components: {
-    GoBack,
     DeviceCard
   },
   data(){
@@ -34,7 +38,9 @@ export default {
     }
   },
   methods:{
-
+    goBack(){
+      return this.$router.go(-1)
+    }
   }
 }
 </script>
@@ -50,14 +56,6 @@ export default {
     display: inline-block;
     font-size: 20px;
     font-weight: bold;
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 20px;
-    background-color: #0D47A1;
-    color: white;
-    border-radius: 5px;
-    /*text-decoration-line: underline;*/
-    /*text-decoration-color: #0D47A1;*/
   }
 
   span{

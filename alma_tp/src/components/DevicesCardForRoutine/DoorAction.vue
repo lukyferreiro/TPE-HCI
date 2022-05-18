@@ -73,7 +73,7 @@ name: "DoorAction",
 
     setBlockUnblock(bool){
       let action = {
-        name: 'block',
+        name: 'lock',
         params: [],
         meta: {
           spanishName: this.blockOnSwitch,
@@ -81,7 +81,7 @@ name: "DoorAction",
         }
       }
       if(this.blockOnSwitch === 'Desbloqueado'){
-        action.name = 'unblock'
+        action.name = 'unlock'
       }
       if(bool) {
         this.$emit("setAction", action)

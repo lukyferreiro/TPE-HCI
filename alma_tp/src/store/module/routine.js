@@ -26,8 +26,8 @@ export default {
             return result;
         },
 
-        async edit({dispatch}, routine){
-            const result = await RoutineApi.editRoutine(routine);
+        async edit({dispatch}, idS){
+            const result = await RoutineApi.editRoutine(idS);
             dispatch("getAll");
             return result;
         },
@@ -47,7 +47,7 @@ export default {
     },
     mutations: {
         update(state, routines){
-            state.rooms = routines
+            state.routines = routines
             state.routinesAmount = state.routines.length
         }
     },

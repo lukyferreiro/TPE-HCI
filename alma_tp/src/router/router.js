@@ -30,6 +30,12 @@ const routes = [
     component:() => import(/*webPackChunkName: "details" */ '../views/AddRoutineView.vue')
   },
   {
+    path: '/routine/edit',
+    name: 'EditRoutineView',
+    props: true,
+    component:() => import(/*webPackChunkName: "details" */ '../views/EditRoutineView.vue'),
+  },
+  {
     path: '/room/add_devices',
     name: 'AddDeviceView',
     props: true,

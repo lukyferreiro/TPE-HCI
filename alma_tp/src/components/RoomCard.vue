@@ -23,7 +23,6 @@
                                                                       roomId: room.id,
                                                                       device: device,
                                                                       image: device.meta.image}}">
-<!--                                                                      edit: true}}">-->
                                         <v-card-actions class="imageDeviceInRoom">
                                             <v-img :src="device.meta.image"
                                                    :alt="device.name"

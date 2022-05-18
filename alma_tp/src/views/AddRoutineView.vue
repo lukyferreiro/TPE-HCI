@@ -1,10 +1,38 @@
 <template>
-    <div class="routine ml-15 mr-15">
-        <h2>
-            <v-icon color="black" size="50px" class="mL-3"> mdi-clipboard-list-outline </v-icon>
-            Agregar rutina
-        </h2>
+    <div class="routine ml-15 mr-15" >
+      <v-card :color="colorSelected">
+        <v-card-title>
+          <h2>
+              <v-icon color="black" size="50px" class="mL-3"> mdi-clipboard-list-outline </v-icon>
+              Agregar rutina
+          </h2>
+          <v-spacer/>
 
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="transparent"
+                     v-bind="attrs"
+                     v-on="on"
+                     depressed
+                     fab >
+                <v-icon color="black" size="40px">mdi-palette-outline</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item v-for="(color, index) in colors"
+                           :key="index">
+                <v-btn color="transparent"
+                       depressed
+                       @click="colorSelected=color.hex">
+                  <v-list-item-icon>
+                    <v-icon :color="color.hex"> mdi-square</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>{{ color.name }}</v-list-item-title>
+                </v-btn>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-card-title>
       <v-form ref="form" lazy-validation @submit="submit">
             <v-container>
                 <v-text-field outlined
@@ -26,22 +54,22 @@
 
       <div v-for="(room, indexRoom) in rooms"
            :key="indexRoom">
-        <v-card class="blue lighten-5">
+        <v-card :color="room.room.meta.colorRoom">
         <v-row>
               <v-col>
-                <v-expansion-panels class="expansion" hover flat>
+                <v-expansion-panels class="expansion" hover flat >
                   <v-expansion-panel>
-                    <v-expansion-panel-header class="roomText blue lighten-5">
+                    <v-expansion-panel-header class="roomText" :color="room.room.meta.colorRoom">
                       {{room.room.name}}
                     </v-expansion-panel-header>
                     <v-expansion-panel-content v-if="rooms[indexRoom].selectedDevices.length===0"
-                                               class="pt-2 pl-4 blue lighten-5" >
-                      <p>No tienes ningún dispositivo vinculado.</p>
+                                               :color="room.room.meta.colorRoom">
+                      No tienes ningún dispositivo vinculado
                     </v-expansion-panel-content>
 
                     <v-expansion-panel-content v-else
                                                v-for="device in rooms[indexRoom].selectedDevices" :key="device.id"
-                                               class="pt-2 pl-4 blue lighten-5 flex">
+                                               :color="room.room.meta.colorRoom">
 
                       <v-row>
                         <v-col class="deviceCardInRoom" :key="device.id" md="4">
@@ -55,7 +83,6 @@
                                       v-bind="attrs"
                                       v-on="on"
                               >
-                                <!--Mi idea es editar el newDevice-->
                                 <v-card-actions class="imageDeviceInRoom">
                                   <v-img :src="device.meta.image"
                                          :alt="device.name"
@@ -243,6 +270,7 @@
                 </v-btn>
             </div>
         </div>
+      </v-card>
     </div>
 </template>
 
@@ -267,7 +295,6 @@ export default {
   },
   data(){
     return{
-      edit: false,
       nameRules:[
         v => !!v || 'Campo Obligatorio',
         v => (v && v.length >= 3) || 'El nombre debe tener al menos 3 caracteres',
@@ -277,6 +304,29 @@ export default {
       actions: [],
       rooms: [],
       dialog: false,
+      colorSelected:"#E3F2FD",
+      colors: [
+        {
+          "hex": "#E3F2FD",
+          "name": "Azul"
+        },
+        {
+          "hex": "#D1C4E9",
+          "name": "Violeta"
+        },
+        {
+          "hex": "#DCEDC8",
+          "name": "Verde"
+        },
+        {
+          "hex": "#FFF9C4",
+          "name": "Amarillo"
+        },
+        {
+          "hex": "#FCE4EC",
+          "name": "Rosa"
+        }
+      ],
     }
   },
   computed: {
@@ -311,18 +361,23 @@ export default {
     reset() {
       this.$refs.title.reset();
     },
+
     submit(e){
       e.preventDefault();
       this.addRoutine()
     },
+
     async addRoutine() {
       if (this.$refs.form.validate()) {
         let routine = {
           name: this.routinetitle,
           actions: this.actions,
-          meta: {}
+          meta: {
+            play: false,
+            color: this.colorSelected,
+            rooms: this.rooms,
+          }
         }
-        console.log(routine)
         routine = await this.$addRoutine(routine)
         this.setResult(routine.id)
         this.$router.go(-1);
@@ -334,16 +389,15 @@ export default {
     },
     updateActions(newVal, device){
         let action = {
-          device: {
-            id: device.id
-          },
+          device: {id:device.id},
           actionName: newVal.name,
           params: newVal.params,
           meta: newVal.meta
         }
           this.actions.push(action)
-      device.meta.selected = false
+          device.meta.selected = false
     },
+
     async selectRoom(room){
       let device =await this.$getDevices(room.id)
       console.log(device)
@@ -355,6 +409,7 @@ export default {
       room.devices.splice(device.id)
       room.selectedDevices.push(device)
     },
+
     deleteRoutineDevice(device, indexRoom){
       let room = this.rooms[indexRoom]
       room.selectedDevices.splice(device.id)
