@@ -12,12 +12,12 @@
             </h2>
         </div>
         <v-spacer/>
-        <v-row class="devices">
-            <DeviceCard class="device" idType="rnizejqr2di0okho" deviceName="Heladera" :roomId="room.id"/>
-            <DeviceCard class="device" idType="im77xxyulpegfmv8" deviceName="Horno" :roomId="room.id"/>
-            <DeviceCard class="device" idType="c89b94e8581855bc" deviceName="Parlante" :roomId="room.id"/>
-            <DeviceCard class="device" idType="lsf78ly0eqrjbz91" deviceName="Puerta" :roomId="room.id"/>
-            <DeviceCard class="device" idType="go46xmbqeomjrsjr" deviceName="Lámpara" :roomId="room.id"/>
+        <v-row class="devices" >
+          <v-col><DeviceCard class="device" idType="rnizejqr2di0okho" deviceName="Heladera" :roomId="room.id"/></v-col>
+          <v-col><DeviceCard class="device" idType="im77xxyulpegfmv8" deviceName="Horno" :roomId="room.id"/></v-col>
+          <v-col><DeviceCard class="device" idType="c89b94e8581855bc" deviceName="Parlante" :roomId="room.id"/></v-col>
+          <v-col><DeviceCard class="device" idType="lsf78ly0eqrjbz91" deviceName="Puerta" :roomId="room.id"/></v-col>
+          <v-col><DeviceCard class="device" idType="go46xmbqeomjrsjr" deviceName="Lámpara" :roomId="room.id"/></v-col>
         </v-row>
 
     </div>
@@ -55,6 +55,7 @@ export default {
     display: inline-block;
     font-size: 20px;
     font-weight: bold;
+    margin-bottom: 50px;
   }
 
   span{
@@ -70,8 +71,5 @@ export default {
     justify-self: center;
   }
 
-  .backButton{
-    justify-content: center;
-  }
 
 </style>
