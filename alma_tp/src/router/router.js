@@ -7,45 +7,45 @@ const routes = [
   {
     path: '/',
     name: 'HomeView',
-    component:() => import(/*webPackChunkName: "details" */ '../views/HomeView.vue')
+    component:() => import(/*webPackChunkName: "home" */ '../views/HomeView.vue')
   },
   {
     path: '/help',
     name: 'HelpView',
-    component:() => import(/*webPackChunkName: "details" */ '../views/HelpView.vue')
+    component:() => import(/*webPackChunkName: "help" */ '../views/HelpView.vue')
   },
   {
     path: '/room',
     name: 'RoomView',
-    component:() => import(/*webPackChunkName: "details" */ '../views/RoomView.vue')
+    component:() => import(/*webPackChunkName: "room" */ '../views/RoomView.vue')
   },
   {
     path: '/routine',
     name: 'RoutineView',
-    component:() => import(/*webPackChunkName: "details" */ '../views/RoutineView.vue'),
+    component:() => import(/*webPackChunkName: "routine" */ '../views/RoutineView.vue'),
   },
   {
     path: '/routine/add',
     name: 'AddRoutineView',
-    component:() => import(/*webPackChunkName: "details" */ '../views/AddRoutineView.vue')
+    component:() => import(/*webPackChunkName: "addroutine" */ '../views/AddRoutineView.vue')
   },
   {
     path: '/routine/edit',
     name: 'EditRoutineView',
     props: true,
-    component:() => import(/*webPackChunkName: "details" */ '../views/EditRoutineView.vue'),
+    component:() => import(/*webPackChunkName: "editroutine" */ '../views/EditRoutineView.vue'),
   },
   {
     path: '/room/add_devices',
     name: 'AddDeviceView',
     props: true,
-    component:() => import(/*webPackChunkName: "details" */ '../views/AddDeviceView.vue'),
+    component:() => import(/*webPackChunkName: "adddevice" */ '../views/AddDeviceView.vue'),
   },
   {
     path: '/room/edit_devices',
     name: 'EditDeviceView',
     props: true,
-    component:() => import(/*webPackChunkName: "details" */ '../views/EditDeviceView.vue'),
+    component:() => import(/*webPackChunkName: "editdevice" */ '../views/EditDeviceView.vue'),
   },
   {
     path: "/404",

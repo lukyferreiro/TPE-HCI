@@ -9,7 +9,7 @@
                    color="secondary"
                    v-bind="attrs"
                    v-on="on"
-                   >
+                   x-large>
                 Agregar habitación
                 <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
             </v-btn>

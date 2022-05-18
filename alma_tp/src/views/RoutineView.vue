@@ -57,7 +57,8 @@
              class="button"
              rounded
              color="secondary"
-             absolute>
+             absolute
+             x-large>
         Agregar rutina
         <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
       </v-btn>
