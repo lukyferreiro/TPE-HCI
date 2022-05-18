@@ -10,6 +10,8 @@
             <DeviceCard class="device" idType="im77xxyulpegfmv8" deviceName="Horno" :roomId="room.id"/>
             <DeviceCard class="device" idType="c89b94e8581855bc" deviceName="Parlante" :roomId="room.id"/>
             <DeviceCard class="device" idType="lsf78ly0eqrjbz91" deviceName="Puerta" :roomId="room.id"/>
+            <DeviceCard class="device" idType="go46xmbqeomjrsjr" deviceName="Lámpara" :roomId="room.id"/>
+
         </v-row>
         <v-card-actions class="backButton mt-5">
             <GoBack name="Volver" color="secondary"/>

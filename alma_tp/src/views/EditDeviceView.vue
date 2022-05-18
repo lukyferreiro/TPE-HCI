@@ -107,6 +107,7 @@
       <EditFaucet v-else-if="idType === 'dbrlsh7o5sn8ur4i'" :edit="edit" :device="device"/>
       <EditOven v-else-if="idType === 'im77xxyulpegfmv8'"  :edit="edit" :device="device"/>
       <EditRefrigerator v-else-if="idType === 'rnizejqr2di0okho'" :edit="edit" :device="device"/>
+      <EditLamp v-else-if="idType === 'go46xmbqeomjrsjr'" :edit="edit" :device="device"/>
       <EditSpeaker v-else :colorset="this.myColor" :edit="edit" :device="device"/>
 
         <div class="acceptAndCancel">
@@ -137,12 +138,13 @@ import EditDoor from "@/components/EditDoor";
 import EditFaucet from "@/components/EditFaucet";
 import EditRefrigerator from "@/components/EditRefrigerator";
 import EditSpeaker from "@/components/EditSpeaker";
+import EditLamp from "@/components/EditLamp";
 
 // import ColorRoomSelector from "@/components/ColorRoomSelector";
 
 export default {
   name: "EditDeviceView",
-  components: {EditOven, EditDoor, EditFaucet, EditRefrigerator, EditSpeaker},
+  components: {EditOven, EditDoor, EditFaucet, EditRefrigerator,EditLamp, EditSpeaker},
   props:["idType", "deviceName", "roomId", "device", "image", "edit"],
   data(){
     return({
