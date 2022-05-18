@@ -108,6 +108,7 @@
       <EditLamp v-else-if="idType === 'go46xmbqeomjrsjr'" :device="device"/>
       <EditSpeaker v-else-if="idType === 'c89b94e8581855bc'" :device="device"/>
 
+
         <div class="acceptAndCancel">
           <div class="justify-end">
             <v-btn color="secondary white--text"

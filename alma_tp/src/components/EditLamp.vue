@@ -14,6 +14,7 @@
         </v-switch>
       </v-card-actions>
       <v-card-actions class="cardText pt-6">
+
         <v-menu offset-y :close-on-content-click="false">
           <template v-slot:activator="{ on }">
             <v-btn
@@ -52,8 +53,6 @@
                   @click:prepend="setLessBrightness()"
                   @change="setBrightness()"
         >
-
-
         </v-slider>
       </v-card-actions>
     </div>
@@ -67,13 +66,12 @@ export default {
   props: ["device", "edit"],
   data() {
     return ({
-      closeOnClick: this.edit ? (this.device.state.status ==='off' ? 'Apagado' : 'Encendido') : 'Apagado',
-      brightness: this.edit ? this.device.state.brightness : 100,
-      color: this.edit ? this.device.state.color : "#FFFFF",
-      lessBrightness: this.edit ? (this.device.state.lessBrightness) : "",
-      moreBrightness: this.edit ? (this.device.state.moreBrightness) : "",
+      closeOnClick: this.device.state.status ==='off' ? 'Apagado' : 'Encendido',
+      brightness: this.device.state.brightness ,
+      color: this.device.state.color,
       show: false,
-    });
+
+    })
   },
 
   methods: {
@@ -91,7 +89,7 @@ export default {
       await this.$executeAction(idS)
     },
 
-    async setOnOff(){
+     setOnOff(){
       if(this.closeOnClick == 'Apagado'){
         this.execute('turnOff', this.closeOnClick)
       }else{
@@ -111,6 +109,7 @@ export default {
       this.setBrightness()
     },
   },
+
 }
 
 </script>

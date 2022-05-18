@@ -7,6 +7,7 @@
 {"_id":"031d976fe696ea75","timestamp":"2022-05-18T05:32:34.800Z","deviceId":"b3209b1889652200","action":"setVolume","params":[2],"result":3}
 {"_id":"03ad6a15f29964e4","timestamp":"2022-05-17T18:02:29.196Z","deviceId":"d688da7c264c64c5","action":"dispense","params":[["quantity",53],["unit",null]],"result":false}
 {"_id":"043421aeb2e13e1b","timestamp":"2022-05-18T05:32:37.643Z","deviceId":"b3209b1889652200","action":"setVolume","params":[8],"result":7}
+{"_id":"0533ab82bd0f5349","timestamp":"2022-05-18T06:35:55.975Z","deviceId":"270586a68abee333","action":"play","params":[],"result":true}
 {"_id":"0732e905c4a9fd2c","timestamp":"2022-05-18T05:55:48.424Z","deviceId":"38fead4037bc4d7b","action":"stop","params":[],"result":false}
 {"_id":"07a2e4cbaeb5e4e5","timestamp":"2022-05-17T17:05:02.735Z","deviceId":"d93f4d135863ccd7","action":"lock","params":[],"result":false}
 {"_id":"08bf38a526cc7c7b","timestamp":"2022-05-17T17:06:04.740Z","deviceId":"d93f4d135863ccd7","action":"lock","params":[],"result":false}
@@ -249,6 +250,7 @@
 {"_id":"af9ce0d7b16d034a","timestamp":"2022-05-17T16:55:42.048Z","deviceId":"d93f4d135863ccd7","action":"lock","params":[],"result":false}
 {"_id":"b07fbbf82a9d32cd","timestamp":"2022-05-17T19:21:44.159Z","deviceId":"386d6dbfb10ad2dd","action":"unlock","params":[],"result":false}
 {"_id":"b10dffc17c41f498","timestamp":"2022-05-18T04:07:05.978Z","deviceId":"86016d642d14e1ef","action":"turnOff","params":[],"result":true}
+{"_id":"b12e4ac907367be3","timestamp":"2022-05-18T06:40:57.964Z","deviceId":"270586a68abee333","action":"play","params":[],"result":false}
 {"_id":"b23ef70aff592c8f","timestamp":"2022-05-17T16:53:22.533Z","deviceId":"d93f4d135863ccd7","action":"lock","params":[],"result":true}
 {"_id":"b2479213c8e7c3d4","timestamp":"2022-05-18T05:32:30.755Z","deviceId":"b3209b1889652200","action":"setVolume","params":[6],"result":0}
 {"_id":"b2cd36d927bd913e","timestamp":"2022-05-16T02:35:08.021Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
@@ -351,5 +353,3 @@
 {"_id":"fe03f56f4abb72de","timestamp":"2022-05-17T20:35:40.351Z","deviceId":"d3a020c75a0a2de0","action":"setMode","params":["party"],"result":"default"}
 {"_id":"fe6584cfd2c42d23","timestamp":"2022-05-18T05:32:31.687Z","deviceId":"b3209b1889652200","action":"setVolume","params":[10],"result":null}
 {"_id":"fe6ffb80d0b41ec0","timestamp":"2022-05-17T20:37:09.498Z","deviceId":"d3a020c75a0a2de0","action":"setMode","params":["vacation"],"result":"party"}
-{"_id":"0533ab82bd0f5349","timestamp":"2022-05-18T06:35:55.975Z","deviceId":"270586a68abee333","action":"play","params":[],"result":true}
-{"_id":"b12e4ac907367be3","timestamp":"2022-05-18T06:40:57.964Z","deviceId":"270586a68abee333","action":"play","params":[],"result":false}
