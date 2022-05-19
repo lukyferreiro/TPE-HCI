@@ -11,82 +11,56 @@
                     :max="maxVolume"
                     thumb-label="always"
                     thumb-size="25px"
-                    hide-details>
-            <template v-slot:prepend>
-              <v-icon color="black" size="25px"
-                      @click="decrementVolume">
-                mdi-minus </v-icon>
-            </template>
-            <template v-slot:append>
-              <v-icon color="black" size="25px"
-                      @click="incrementVolume">
-                mdi-plus</v-icon>
-            </template>
+                    hide-details
+                    prepend-icon="mdi-volume-high"
+                    >
           </v-slider>
         </div>
       </v-card-actions>
-      <v-card-actions class="cardText">
-        <v-switch v-model="closeOnClick"
-                  color="secondary"
-                  class="switcher"
-                  true-value="Reproduciendo"
-                  false-value="Detenido"
-                  :label="`${closeOnClick}`"
-                  inset
-                  hide-details
-                  />
-      </v-card-actions>
-      <div v-if="showSongInfo">
+
+      <v-row align="center"
+             justify="center"
+             class="pt-2">
         <v-card-actions class="cardText">
-          <div class="songInformation">
-            <p>{{songTitle}}</p>
-            <p>{{songArtist}}</p>
-            <p>{{songAlbum}}</p>
-            <p>{{songDuration}}</p>
-            <p>{{songProgress}}</p>
-          </div>
+          <v-btn plain
+                 fab
+                 v-ripple="false"
+                 disabled
+          >
+            <v-icon color="black" size="50px" class="mr-3">mdi-skip-previous-circle-outline</v-icon>
+
+          </v-btn>
         </v-card-actions>
-        <v-row align="center"
-               justify="center"
-               class="pt-2">
-          <v-card-actions class="cardText">
-            <v-btn plain
-                   fab
-                   v-ripple="false"
-                   @click="previousSong()">
-              <v-icon color="black" size="50px" class="mr-3">mdi-skip-previous-circle-outline</v-icon>
-            </v-btn>
-          </v-card-actions>
-          <v-card-actions class="cardText">
-            <v-btn @click="playSpeaker()"
-                   plain
-                   fab
-                   v-ripple="false"
-                   @change="setPauseReanude()">
-              <v-icon v-if="play" color="black" size="50px" class="mr-3">mdi-pause-circle-outline</v-icon>
-              <v-icon v-else color="black" size="50px" class="mr-3"> mdi-arrow-right-drop-circle-outline </v-icon>
-            </v-btn>
-          </v-card-actions>
-          <v-card-actions class="cardText">
-            <v-btn plain
-                   fab
-                   v-ripple="false"
-                   @change="nextSong()">
-              <v-icon color="black" size="50px" class="mr-3">mdi-skip-next-circle-outline</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-row>
-      </div>
-      <v-card-actions class="cardText">
-        <v-btn class="playlist"
-               plain
-               fab
-               v-ripple="false" >
-          <v-icon  color="black" size="40px" class="mr-3">mdi-playlist-play</v-icon>
-          Playlist
-        </v-btn>
-      </v-card-actions>
-      <v-card-actions class="cardText">
+        <v-card-actions class="cardText">
+          <v-btn plain
+                 fab
+                 v-ripple="false"
+                 @click="setStop()"
+          >
+            <v-icon color="black" size="50px" class="mr-3">mdi-stop-circle-outline</v-icon>
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions class="cardText">
+          <v-btn @click="setPlayPause()"
+                 plain
+                 fab
+                 v-ripple="false"
+          >
+            <v-icon v-if="play" color="black" size="50px" class="mr-3">mdi-pause-circle-outline</v-icon>
+            <v-icon v-else color="black" size="50px" class="mr-3"> mdi-arrow-right-drop-circle-outline </v-icon>
+          </v-btn>
+        </v-card-actions>
+
+        <v-card-actions class="cardText">
+          <v-btn plain
+                 fab
+                 v-ripple="false"
+                 disabled>
+            <v-icon color="black" size="50px" class="mr-3">mdi-skip-next-circle-outline</v-icon>
+          </v-btn>
+        </v-card-actions>
+      </v-row>
+      <v-card-actions class="cardText pt-7">
         <div class="genre">
           <v-select v-model="selectedGenre"
                     :items="genre"
@@ -95,76 +69,220 @@
                     color="black"
                     dense
                     label="Género"
-                    @change="setGenre()"/>
+                    @change="showPlaylist=false"/>
         </div>
       </v-card-actions>
 
-      <div class="acceptAndCancel">
-        <div class="justify-end">
-          <v-btn color="secondary white--text"
-                 @click="setAction"
-                 x-large>
-            Aceptar
-          </v-btn>
-        </div>
-      </div>
+      <v-card-actions class="cardText">
+        <v-btn class="playlist"
+               plain
+               fab
+               v-ripple="false"
+               @click="changeShowPlaylist();"
+        >
+          <v-icon  color="black" size="40px" class="mr-3">mdi-playlist-play</v-icon>
+          Lista de Reproducción
+        </v-btn>
+      </v-card-actions>
+      <v-card-actions  class="cardText" v-if="showPlaylist">
+        <h5>Mostrar playlist</h5>
+      </v-card-actions>
+      <v-card-actions  class="cardText" v-else>
+        <h5>No mostrar playlist</h5>
+      </v-card-actions>
 
+      <v-card-actions>
+        <v-spacer/>
+        <v-btn color="secondary white--text"
+               @click="setAction"
+               x-large>
+          Aceptar
+        </v-btn>
+      </v-card-actions>
     </div>
   </v-card>
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: "SpeakerAction",
   props:["myColor", "myactions"],
   data(){
     return({
-      closeOnClick: this.device.state.status==='stopped' ? 'Detenido' : 'Reproduciendo',
-      showSongInfo: "",
-      songTitle: "",
-      songArtist: "",
-      songAlbum: "",
-      songDuration: "",
-      songProgress: "",
-      play: true,
+      songPlaying:null,
+      playlist: [],
+      myDevice:null,
+      showPlaylist: false,
+      search: '',
+      headers: [
+        {
+          text: 'Título',
+          align: 'start',
+          value: 'title',
+        },
+        {text: 'Artista', value: 'artist'},
+        {text: 'Álbum', value: 'album'},
+        {text: 'Duración', value: 'duration'},
+      ],
+      stopButton: false,
+      closeOnClick: 'Detenido',
+      play: false,
       volume: 5,
       minVolume: 0,
       maxVolume: 10,
       selectedGenre: 'Pop',
-      genre: ["Clasica", "Country", "Dance", "Latino", "Pop", "Rock"],
+      genre: ["Clásica", "Country", "Dance", "Latino", "Pop", "Rock"],
     })
   },
+  mounted(){
+    this.getSt()
+  },
   methods:{
-    setVolume(){
+    getSt(){
+      this.myactions.forEach(action => {
+        if(action.actionName==='getPlaylist'){
+          this.playlist = true
+        }else if(action.actionName==='setGenre' && action.params[0] === 'country'){
+          this.selectedGenre = 'Country'
+        }else if(action.actionName==='setGenre' && action.params[0] === 'dance') {
+          this.selectedGenre = 'Dance'
+        }else if(action.actionName==='setGenre' && action.params[0] === 'latina') {
+          this.selectedGenre = 'Latino'
+        }else if(action.actionName==='setGenre' && action.params[0] === 'rock'){
+          this.selectedGenre = 'Rock'
+        }else if(action.actionName==='play'){
+          this.stopButton=false
+          this.play=true
+        }else if(action.actionName==='resume'){
+          this.stopButton=false
+          this.play = true
+        }else if(action.actionName==='pause'){
+          this.stopButton=false
+          this.play = false
+        }else if(action.actionName==='nextSong'){
+          this.stopButton=false
+          this.play = true
+        }else if(action.actionName==='previousSong'){
+          this.stopButton=false
+          this.play = true
+        }else if(action.actionName==='stop'){
+          this.stopButton=true
+          this.play = false
+        }else if(action.actionName==='setVolume'){
+          this.volume = action.params[0]
+        }
+      })
+    },
+
+    ...mapActions("devices", {
+      $getAll: "getAll",
+      $getDevice: "getDevice",
+      $executeAction: "execute"
+    }),
+
+    async setVolume() {
       let action = {
         name: 'setVolume',
         params: [this.volume],
-        meta: {}
+        meta: {
+          spanishName: 'Volumen : ',
+          spanishPropName: this.volume
+        }
       }
+      this.setPlay()
       this.$emit("setAction", action)
+
     },
-    decrementVolume() {
-      if(this.volume!==this.minVolume){
-        this.volume--;
-      }
+
+    setStop(){
+      this.stopButton = true
+      this.play = false
     },
-    incrementVolume(){
-      if(this.volume!==this.maxVolume){
-        this.volume++;
-      }
+
+    setPlayPause(){
+      this.stopButton = false
+      this.play = !this.play
+
     },
-    setOnOff(){
+
+    setPlay() {
       let action = {
         name: 'play',
         params: [],
-        meta: {}
+        meta: {
+          spanishName: 'Reproducir',
+          spanishPropName: ''
+        }
       }
-      if(this.closeOnClick === 'Detenido'){
+      if(this.play === false){
+        if(this.stopButton===false){
+          action.name = 'pause'
+          action.meta.spanishName = 'Pausar'
+        }
+      }
+
+      if(this.stopButton){
         action.name = 'stop'
+        action.meta.spanishName = 'Detener'
+        if(this.play){
+          action.name = 'resume'
+          action.meta.spanishName = 'Reiniciar'
+        }
+      }
+
+      this.setGenre()
+      this.$emit("setAction", action)
+    },
+
+
+    changeShowPlaylist() {
+      this.showPlaylist = !this.showPlaylist;
+    },
+
+
+
+    async setGenre() {
+      let action = {
+        name: 'setGenre',
+        params: ['pop'],
+        meta: {
+          spanishName: 'Genero : ',
+          spanishPropName: this.selectedGenre
+        }
+      }
+
+      if (this.selectedGenre === 'Clásica') {
+        action.params = ['classical']
+      } else if (this.selectedGenre === 'Country') {
+        action.params = ['country'];
+      } else if (this.selectedGenre === 'Dance') {
+        action.params = ['dance'];
+      } else if (this.selectedGenre === 'Latino') {
+        action.params = ['latina'];
+      } else if (this.selectedGenre === 'Rock') {
+        action.params = ['rock'];
+      }
+
+      this.getPlaylist()
+      this.$emit("setAction", action)
+    },
+
+    async getPlaylist() {
+      let action = {
+        name: 'getPlaylist',
+        params: [],
+        meta: {
+          spanishName: 'Ver Playlist : ',
+          spanishPropName: this.showPlaylist
+        }
       }
       this.$emit("setAction", action)
     },
-    setAction:function (){
+
+
+  setAction:function (){
       this.setVolume()
     }
 

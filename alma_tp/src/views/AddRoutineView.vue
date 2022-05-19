@@ -160,7 +160,7 @@
 
                         <v-col>
                           <v-card :color="device.meta.color">
-                            <v-card-title class="deviceText">Acciones:</v-card-title>
+                            <v-card-title class="deviceText">Acciones Configuradas:</v-card-title>
                               <v-list-item v-for="(actions, index) in getDeviceActions(device.id)"
                                            :key="index">
                                 <v-list-item-content>

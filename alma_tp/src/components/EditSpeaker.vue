@@ -17,18 +17,6 @@
                     </v-slider>
                 </div>
             </v-card-actions>
-<!--          <v-card-actions class="cardText">
-            <v-switch v-model="closeOnClick"
-                      color="secondary"
-                      class="switcher"
-                      true-value="Reproduciendo"
-                      false-value="Detenido"
-                      :label="`${closeOnClick}`"
-                      inset
-                      hide-details
-                      @change="setOnOff();changeShowPlaylist() "/>
-          </v-card-actions>-->
-
 
                 <v-row align="center"
                        justify="center"
@@ -72,7 +60,6 @@
                         </v-btn>
                     </v-card-actions>
                 </v-row>
-
           <v-card-actions class="cardText pt-7">
             <div class="genre">
               <v-select v-model="selectedGenre"
@@ -82,7 +69,7 @@
                         color="black"
                         dense
                         label="Género"
-                        @change="setGenre(); changeShowPlaylist()"/>
+                        @change="setGenre(); showPlaylist=false;"/>
             </div>
           </v-card-actions>
 
@@ -133,7 +120,9 @@ export default {
   props: ["device"],
   data() {
     return ({
+      songPlaying:null,
       playlist: [],
+      myDevice:null,
       showPlaylist: false,
       search: '',
       headers: [
@@ -148,7 +137,7 @@ export default {
       ],
       stopButton: this.device.state.status === 'stopped',
       closeOnClick: this.device.state.status === 'stopped' ? 'Detenido' : 'Reproduciendo',
-      play: true,
+      play: this.device.state.status==='playing',
       volume: this.device.state.volume,
       minVolume: 0,
       maxVolume: 10,
@@ -160,7 +149,6 @@ export default {
       genre: ["Clásica", "Country", "Dance", "Latino", "Pop", "Rock"],
     });
   },
-
   methods: {
     ...mapActions("devices", {
       $getAll: "getAll",
@@ -185,13 +173,16 @@ export default {
       this.play = false
     },
 
+
     async previousSong() {
-      if (this.play == false) {
-        this.play = true
+      if (this.stopButton == true) {
+        this.stopButton = false
+        await this.execute('play')
+      } else if (this.play == false) {
         await this.execute('resume')
       }
-      let idS = [this.device, 'previousSong'];
-      await this.$executeAction(idS);
+      this.play=true
+      await this.execute('previousSong')
     },
 
 
@@ -199,34 +190,31 @@ export default {
       if(this.stopButton === true){
         this.execute('play')
         this.stopButton=false
-        this.play=true
       }else {
-        console.log(this.stopButton)
-        this.play = !this.play
-        if (this.play === false) {
+        if (this.play === true) {
           this.execute('pause');
         } else {
           this.execute('resume');
         }
       }
-    },
+       this.play = !this.play
+     },
 
     async nextSong() {
-      if (this.play == false) {
-        this.play = true
+      if (this.stopButton == true) {
+        this.stopButton = false
+        await this.execute('play')
+      } else if (this.play == false) {
         await this.execute('resume')
       }
-      let idS = [this.device, 'nextSong'];
-      await this.$executeAction(idS);
+      this.play=true
+      await this.execute('nextSong')
     },
 
     changeShowPlaylist() {
       this.showPlaylist = !this.showPlaylist;
     },
 
-    playSpeaker() {
-      this.play = !this.play;
-    },
 
 
     async setGenre() {
@@ -258,12 +246,6 @@ export default {
 </script>
 
 <style scoped>
-
-    .switcher {
-      color: black;
-      font-weight: bold;
-      padding-bottom: 10px;
-    }
 
     .cardText{
       align-self: center;
