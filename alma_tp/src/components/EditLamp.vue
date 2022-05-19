@@ -15,11 +15,12 @@
       </v-card-actions>
       <v-card-actions class="cardText pt-6">
             <v-btn
-                :disabled="closeOnClick=='Apagado'"
+                :disabled="closeOnClick ==='Apagado'"
                 :color=btnColor
                 @click="toggle = !toggle"
             >
               Color
+
             </v-btn>
         <v-color-picker
             :show-swatches="toggle"
@@ -27,7 +28,7 @@
             hide-sliders
             hide-inputs
             v-model="btnColor"
-            @update:color="setColor(); toggle = !toggle"
+            @update:color="setColor()"
             :swatches="swatches"
         >
         </v-color-picker>
@@ -60,6 +61,7 @@ export default {
   props: ["device", "edit"],
   data() {
     return ({
+      toggle:this.device.state.status ==='off',
       closeOnClick: this.device.state.status ==='off' ? 'Apagado' : 'Encendido',
       brightness: this.device.state.brightness ,
       color: this.device.state.color,
@@ -79,7 +81,6 @@ export default {
         ['#ff00ff', '#ff00bf', '#ff0080'],
           ],
       colorChangePush: false,
-      toggle:false ,
     })
   },
 
@@ -108,10 +109,12 @@ export default {
         this.execute('turnOn', this.closeOnClick)
       }
     },
+
     async setBrightness(){
       let idS = [this.device, 'setBrightness', [this.brightness]]
       await this.$executeAction(idS)
     },
+
     setMoreBrightness() {
       this.brightness = (this.brightness - 5) || 0
       this.setBrightness()
