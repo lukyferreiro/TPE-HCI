@@ -1,5 +1,5 @@
 <template>
-    <div class="help ml-15 mr-15">
+    <div class="help">
         <h1>Habitaciones</h1>
         <h3>Agregar habitaciones</h3>
         <p>En la pestaña habitaciones, clicker el boton "Agregar habitación" en la esquina inferior derecha
@@ -10,12 +10,17 @@
         <p>Con una habitación ya creada, se podra clicker el boton "Agregar dispositivo", elegir el dispositivo a agregar
           y luego configurarlo.</p>
 
+        <v-divider/>
+        <v-divider/>
+        <v-divider/>
+        <v-divider/>
+
         <h1>Rutinas</h1>
         <h3>Agregar rutinas</h3>
-        <p> Previamente se debe contar con al menos una habitación creada y dispositivos vinculados a ella.
-          En la pestaña rutinas, clicker el boton "Agregar rutina" en la esquina inferior derecha de la sección.
-          Alli se solicitara un nombre para la rutina, un horario de ejecución, los dias que desean ejecutarse,
-          y seleccionar las habitaciones/dispositivos que manejaran la rutina.</p>
+        <p> Previamente se debe contar con al menos una habitación creada y dispositivos vinculados a ella.</p>
+        <p> En la pestaña rutinas, clicker el boton "Agregar rutina" en la esquina inferior derecha de la sección. </p>
+        <p> Alli se solicitara un nombre para la rutina y seleccionar las habitaciones/dispositivos que manejaran la rutina.</p>
+        <p> Editar manualmente los dispositivos seleccionados (en la seccion de Acciones podra observar lo que configuro)</p>
     </div>
 </template>
 
@@ -33,6 +38,21 @@ export default {
 
   .help{
     margin-top: 140px;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  h1{
+    margin-top: 10px;
+  }
+
+  h3{
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }
+
+  p{
+    padding-left: 15px;
   }
 
 </style>

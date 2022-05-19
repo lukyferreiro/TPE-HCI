@@ -38,14 +38,16 @@
                       max-width="500"
                   >
                     <template v-slot:activator="{ on, attrs }">
-                      <v-btn color="transparent"
-                             depressed
-                             fab
-                             v-bind="attrs"
+                      <v-btn v-bind="attrs"
                              v-on="on"
-                      >
-                        <v-icon  color="black" size="40px">mdi-trash-can-outline</v-icon>
+                             class="optionsButton"
+                             color="transparent"
+                             depressed
+                             v-ripple="false">
+                        <v-icon class="mr-2" size="30">mdi-trash-can-outline</v-icon>
+                        Eliminar Dispositivo
                       </v-btn>
+
                     </template>
                     <v-card>
                       <v-card-title class="text">
@@ -245,4 +247,8 @@ export default {
     justify-self: center;
   }
 
+  .optionsButton{
+    font-size: 20px;
+    font-weight: bold;
+  }
 </style>

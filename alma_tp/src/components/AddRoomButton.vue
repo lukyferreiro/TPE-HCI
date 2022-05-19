@@ -4,14 +4,14 @@
               v-model="dialog"
               width="1000">
         <template v-slot:activator="{ on, attrs }">
-            <v-btn class="button"
-                   rounded
+            <v-btn class="addButton"
+                   rounded elevation="5"
                    color="secondary"
                    v-bind="attrs"
                    v-on="on"
-                   >
+                   x-large>
                 Agregar habitación
-                <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
+                <v-icon class="ml-2" color="white" size="30px">mdi-plus-circle-outline</v-icon>
             </v-btn>
         </template>
 
@@ -123,10 +123,11 @@ export default {
 
 <style scoped>
 
-  .button{
+  .addButton{
     position: fixed;
     bottom: 80px;
     right: 15px;
+    font-weight: bold;
   }
 
 </style>

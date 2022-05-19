@@ -276,6 +276,11 @@
           Debe tener al menos una accion para poder agregar una rutina
         </v-alert>
 
+        <v-alert type="error"
+                 outlined
+                 v-if="alertDuplicate">
+          No puede agregar el mismo dispositivo mas de una vez
+        </v-alert>
       </v-card>
     </div>
 </template>
@@ -312,6 +317,7 @@ export default {
       rooms: [],
       dialog: false,
       colorSelected:"#E3F2FD",
+      alertDuplicate:false,
       colors: [
         {
           "hex": "#E3F2FD",
@@ -416,7 +422,6 @@ export default {
 
     addDeviceToRoom(device, indexRoom){
       let room = this.rooms[indexRoom]
-      room.devices.splice(device.id)
       room.selectedDevices.push(device)
     },
 

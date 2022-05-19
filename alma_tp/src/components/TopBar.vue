@@ -47,7 +47,7 @@
                     <v-icon size="45px" color="black">mdi-help-circle-outline</v-icon>
                 </v-btn>
             </template>
-            <span>help</span>
+            <span>Ayuda</span>
         </v-tooltip>
     </v-app-bar>
 </template>

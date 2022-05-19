@@ -23,6 +23,7 @@
 {"_id":"0b9336f4fa274d78","timestamp":"2022-05-17T15:38:55.093Z","deviceId":"46f74f10aa39fc8b","action":"setTemperature","params":[128],"result":178}
 {"_id":"0b97c2fd3087bfbc","timestamp":"2022-05-16T02:36:32.867Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
 {"_id":"0c5fbb9ec86827c5","timestamp":"2022-05-18T04:07:01.176Z","deviceId":"86016d642d14e1ef","action":"setTemperature","params":[154],"result":90}
+{"_id":"0cc2c2e300d293fa","timestamp":"2022-05-18T23:23:35.864Z","deviceId":"c0a61a066838c68c","action":"setTemperature","result":null}
 {"_id":"0cd9cf8ff05a77f9","timestamp":"2022-05-17T16:56:24.056Z","deviceId":"d93f4d135863ccd7","action":"close","params":[],"result":true}
 {"_id":"0d07d3fc5eda811b","timestamp":"2022-05-18T05:32:18.490Z","deviceId":"b3209b1889652200","action":"setVolume","params":[0],"result":null}
 {"_id":"0d0cb3ef49b23cb5","timestamp":"2022-05-17T18:18:31.180Z","deviceId":"d688da7c264c64c5","action":"dispense","params":[["quantity",47],["unit",null]],"result":false}
@@ -32,8 +33,10 @@
 {"_id":"10769b67a2994810","timestamp":"2022-05-17T16:53:23.874Z","deviceId":"d93f4d135863ccd7","action":"close","params":[],"result":true}
 {"_id":"111f0b7e539b1f6d","timestamp":"2022-05-17T17:55:15.586Z","deviceId":"a65263faf0a64cc0","action":"dispense","params":[53,null],"result":true}
 {"_id":"11589c0efdbbb634","timestamp":"2022-05-17T20:44:36.850Z","deviceId":"e941b3f53ee9f129","action":"setMode","params":["default"],"result":"party"}
+{"_id":"115aac700fb82183","timestamp":"2022-05-18T23:22:04.931Z","deviceId":"c0a61a066838c68c","action":"setTemperature","result":null}
 {"_id":"124306aee6b6538f","timestamp":"2022-05-17T18:18:33.285Z","deviceId":"d688da7c264c64c5","action":"dispense","params":[["quantity",47],["unit","kl"]],"result":false}
 {"_id":"139e7a4a9d2d34fa","timestamp":"2022-05-16T02:37:04.326Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
+{"_id":"1486733e8db3a8b1","timestamp":"2022-05-18T23:24:36.902Z","deviceId":"c0a61a066838c68c","action":"setFreezerTemperature","result":null}
 {"_id":"14c089b22e76fe31","timestamp":"2022-05-17T16:55:43.788Z","deviceId":"d93f4d135863ccd7","action":"unlock","params":[],"result":true}
 {"_id":"15529337b2e1124a","timestamp":"2022-05-17T16:53:39.299Z","deviceId":"d93f4d135863ccd7","action":"close","params":[],"result":false}
 {"_id":"156e376b911d0d85","timestamp":"2022-05-18T05:32:17.938Z","deviceId":"b3209b1889652200","action":"setVolume","params":[0],"result":null}
@@ -171,6 +174,7 @@
 {"_id":"67bd0d1e5ab7cff2","timestamp":"2022-05-16T02:37:08.282Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
 {"_id":"68576cc0d818fb5f","timestamp":"2022-05-18T17:23:51.440Z","deviceId":"50e6b12b1eb39f63","action":"unlock","result":false}
 {"_id":"6885c934eaec2bec","timestamp":"2022-05-18T05:32:35.129Z","deviceId":"b3209b1889652200","action":"setVolume","params":[0],"result":1}
+{"_id":"6892fe75cea4c2b5","timestamp":"2022-05-18T23:22:04.934Z","deviceId":"c0a61a066838c68c","action":"setMode","result":null}
 {"_id":"69b865956031c050","timestamp":"2022-05-18T05:32:36.525Z","deviceId":"b3209b1889652200","action":"setVolume","params":[2],"result":1}
 {"_id":"6a1320df3868817a","timestamp":"2022-05-18T16:16:19.764Z","deviceId":"304b1d927ccdebc2","action":"lock","params":[],"result":false}
 {"_id":"6a71aeb695bbbd0e","timestamp":"2022-05-18T05:32:17.777Z","deviceId":"b3209b1889652200","action":"setVolume","params":[0],"result":1}
@@ -191,6 +195,7 @@
 {"_id":"6ec5014cae37c221","timestamp":"2022-05-18T19:42:28.941Z","deviceId":"2bce48a062e020c0","action":"turnOff","result":true}
 {"_id":"6fbc825a60d648d5","timestamp":"2022-05-18T16:16:09.597Z","deviceId":"304b1d927ccdebc2","action":"close","params":[],"result":true}
 {"_id":"6fce5aeaf491f01f","timestamp":"2022-05-18T20:42:10.008Z","deviceId":"527608e81f300de5","action":"open","params":[],"result":true}
+{"_id":"71d253856dcf7f21","timestamp":"2022-05-18T23:23:35.861Z","deviceId":"c0a61a066838c68c","action":"setFreezerTemperature","result":null}
 {"_id":"74ae3e7af755de3f","timestamp":"2022-05-18T05:55:49.044Z","deviceId":"38fead4037bc4d7b","action":"play","params":[],"result":true}
 {"_id":"74d4d6c71bccd4ad","timestamp":"2022-05-17T04:04:57.838Z","deviceId":"2db76192861bc9aa","action":"turnOn","params":[],"result":true}
 {"_id":"7591bcb647737c78","timestamp":"2022-05-18T19:31:31.864Z","deviceId":"527608e81f300de5","action":"open","result":true}
@@ -242,8 +247,10 @@
 {"_id":"879374d1ec75b394","timestamp":"2022-05-18T05:31:43.748Z","deviceId":"b3209b1889652200","action":"setVolume","params":[0],"result":1}
 {"_id":"88195901eed429cb","timestamp":"2022-05-16T02:36:14.779Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
 {"_id":"88f3e7aa66bf34a4","timestamp":"2022-05-17T17:55:17.455Z","deviceId":"a65263faf0a64cc0","action":"dispense","params":[53,"hl"],"result":false}
+{"_id":"8a55c4c901a752ea","timestamp":"2022-05-18T23:24:36.905Z","deviceId":"c0a61a066838c68c","action":"setTemperature","result":4}
 {"_id":"8b05dc33779b4ee2","timestamp":"2022-05-18T05:32:18.127Z","deviceId":"b3209b1889652200","action":"setVolume","params":[0],"result":null}
 {"_id":"8b16bcc624278ebe","timestamp":"2022-05-17T17:06:11.957Z","deviceId":"d93f4d135863ccd7","action":"open","params":[],"result":true}
+{"_id":"8d247234e8fd1fe5","timestamp":"2022-05-18T23:28:19.808Z","deviceId":"c0a61a066838c68c","action":"setFreezerTemperature","result":null}
 {"_id":"8f36ab57100fb35e","timestamp":"2022-05-18T17:22:06.973Z","deviceId":"304b1d927ccdebc2","action":"open","result":false}
 {"_id":"8ff914aca7805291","timestamp":"2022-05-16T02:41:31.688Z","deviceId":"2889f82389a24bbf","action":"turnOn","params":[],"result":false}
 {"_id":"90b07c3ebbca9f00","timestamp":"2022-05-17T20:44:26.407Z","deviceId":"e941b3f53ee9f129","action":"setTemperature","params":[8],"result":null}
@@ -295,6 +302,7 @@
 {"_id":"aafef2be2f30bd03","timestamp":"2022-05-17T20:39:50.008Z","deviceId":"e941b3f53ee9f129","action":"setMode","params":["default"],"result":null}
 {"_id":"ab70c1dc7af63bae","timestamp":"2022-05-18T14:30:40.686Z","deviceId":"c274f0c84e044d5c","action":"open","params":[],"result":true}
 {"_id":"ab84a7a5ed28d7b1","timestamp":"2022-05-17T20:43:16.774Z","deviceId":"e941b3f53ee9f129","action":"setFreezerTemperature","params":[-20],"result":-14}
+{"_id":"acef80387f256090","timestamp":"2022-05-18T23:24:36.907Z","deviceId":"c0a61a066838c68c","action":"setMode","result":null}
 {"_id":"ae143e89bc23639d","timestamp":"2022-05-17T17:03:33.870Z","deviceId":"d93f4d135863ccd7","action":"open","params":[],"result":true}
 {"_id":"ae30bb311e4652b0","timestamp":"2022-05-17T19:21:44.148Z","deviceId":"386d6dbfb10ad2dd","action":"open","params":[],"result":true}
 {"_id":"ae9b3ea7abff717a","timestamp":"2022-05-18T05:31:42.897Z","deviceId":"b3209b1889652200","action":"setVolume","params":[5],"result":6}
@@ -312,6 +320,7 @@
 {"_id":"b5bbd8dcc13662be","timestamp":"2022-05-16T02:35:21.422Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
 {"_id":"b655ebae727aa420","timestamp":"2022-05-18T05:32:18.654Z","deviceId":"b3209b1889652200","action":"setVolume","params":[0],"result":null}
 {"_id":"b91f286da954dfc1","timestamp":"2022-05-16T02:36:17.616Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
+{"_id":"b9cee1ae431ef0ef","timestamp":"2022-05-18T23:28:19.809Z","deviceId":"c0a61a066838c68c","action":"setTemperature","result":7}
 {"_id":"ba1e5115d57c416e","timestamp":"2022-05-17T04:08:17.173Z","deviceId":"2db76192861bc9aa","action":"turnOn","params":[],"result":false}
 {"_id":"ba2fe0e1a6db66ba","timestamp":"2022-05-17T18:22:22.395Z","deviceId":"d688da7c264c64c5","action":"dispense","params":[18,null],"result":false}
 {"_id":"ba4af01ea9448dc3","timestamp":"2022-05-16T02:41:23.831Z","deviceId":"2889f82389a24bbf","action":"turnOn","params":[],"result":false}
@@ -369,6 +378,7 @@
 {"_id":"dbc16ec6478c8437","timestamp":"2022-05-18T05:32:33.958Z","deviceId":"b3209b1889652200","action":"setVolume","params":[7],"result":8}
 {"_id":"dc2700cbd74961a4","timestamp":"2022-05-17T17:56:43.968Z","deviceId":"5caedef1db3a42d3","action":"dispense","params":[44,null],"result":true}
 {"_id":"dcd0f85caaa70823","timestamp":"2022-05-17T20:37:15.832Z","deviceId":"d3a020c75a0a2de0","action":"setMode","params":["default"],"result":"vacation"}
+{"_id":"de403d9172cba683","timestamp":"2022-05-18T23:23:35.866Z","deviceId":"c0a61a066838c68c","action":"setMode","result":null}
 {"_id":"de5d6c265f7cc0c6","timestamp":"2022-05-16T02:36:17.156Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
 {"_id":"df5e7fab620af881","timestamp":"2022-05-18T05:55:17.501Z","deviceId":"38fead4037bc4d7b","action":"stop","params":[],"result":true}
 {"_id":"dfb8e99570cf7453","timestamp":"2022-05-16T02:37:03.894Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
@@ -417,10 +427,12 @@
 {"_id":"f6ca74790e821ce2","timestamp":"2022-05-18T05:32:34.639Z","deviceId":"b3209b1889652200","action":"setVolume","params":[3],"result":4}
 {"_id":"f7455f8e24987a0d","timestamp":"2022-05-17T20:40:39.927Z","deviceId":"e941b3f53ee9f129","action":"setMode","params":["party"],"result":"vacation"}
 {"_id":"f77c7bf8f9affbfb","timestamp":"2022-05-17T19:24:38.260Z","deviceId":"386d6dbfb10ad2dd","action":"unlock","params":[],"result":false}
+{"_id":"f7cb4d264f1c924d","timestamp":"2022-05-18T23:22:04.927Z","deviceId":"c0a61a066838c68c","action":"setFreezerTemperature","result":null}
 {"_id":"f8a49f32ae437d44","timestamp":"2022-05-17T04:12:07.541Z","deviceId":"2db76192861bc9aa","action":"turnOff","params":[],"result":true}
 {"_id":"f918d7ee24c0b94d","timestamp":"2022-05-16T02:37:07.483Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
 {"_id":"f9ea7c1d5f6916cc","timestamp":"2022-05-17T17:03:22.534Z","deviceId":"d93f4d135863ccd7","action":"close","params":[],"result":true}
 {"_id":"f9f20f8c69fd3e6e","timestamp":"2022-05-17T17:06:11.944Z","deviceId":"d93f4d135863ccd7","action":"unlock","params":[],"result":true}
+{"_id":"fa0789d59011697a","timestamp":"2022-05-18T23:28:19.811Z","deviceId":"c0a61a066838c68c","action":"setMode","result":null}
 {"_id":"fb45cd17b9529bb6","timestamp":"2022-05-16T02:37:08.116Z","deviceId":"2889f82389a24bbf","action":"turnOff","params":[],"result":false}
 {"_id":"fbc2b7fbdc592c37","timestamp":"2022-05-18T05:48:10.380Z","deviceId":"3a490673140eb50b","action":"play","params":[],"result":false}
 {"_id":"fbf85d5b8a860865","timestamp":"2022-05-18T05:20:53.556Z","deviceId":"be5ca03163bde697","action":"setGrill","params":["off"],"result":"eco"}
@@ -430,15 +442,8 @@
 {"_id":"fe6584cfd2c42d23","timestamp":"2022-05-18T05:32:31.687Z","deviceId":"b3209b1889652200","action":"setVolume","params":[10],"result":null}
 {"_id":"fe6ffb80d0b41ec0","timestamp":"2022-05-17T20:37:09.498Z","deviceId":"d3a020c75a0a2de0","action":"setMode","params":["vacation"],"result":"party"}
 {"_id":"fedd8549dae8535e","timestamp":"2022-05-18T22:34:46.584Z","deviceId":"c0a61a066838c68c","action":"setMode","result":null}
-{"_id":"f7cb4d264f1c924d","timestamp":"2022-05-18T23:22:04.927Z","deviceId":"c0a61a066838c68c","action":"setFreezerTemperature","result":null}
-{"_id":"115aac700fb82183","timestamp":"2022-05-18T23:22:04.931Z","deviceId":"c0a61a066838c68c","action":"setTemperature","result":null}
-{"_id":"6892fe75cea4c2b5","timestamp":"2022-05-18T23:22:04.934Z","deviceId":"c0a61a066838c68c","action":"setMode","result":null}
-{"_id":"71d253856dcf7f21","timestamp":"2022-05-18T23:23:35.861Z","deviceId":"c0a61a066838c68c","action":"setFreezerTemperature","result":null}
-{"_id":"0cc2c2e300d293fa","timestamp":"2022-05-18T23:23:35.864Z","deviceId":"c0a61a066838c68c","action":"setTemperature","result":null}
-{"_id":"de403d9172cba683","timestamp":"2022-05-18T23:23:35.866Z","deviceId":"c0a61a066838c68c","action":"setMode","result":null}
-{"_id":"1486733e8db3a8b1","timestamp":"2022-05-18T23:24:36.902Z","deviceId":"c0a61a066838c68c","action":"setFreezerTemperature","result":null}
-{"_id":"8a55c4c901a752ea","timestamp":"2022-05-18T23:24:36.905Z","deviceId":"c0a61a066838c68c","action":"setTemperature","result":4}
-{"_id":"acef80387f256090","timestamp":"2022-05-18T23:24:36.907Z","deviceId":"c0a61a066838c68c","action":"setMode","result":null}
-{"_id":"8d247234e8fd1fe5","timestamp":"2022-05-18T23:28:19.808Z","deviceId":"c0a61a066838c68c","action":"setFreezerTemperature","result":null}
-{"_id":"b9cee1ae431ef0ef","timestamp":"2022-05-18T23:28:19.809Z","deviceId":"c0a61a066838c68c","action":"setTemperature","result":7}
-{"_id":"fa0789d59011697a","timestamp":"2022-05-18T23:28:19.811Z","deviceId":"c0a61a066838c68c","action":"setMode","result":null}
+{"_id":"43f51089373a4b54","timestamp":"2022-05-19T00:30:35.163Z","deviceId":"452e85cfe6ceb99a","action":"setHeat","result":null}
+{"_id":"9053c0c2832bdcc4","timestamp":"2022-05-19T00:30:35.168Z","deviceId":"452e85cfe6ceb99a","action":"setGrill","result":null}
+{"_id":"7c24df5800401f57","timestamp":"2022-05-19T00:30:35.169Z","deviceId":"452e85cfe6ceb99a","action":"setConvection","result":"off"}
+{"_id":"0e2e62b029383abf","timestamp":"2022-05-19T00:30:35.171Z","deviceId":"452e85cfe6ceb99a","action":"setTemperature","result":90}
+{"_id":"c85aa19eef3c759a","timestamp":"2022-05-19T00:30:35.172Z","deviceId":"452e85cfe6ceb99a","action":"turnOn","result":true}

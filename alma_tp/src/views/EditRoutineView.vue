@@ -452,8 +452,8 @@ export default {
 
     addDeviceToRoom(device, indexRoom){
       let room = this.rooms[indexRoom]
-      room.devices.splice(device.id)
       room.selectedDevices.push(device)
+
     },
 
     deleteRoutineDevice(device, indexRoom){
