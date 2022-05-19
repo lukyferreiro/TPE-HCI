@@ -56,13 +56,13 @@
             </v-card>
         </div>
         <v-btn :to="{name:'AddRoutineView'}"
-               class="addRoutinebutton"
+               class="addRoutineButton"
                rounded elevation="5"
                color="secondary"
                absolute
                x-large>
             Agregar rutina
-            <v-icon class="ml-2">mdi-plus-circle-outline</v-icon>
+            <v-icon class="ml-2" color="white" size="30px">mdi-plus-circle-outline</v-icon>
         </v-btn>
     </div>
 </template>
@@ -158,10 +158,11 @@ export default {
       border-radius: 10px;
     }
 
-    .addRoutinebutton{
+    .addRoutineButton{
       position: fixed;
       bottom: 80px;
       right: 15px;
+      font-weight: bold;
     }
 
     .executeRoutineButton{
@@ -178,7 +179,12 @@ export default {
       font-weight: bold;
     }
 
-    .optionsButton, .executeRoutineText{
+    .executeRoutineText{
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .optionsButton{
       font-size: 15px;
       font-weight: bold;
     }
