@@ -77,12 +77,9 @@ export default {
         ['#0080ff', '#0040ff', '#0000ff'],
         ['#4000ff', '#8000ff', '#bf00ff'],
         ['#ff00ff', '#ff00bf', '#ff0080'],
-
-
-
           ],
       colorChangePush: false,
-      toggle:false,
+      toggle:false ,
     })
   },
 

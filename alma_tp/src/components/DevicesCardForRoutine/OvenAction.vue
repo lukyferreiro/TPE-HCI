@@ -104,7 +104,6 @@ export default {
   },
   methods:{
     getSt(){
-      console.log(this.myactions)
       this.myactions.forEach(action => {
         if(action.params[0] === 'off' && action.actionName==='setConvection'){
           this.selectedConveccion = 'Apagado'
