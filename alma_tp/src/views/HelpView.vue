@@ -1,14 +1,13 @@
 <template>
     <div class="help">
         <h1>Habitaciones</h1>
-        <h3>Agregar habitaciones</h3>
-        <p>En la pestaña habitaciones, clicker el boton "Agregar habitación" en la esquina inferior derecha
+        <h3>Agregar habitaciones:</h3>
+        <p>En la pestaña habitaciones, haga click en el botón "Agregar habitación" en la esquina inferior derecha
           e ingresar el nombre deseado.</p>
-        <h3>Personalizar habitaciones.</h3>
+        <h3>Personalizar habitaciones:</h3>
         <p>Para cada habitación se puede editar su respectivo nombre, cambiar su color de visualización y/o eliminarla.</p>
-        <h3>Agregar dispositivos</h3>
-        <p>Con una habitación ya creada, se podra clicker el boton "Agregar dispositivo", elegir el dispositivo a agregar
-          y luego configurarlo.</p>
+        <h3>Agregar dispositivos:</h3>
+        <p>Con una habitación ya creada, haga click en el botón "Agregar dispositivo" y elija el dispositivo a agregar.</p>
 
         <v-divider/>
         <v-divider/>
@@ -16,11 +15,11 @@
         <v-divider/>
 
         <h1>Rutinas</h1>
-        <h3>Agregar rutinas</h3>
+        <h3>Agregar rutinas:</h3>
         <p> Previamente se debe contar con al menos una habitación creada y dispositivos vinculados a ella.</p>
-        <p> En la pestaña rutinas, clicker el boton "Agregar rutina" en la esquina inferior derecha de la sección. </p>
-        <p> Alli se solicitara un nombre para la rutina y seleccionar las habitaciones/dispositivos que manejaran la rutina.</p>
-        <p> Editar manualmente los dispositivos seleccionados (en la seccion de Acciones podra observar lo que configuro)</p>
+        <p> En la pestaña rutinas, haga click en el botón "Agregar rutina" en la esquina inferior derecha de la sección. </p>
+        <p> Ingrese un nombre para la rutina y seleccione los dispositivos que participarán en la rutina.</p>
+        <p> Edite manualmente los dispositivos seleccionados (en la sección de Acciones podrá observar lo que configuró)</p>
     </div>
 </template>
 
