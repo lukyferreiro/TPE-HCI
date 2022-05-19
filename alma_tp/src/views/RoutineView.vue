@@ -37,6 +37,46 @@
                   Editar Rutina
                 </v-btn>
 
+<!--                  <v-btn class="addDeviceButtonText"-->
+<!--                         outlined-->
+<!--                         color="secondary"-->
+<!--                         @click="routine.dialog = true"-->
+<!--                         v-ripple="false"-->
+<!--                  >-->
+<!--                    <v-icon class="mr-2">mdi-trash-can-outline</v-icon>-->
+<!--                    Borrar Rutina-->
+<!--                  </v-btn>-->
+<!--                  <v-row justify="center">-->
+<!--                    <v-dialog-->
+<!--                        v-model="routine.dialog"-->
+<!--                        persistent-->
+<!--                        max-width="500"-->
+<!--                    >-->
+<!--                      <v-card>-->
+<!--                        <v-card-title class="text">-->
+<!--                          ¿Está seguro que desea borrar esta rutina?-->
+<!--                        </v-card-title>-->
+<!--                        <v-card-actions>-->
+<!--                          <v-spacer></v-spacer>-->
+<!--                          <v-btn-->
+<!--                              color="secondary white&#45;&#45;text"-->
+<!--                              text-->
+<!--                              @click="deleteRoutine(routine)"-->
+<!--                          >-->
+<!--                            Si-->
+<!--                          </v-btn>-->
+<!--                          <v-btn-->
+<!--                              color="secondary white&#45;&#45;text"-->
+<!--                              text-->
+<!--                              @click="routine.dialog = false"-->
+<!--                          >-->
+<!--                            No-->
+<!--                          </v-btn>-->
+<!--                        </v-card-actions>-->
+<!--                      </v-card>-->
+<!--                    </v-dialog>-->
+<!--                  </v-row>-->
+
                 <v-btn @click="deleteRoutine(routine.id)"
                        class="addDeviceButtonText"
                        color="secondary"
@@ -52,7 +92,13 @@
 
             </v-row>
           </v-card>
+
         </div>
+
+      <v-alert type="success" outlined :value="alert">
+        Ejecucion realizada con exito
+      </v-alert>
+
       <v-btn :to="{name:'AddRoutineView'}"
              class="button"
              rounded
@@ -75,6 +121,8 @@ export default {
             roomtitle:"",
             routinerooms:[],
             click: false,
+            alert:false,
+            dialog:false,
         }
     },
   mounted() {
@@ -109,6 +157,10 @@ export default {
         let idS = [routine.id, routine]
         await this.$editRoutine(idS)
         await this.$executeRoutine(routine.id)
+        this.alert=true
+        setTimeout(()=>{
+          this.alert=false
+        },5000)
       },
         editRoutine(routine) {
             // routine.title=routine2.title;
@@ -118,8 +170,9 @@ export default {
         editColor(routine) {
           console.log(routine)
         },
-        deleteRoutine(idRoutine) {
-          this.$deleteRoutine(idRoutine)
+        deleteRoutine(routine) {
+          this.$deleteRoutine(routine.id)
+          this.routine.dialog=false
         },
         selectRoom(){
             this.roomSelected=true;

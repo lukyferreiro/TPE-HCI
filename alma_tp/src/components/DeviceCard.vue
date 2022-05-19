@@ -1,10 +1,11 @@
 <template>
-<v-dialog scrollable
-          overflow="auto"
-          v-model="dialog"
-          width="1000">
+  <div>
+  <v-dialog scrollable
+            overflow="auto"
+            v-model="dialog"
+            width="1000">
 
-<template v-slot:activator="{ on, attrs }">
+  <template v-slot:activator="{ on, attrs }">
       <v-card color="primary"
                 max-width="200"
                 max-height="200"
@@ -23,43 +24,53 @@
         </v-card>
       </template>
 
-<v-card color="secondary white--text"
-        v-click-outside="closePopup">
-<v-card-title>
-  Agregar dispositivo de tipo {{this.deviceName}}
-  <v-spacer/>
-  <v-btn color="transparent"
-         @click="closePopup(); dialog=false"
-         depressed>
-    <v-icon color="white" size="30px">mdi-window-close</v-icon>
-  </v-btn>
-</v-card-title>
-<v-form ref="form" lazy-validation @submit="submit">
-  <v-card-text>
-    <v-text-field outlined
-                  ref="title"
-                  v-model="nameDev"
-                  placeholder="Escriba el nombre del dispositivo"
-                  background-color="white"
-                  color="black"
-                  counter
-                  autofocus
-                  clearable
-                  maxlength="60"
-                  :rules="nameRules"
-                  required/>
-  </v-card-text>
-</v-form>
-<v-card-actions>
-  <v-spacer/>
-  <v-btn class="mb-2"
-         color="primary black--text"
-         @click="addDevice">
-    Aceptar
-  </v-btn>
-</v-card-actions>
+  <v-card color="secondary white--text"
+          v-click-outside="closePopup">
+  <v-card-title>
+    Agregar dispositivo de tipo {{this.deviceName}}
+    <v-spacer/>
+    <v-btn color="transparent"
+           @click="closePopup()"
+           depressed>
+      <v-icon color="white" size="30px">mdi-window-close</v-icon>
+    </v-btn>
+  </v-card-title>
+  <v-form ref="form" lazy-validation @submit="submit">
+    <v-card-text>
+      <v-text-field outlined
+                    ref="title"
+                    v-model="nameDev"
+                    placeholder="Escriba el nombre del dispositivo"
+                    background-color="white"
+                    color="black"
+                    counter
+                    autofocus
+                    clearable
+                    maxlength="60"
+                    :rules="nameRules"
+                    required/>
+    </v-card-text>
+  </v-form>
+  <v-card-actions>
+    <v-spacer/>
+    <v-btn class="mb-2"
+           color="primary black--text"
+           @click="addDevice">
+      Aceptar
+    </v-btn>
+  </v-card-actions>
+
+
 </v-card>
+
+
 </v-dialog>
+
+  <v-alert type="success" outlined :value="alert">
+    Dispositivo agregado con exito
+  </v-alert>
+
+</div>
 </template>
 
 <script>
@@ -80,6 +91,7 @@ export default {
         deviceType: null,
         myColor: 'primary',
         nameDev:"",
+        alert:false
       })
     },
     async created() {
@@ -148,16 +160,22 @@ export default {
               device = await this.$add(device)
               let idS = [this.roomId, device.id]
               device = await this.$addDevice(idS)
+              this.alert=true
+              setTimeout(()=>{
+                this.alert=false
+              },5000)
             } catch (e) {
               await this.setResult(e.code)
             }
+
             this.reset()
-            this.$router.go(-1);
+            this.dialog = false
           }
        },
 
       closePopup(){
         this.reset()
+        this.dialog = false
       }
 
    },
