@@ -10,5 +10,19 @@ new Vue({
   vuetify,
   router,
   store,
+  el: '#app',
+  components: { App },
+  template: '<App/>',
+  created() {
+    if (performance.navigation.type === 1) {
+      if(this.$route.path === '/') {
+        if (confirm('¿Recargar el sitio?. Los cambios no serán guardados.')) {
+          this.$router.push({path: '/'})
+        } else {
+          console.log('reload page now');
+        }
+      }
+    }
+  },
   render: h => h(App)
 }).$mount('#app')
